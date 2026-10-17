@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Study Spots · St. George</title>
+  <meta name="description" content="Where can you study right now? Open St. George study spots near you, filtered to the rooms you're allowed into.">
+  <meta name="theme-color" content="#2c6b5b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232c6b5b'/%3E%3Ccircle cx='16' cy='14' r='6' fill='none' stroke='white' stroke-width='3'/%3E%3Cpath d='M16 20v6' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <h1>Study Spots</h1>
+      <span class="sub">St. George</span>
+    </div>
+    <p class="feed" id="feed-status" aria-live="polite"></p>
+  </header>
+
+  <main>
+    <!-- Now -->
+    <section id="view-now" class="view" aria-labelledby="now-h">
+      <h2 id="now-h" class="sr-only">Study now</h2>
+      <div class="controls">
+        <label class="field">
+          <span>Near</span>
+          <select id="near"></select>
+        </label>
+        <div class="field">
+          <span id="need-label">Time you have</span>
+          <div class="seg" role="group" aria-labelledby="need-label" id="need">
+            <button type="button" data-min="30">30 min</button>
+            <button type="button" data-min="60">1 h</button>
+            <button type="button" data-min="120">2 h</button>
+            <button type="button" data-min="180">3 h+</button>
+          </div>
+        </div>
+        <div class="chips" role="group" aria-label="Preferences" id="prefs">
+          <button type="button" data-pref="quiet">Quiet</button>
+          <button type="button" data-pref="group">Group</button>
+          <button type="button" data-pref="outlets">Outlets</button>
+          <button type="button" data-pref="food">Food OK</button>
+        </div>
+      </div>
+      <div id="now-banner"></div>
+      <ol class="picks" id="picks" aria-live="polite"></ol>
+      <div class="next-row">
+        <button type="button" class="btn ghost" id="next">Full? Show the next spot</button>
+        <button type="button" class="btn link" id="reset-skips" hidden>Show skipped spots again</button>
+      </div>
+      <section class="also" id="also" aria-labelledby="also-h" hidden>
+        <h3 id="also-h">Also yours nearby</h3>
+        <p class="hint">Only open to your group, but these rooms don’t publish hours, so check before you go.</p>
+        <ul id="also-list"></ul>
+      </section>
+    </section>
+
+    <!-- Explore -->
+    <section id="view-explore" class="view" aria-labelledby="explore-h" hidden>
+      <h2 id="explore-h" class="sr-only">Explore</h2>
+      <div id="map" role="region" aria-label="Map of study spots"></div>
+      <div class="controls row">
+        <label class="check"><input type="checkbox" id="x-open"> Open now</label>
+        <label class="field compact">
+          <span>Noise</span>
+          <select id="x-noise">
+            <option value="">Any</option>
+            <option>Silent</option><option>Quiet</option><option>Collaborative</option><option>Social</option>
+          </select>
+        </label>
+        <label class="field compact grow">
+          <span>Search</span>
+          <input id="x-q" type="search" placeholder="Library, building, lounge…">
+        </label>
+      </div>
+      <p class="count" id="x-count"></p>
+      <ul class="list" id="x-list"></ul>
+    </section>
+
+    <!-- Saved -->
+    <section id="view-saved" class="view" aria-labelledby="saved-h" hidden>
+      <h2 id="saved-h">Saved spots</h2>
+      <ul class="list" id="saved-list"></ul>
+      <p class="empty" id="saved-empty">Tap <b>Save</b> on any spot to keep it here with its live open or closed status.</p>
+    </section>
+
+    <!-- You -->
+    <section id="view-you" class="view" aria-labelledby="you-h" hidden>
+      <h2 id="you-h">You</h2>
+      <p class="hint">This decides which rooms you see. It stays on this device.</p>
+      <form id="profile-form" class="profile"></form>
+      <section class="about">
+        <h3>About the data</h3>
+        <ul>
+          <li>Library hours come live from U of T Libraries’ LibCal hours, refreshed once a day.</li>
+          <li>Other hours, access rules and noise levels come from college, faculty and club pages. Each spot links its sources.</li>
+          <li>Spots marked <em>hours unknown</em> never appear in your top picks.</li>
+          <li>Building positions are from OpenStreetMap. Walk times assume 80 m a minute on real paths.</li>
+        </ul>
+      </section>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="Sections">
+    <button type="button" data-tab="now" aria-current="page">Now</button>
+    <button type="button" data-tab="explore">Explore</button>
+    <button type="button" data-tab="saved">Saved</button>
+    <button type="button" data-tab="you">You</button>
+  </nav>
+
+  <dialog id="onboard" aria-labelledby="onboard-h">
+    <form method="dialog" id="onboard-form" class="profile">
+      <h2 id="onboard-h">Which rooms can you use?</h2>
+      <p class="hint">Three questions, so we only show spots you’re allowed into. Nothing leaves this device.</p>
+      <div id="onboard-fields"></div>
+      <div class="actions">
+        <button class="btn" value="save" id="onboard-save">Show me spots</button>
+        <button class="btn link" value="skip" id="onboard-skip" type="submit">Skip for now</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="sheet" aria-labelledby="sheet-h">
+    <div class="sheet-inner">
+      <button type="button" class="close" id="sheet-close" aria-label="Close">×</button>
+      <div id="sheet-body"></div>
+    </div>
+  </dialog>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "_source": "Arts & Science academic dates (Fall 2026), https://www.artsci.utoronto.ca/current/dates-deadlines/academic-dates, checked Oct 4, 2026. Winter 2027 closure days still to add.",
+  "universityClosed": [
+    { "from": "2026-10-12", "to": "2026-10-12", "label": "Thanksgiving" },
+    { "from": "2026-12-24", "to": "2027-01-05", "label": "Winter holidays" }
+  ],
+  "_noHolidayLidsSource": "LibCal feed checked Oct 12, 2026: these libraries list no Thanksgiving or winter closures, so their holiday hours probably weren't entered. On university closure days the app treats them as closed.",
+  "noHolidayLids": [8454, 8441, 8325, 8324, 8363, 8400]
+}

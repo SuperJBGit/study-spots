@@ -1,0 +1,855 @@
+<title>St. George Study Spots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one reading column like a surveyor's field sheet. A "who are you" panel and filters sit above ledger rows grouped by campus zone; the access model and count plan follow as protocol sections. */
+:root {
+  --paper: #f2f5f3;
+  --card: #ffffff;
+  --ink: #17222a;
+  --muted: #56636b;
+  --rule: #d3dbd6;
+  --accent: #2c6b5b;
+  --accent-soft: #dcebe5;
+  --ok: #2b7a4b;
+  --ok-soft: #e0f0e6;
+  --warn: #9a6210;
+  --warn-soft: #f6ead6;
+  --scout: #35589a;
+  --scout-soft: #e2e9f6;
+  --stop: #a83838;
+  --stop-soft: #f6e1e1;
+  --you: #6b3fa0;
+  --you-soft: #ece4f6;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111715; --card: #18201d; --ink: #e2e9e5; --muted: #98a6a0; --rule: #2b3632;
+    --accent: #79c7ae; --accent-soft: #1f3530;
+    --ok: #74c493; --ok-soft: #1c3226; --warn: #e2ac52; --warn-soft: #36291a;
+    --scout: #93b2ea; --scout-soft: #1e2a40; --stop: #e88383; --stop-soft: #3a2020;
+    --you: #c3a3ec; --you-soft: #2c2140;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111715; --card: #18201d; --ink: #e2e9e5; --muted: #98a6a0; --rule: #2b3632;
+  --accent: #79c7ae; --accent-soft: #1f3530;
+  --ok: #74c493; --ok-soft: #1c3226; --warn: #e2ac52; --warn-soft: #36291a;
+  --scout: #93b2ea; --scout-soft: #1e2a40; --stop: #e88383; --stop-soft: #3a2020;
+  --you: #c3a3ec; --you-soft: #2c2140;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 24px; font-weight: 700; }
+h3 { font-size: 16px; font-weight: 600; font-family: var(--f-body); }
+h4 { margin: 0; font: 600 15px var(--f-body); }
+p { margin: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { max-width: 66ch; color: var(--muted); font-size: 16px; }
+header.top { display: grid; gap: 12px; margin-bottom: 28px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.tabs a { font-family: var(--f-mono); font-size: 13px; padding: 6px 12px; border: 1px solid var(--rule); border-radius: 999px; text-decoration: none; color: var(--ink); background: var(--card); }
+.tabs a:hover { border-color: var(--accent); }
+
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 18px; }
+.stat { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; display: grid; gap: 2px; }
+.stat b { font-family: var(--f-display); font-size: 26px; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--muted); }
+
+.findings { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--warn); border-radius: 10px; padding: 16px 18px; display: grid; gap: 8px; margin-bottom: 30px; }
+.findings ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+
+.who { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--you); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; margin-bottom: 14px; }
+.who .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.who .hint { font-size: 13px; color: var(--muted); }
+label.f { display: grid; gap: 2px; font-size: 11px; font-family: var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+label.f select, label.f input[type="search"] { font: 14px var(--f-body); color: var(--ink); background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 7px 9px; min-width: 0; max-width: 100%; }
+label.f select:disabled { opacity: 0.55; }
+label.check { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--ink); padding-bottom: 7px; }
+
+.filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); padding-block: 10px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin-bottom: 8px; }
+.filters input[type="search"] { width: 180px; }
+.filters .count { font-family: var(--f-mono); font-size: 13px; color: var(--muted); margin-left: auto; padding-bottom: 8px; }
+button.btn { font: 500 13px var(--f-mono); color: var(--accent); background: var(--accent-soft); border: 1px solid transparent; border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+button.btn:hover { border-color: var(--accent); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); margin: 6px 0 18px; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+
+.zone { margin-top: 26px; }
+.zone > h2 { font-size: 19px; padding-bottom: 6px; border-bottom: 2px solid var(--ink); margin-bottom: 4px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.zone > h2 small { font-family: var(--f-mono); font-size: 12px; font-weight: 400; color: var(--muted); }
+.spot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 320px); gap: 6px 24px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.spot .main { display: grid; gap: 4px; min-width: 0; }
+.spot .where { color: var(--muted); font-size: 14px; }
+.spot .note { font-size: 14px; }
+.spot .src { font-size: 12px; color: var(--muted); }
+.spot .src a { margin-right: 8px; }
+.spot .meta { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--f-mono); font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); }
+.chip.off { border-style: dashed; color: var(--muted); }
+.chip.s-checked { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+.chip.s-partial { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.chip.s-scout { background: var(--scout-soft); color: var(--scout); border-color: transparent; }
+.chip.members { background: var(--stop-soft); color: var(--stop); border-color: transparent; }
+.chip.you { background: var(--you-soft); color: var(--you); border-color: transparent; font-weight: 500; }
+.hours { font-family: var(--f-mono); font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--ink); }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.empty { padding: 24px 0; color: var(--muted); }
+
+section.block { margin-top: 56px; display: grid; gap: 16px; }
+.prose { max-width: 70ch; display: grid; gap: 10px; }
+.judge { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--warn); background: var(--warn-soft); border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+
+.weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.week { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; display: grid; gap: 4px; }
+.week .d { font-family: var(--f-mono); font-size: 13px; color: var(--muted); }
+.week b { font-family: var(--f-display); font-size: 18px; }
+.week.skip { background: transparent; border-style: dashed; color: var(--muted); }
+
+ol.route { margin: 0; padding: 0; list-style: none; counter-reset: r; display: grid; border-top: 1px solid var(--rule); }
+ol.route li { counter-increment: r; display: grid; grid-template-columns: 34px minmax(0, 1fr) minmax(0, 260px); gap: 4px 14px; padding: 10px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+ol.route li::before { content: counter(r); font-family: var(--f-display); font-weight: 700; font-size: 20px; color: var(--accent); }
+ol.route .zone-note { font-size: 14px; color: var(--muted); }
+.tbl { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--f-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td.mono { font-family: var(--f-mono); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.panel { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
+.panel ul, .panel ol { margin: 0; padding-left: 18px; display: grid; gap: 5px; }
+.levels { display: flex; flex-wrap: wrap; gap: 8px; }
+.lvl { font-family: var(--f-mono); font-size: 13px; padding: 4px 10px; border-radius: 6px; }
+.lvl.p { background: var(--ok-soft); color: var(--ok); }
+.lvl.s { background: var(--warn-soft); color: var(--warn); }
+.lvl.f { background: var(--stop-soft); color: var(--stop); }
+pre.code { font-family: var(--f-mono); font-size: 12.5px; background: var(--card); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0; }
+.sources ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 14px; }
+.sources .muted { color: var(--muted); }
+footer { margin-top: 48px; font-size: 13px; color: var(--muted); }
+
+@media (max-width: 720px) {
+  .spot { grid-template-columns: minmax(0, 1fr); }
+  ol.route li { grid-template-columns: 30px minmax(0, 1fr); }
+  ol.route li .zone-note { grid-column: 2; }
+  .filters input[type="search"] { width: 100%; }
+  .filters label.search { flex: 1 1 100%; }
+  .filters .count { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Study-space app · research sheet · updated Oct 4, 2026</p>
+    <h1>St. George Study Spots</h1>
+    <p class="lede">Every St. George study spot I could source, each tagged with who is allowed to use it, plus a three-week headcount plan to test whether busyness can be predicted. Library hours are each library’s regular week (a normal teaching week, Oct 18–24, 2026) from U of T’s official hours feed, with holidays and other changes listed underneath. Noise labels marked <em>official</em> come from U of T Libraries’ space directory. Everything else comes from the linked page or is marked as my judgement.</p>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#spots">Spot list</a>
+      <a href="#access">How access works</a>
+      <a href="#feed">Hours feed</a>
+      <a href="#plan">Headcount plan</a>
+      <a href="#excluded">Left out</a>
+      <a href="#sources">Sources</a>
+    </nav>
+  </header>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="findings">
+    <h3>Things that change the list</h3>
+    <ul>
+      <li><b>Library hours come from a public data feed.</b> U of T Libraries publishes its hours through LibCal as open JSON, 12 weeks ahead, for 63 libraries and service desks. A website can read it directly, so the app never has to type in library hours. See <a href="#feed">Hours feed</a>.</li>
+      <li><b>No library extends its hours for December exams</b> in the feed as of Oct 12. Robarts Common is already 24 hours Monday to Thursday, and a few small libraries shorten their hours late in exams.</li>
+      <li><b>Only Arts &amp; Science students belong to a college.</b> Engineering, Music, Kinesiology and Architecture students belong to their faculty instead, so the college question only applies to Arts &amp; Science.</li>
+      <li><b>Libraries publish their entry rule; nothing else does.</b> The Libraries &amp; hours page tags every library with an access label and defines them on hover: <em>Public</em> means open to all during posted hours, <em>U of T access</em> means a TCard is required for entry, <em>Restricted</em> means you may need an appointment or access card. Outside the libraries, U of T says most building doors are on staff fobs, so most “members only” rooms aren’t locked. Some do swipe: the ECE Study Hall, Bahen’s CS labs after hours, and Civil’s fob-access common room.</li>
+      <li><b>Innis College Library is closed until late spring 2027.</b> Innis students still have their own lounge, carrels and commuter room.</li>
+      <li><b>Hart House is mid-renovation</b> (first phase runs to spring 2027) but stays open. Its hours page looks out of date.</li>
+      <li><b>Arts &amp; Science and Engineering share a fall reading week, Oct 26–30</b>, and the university is closed for Thanksgiving on Oct 12. The count plan avoids both.</li>
+    </ul>
+  </div>
+
+  <section id="spots">
+    <h2 style="margin-bottom:12px">Spot list</h2>
+
+    <div class="who" role="group" aria-labelledby="who-h">
+      <h3 id="who-h">Show spots for a student</h3>
+      <p class="hint">This is the app’s onboarding, tried on the real data. Leave Faculty on “Everyone (research view)” to see every spot.</p>
+      <div class="row">
+        <label class="f">Faculty
+          <select id="p-fac">
+            <option value="">Everyone (research view)</option>
+            <option value="as">Arts &amp; Science</option>
+            <option value="eng">Engineering</option>
+            <option value="md">Medicine (MD)</option>
+            <option value="other">Other U of T faculty</option>
+            <option value="visitor">Not a U of T student</option>
+          </select>
+        </label>
+        <label class="f">Engineering program
+          <select id="p-prog">
+            <option value="T1">Track One (first year)</option>
+            <option value="EngSci">Engineering Science</option>
+            <option value="ECE">Electrical &amp; Computer</option>
+            <option value="Chem">Chemical</option>
+            <option value="Civ">Civil</option>
+            <option value="Min">Mineral</option>
+            <option value="Mech">Mechanical</option>
+            <option value="Indy">Industrial</option>
+            <option value="MSE">Materials</option>
+          </select>
+        </label>
+        <label class="f">College
+          <select id="p-col">
+            <option value="">None</option>
+            <option value="UC">University College</option>
+            <option value="Vic">Victoria</option>
+            <option value="Trin">Trinity</option>
+            <option value="SMC">St. Michael’s</option>
+            <option value="NC">New College</option>
+            <option value="Innis">Innis</option>
+            <option value="WDW">Woodsworth</option>
+          </select>
+        </label>
+        <label class="f">Where you live
+          <select id="p-res">
+            <option value="none">Off campus (commuter)</option>
+            <option value="UC">UC residence</option>
+            <option value="Vic">Vic residence</option>
+            <option value="Trin">Trinity residence</option>
+            <option value="SMC">St. Mike’s residence</option>
+            <option value="NC">New College residence</option>
+            <option value="Innis">Innis residence</option>
+            <option value="WDW">Woodsworth residence</option>
+            <option value="other">Other residence</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="p-csc"> In a CS program or taking a CSC course</label>
+        <label class="check"><input type="checkbox" id="p-unclear" checked> Include spots with unclear access</label>
+      </div>
+      <p class="hint" id="who-summary"></p>
+    </div>
+
+    <div class="filters" role="search">
+      <label class="f">Zone <select id="f-zone"></select></label>
+      <label class="f">Noise <select id="f-noise"></select></label>
+      <label class="f">Status <select id="f-status"></select></label>
+      <label class="f search">Search <input id="f-q" type="search" placeholder="Myhal, carrels, commuter…"></label>
+      <button class="btn" id="copy-csv" type="button">Copy as CSV</button>
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--ok)"></i>Checked: hours and access from an official page</span>
+      <span><i class="dot" style="background:var(--warn)"></i>Partial: hours or access missing or dated</span>
+      <span><i class="dot" style="background:var(--scout)"></i>Scout: confirm on site before listing</span>
+      <span><i class="dot" style="background:var(--you)"></i>Yours: only open to your group</span>
+    </div>
+    <div id="list"></div>
+    <textarea id="csv-fallback" aria-label="CSV export" hidden rows="6" style="width:100%;font-family:var(--f-mono);font-size:12px;margin-top:12px"></textarea>
+  </section>
+
+  <section class="block" id="access">
+    <p class="eyebrow">Access model</p>
+    <h2>How access works at U of T</h2>
+    <div class="two">
+      <div class="panel">
+        <h4>What decides who can use a spot</h4>
+        <ul>
+          <li><b>Library access label.</b> Public: open to all during posted hours. U of T access: TCard required for entry (Robarts, Gerstein, OISE, ECSL, Earth Sciences, Math and a few specialist libraries). Restricted: may need an appointment or access card (Law, Dentistry, Massey, ROM).</li>
+          <li><b>Faculty.</b> Engineering has one common room per program, plus the Pit for everyone. Medicine has MD-only spaces.</li>
+          <li><b>College</b>, Arts &amp; Science only. Lounges, carrels and event rooms are for that college’s students.</li>
+          <li><b>Where you live.</b> Several colleges’ best rooms are commuter lounges for members who live off campus (UC, Vic, St. Mike’s, Innis). New College opens its amenity rooms to its residents too, whatever their faculty.</li>
+          <li><b>Courses.</b> Bahen’s CS labs open to anyone in a CS program or taking at least one CSC course, so the rule depends on enrolment, not program.</li>
+          <li><b>Time of day.</b> Bahen is open to all during business hours but CS-only after. Several spots change hours or rules in exam season.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>What the app should ask <span class="judge">judgement</span></h4>
+        <ol>
+          <li><b>Faculty</b>, and program only if Engineering.</li>
+          <li><b>College</b>, asked only for Arts &amp; Science.</li>
+          <li><b>Where you live</b> (a residence or off campus). This gives commuter status without a separate question.</li>
+          <li>Optional: “Taking a CSC course?” It only matters for Bahen’s labs.</li>
+        </ol>
+        <p style="font-size:14px">Show members-only spots only to members. Most aren’t locked, so a non-member could walk in, but sending outsiders into “for our students” rooms is the fastest way to get colleges and clubs to complain about the app.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Where the access data is weak</h4>
+      <ul>
+        <li>Engineering common-room locations come from the student wiki and club pages. Some date from 2021–23, so confirm they haven’t moved.</li>
+        <li>Most college pages say “for our students” but name no door rule or hours. Those rows are marked <em>assumed</em> or <em>scout</em>.</li>
+        <li>Faculties beyond Engineering, Medicine and the colleges (Rotman, Law, Music, Daniels, Pharmacy, Kinesiology) aren’t covered yet. Each probably has its own student lounges.</li>
+        <li>Access facts change rarely, which makes them a good thing to crowdsource with a “Couldn’t get in?” button, unlike busyness. A few reports a term would keep them current.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="feed">
+    <p class="eyebrow">Data source</p>
+    <h2>Hours feed</h2>
+    <div class="prose">
+      <p>The <a href="https://library.utoronto.ca/libraries" target="_blank" rel="noopener">Libraries &amp; hours</a> page and U of T’s <a href="https://libcal.library.utoronto.ca/hours/" target="_blank" rel="noopener">LibCal hours page</a> show the same hours. LibCal also serves them as public JSON that any website can read, because it allows calls from any domain. I tested it on Oct 12.</p>
+    </div>
+    <pre class="code">GET https://libcal.library.utoronto.ca/api_hours_grid.php?iid=478&amp;format=json&amp;weeks=12   (dated hours, up to 12 weeks)
+GET https://libcal.library.utoronto.ca/api_hours_today.php?iid=478&amp;lid=0&amp;format=json   (today, with open/closed status)</pre>
+    <div class="two">
+      <div class="panel">
+        <h4>What it gives you</h4>
+        <ul>
+          <li>63 locations: 45 libraries plus service desks and sub-spaces such as Robarts Common’s building hours.</li>
+          <li>Hours for each date, so holidays, reading week and term changes come through automatically. Pratt, for example, switches to longer weekend hours on Oct 30.</li>
+          <li>A “currently open” flag for today.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>What it doesn’t</h4>
+        <ul>
+          <li><b>Holidays are missing for some libraries.</b> Kelly, Knox, Math, Earth Sciences and Art show no Thanksgiving closure and no winter closure, and ECSL shows itself open on Thanksgiving. The app should treat university closure days (Thanksgiving, Dec 24–Jan 5) as closed unless a library says otherwise.</li>
+          <li>No map coordinates (the fields are empty), no access rules, no noise levels. Those stay in the spot list.</li>
+          <li>Nothing outside the libraries: Myhal, Hart House, Student Commons and the colleges’ lounges aren’t in it.</li>
+          <li>The feed isn’t documented for outside use <span class="judge">judgement</span>. Cache it once a day rather than calling it for every visitor, and ask U of T Libraries before launch.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="plan">
+    <p class="eyebrow">Headcount plan</p>
+    <h2>Three weeks of counts, two questions</h2>
+    <div class="prose">
+      <p>The counts test whether the app would have anything useful to say before you build it.</p>
+      <p><b>1. Predictability.</b> Can one week of counts predict the next two, at the level of “plenty of seats / some / full”? If yes, a predicted-busyness feature works without anyone reporting anything.</p>
+      <p><b>2. Imbalance.</b> At the same moment, is one spot full while another nearby has plenty of seats? If everything fills and empties together, there’s nothing to redirect people to, and a static guide would be enough.</p>
+    </div>
+
+    <h3>When</h3>
+    <div class="weeks">
+      <div class="week"><span class="d">Mon Oct 5 – Fri Oct 9</span><b>Baseline</b><span>10 rounds, 2 per weekday. The first round also scouts each spot (see below).</span></div>
+      <div class="week"><span class="d">Tue Oct 13 – Fri Oct 16</span><b>Test 1</b><span>6 rounds. Mon Oct 12 is Thanksgiving and the university is closed.</span></div>
+      <div class="week"><span class="d">Mon Oct 19 – Fri Oct 23</span><b>Test 2</b><span>6 rounds. Midterms pile up the week before reading week, so this tests whether the pattern holds when campus is busier.</span></div>
+      <div class="week skip"><span class="d">Mon Oct 26 – Fri Oct 30</span><b>Reading week</b><span>No counts. It isn’t a normal week, for Arts &amp; Science or Engineering.</span></div>
+    </div>
+
+    <h3>Route: 8 spots, one loop</h3>
+    <p class="prose">I picked the south end of campus so a round fits between classes: big libraries, engineering spaces and one niche quiet room, all close together. Every spot on the route is open to any U of T student, so the counts describe spots the app would show everyone. A round should take about 20–25 minutes <span class="judge">estimate</span>. Walk them in this order.</p>
+    <ol class="route" id="route"></ol>
+    <p class="prose" style="font-size:14px;color:var(--muted)">Backup if the Clark Reading Room turns out not to be open to everyone: the Donnelly Centre’s Bamboo Forest atrium (160 College St). Optional second route if a friend helps: Robarts Common, Sidney Smith Commons, Kelly Library 2nd floor, Pratt Library and OISE Library ground floor.</p>
+
+    <h3>Time slots</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Slot</th><th>Window</th><th>Week 1 target</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Morning</td><td class="mono">9:00–11:00</td><td class="mono">2–3 rounds</td><td>Spots fill up as the first classes end.</td></tr>
+          <tr><td>Midday</td><td class="mono">11:00–14:00</td><td class="mono">3 rounds</td><td>Lunch peak. This is where imbalance should show if it exists.</td></tr>
+          <tr><td>Afternoon</td><td class="mono">14:00–17:00</td><td class="mono">3 rounds</td><td>The longest stretch of studying between classes.</td></tr>
+          <tr><td>Evening</td><td class="mono">18:00–21:00</td><td class="mono">2 rounds</td><td>Only the libraries, the Pit and Myhal stay open late. Sid Smith Commons closes at 7:30.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prose" style="font-size:14px">Start every round at the same minute past the hour (say :20), so you aren’t catching the rush between classes in some rounds and not others. Weeks 2 and 3 should repeat Week 1’s mix of slots and days as closely as you can, because predictions only get tested where Week 1 has data.</p>
+
+    <div class="two">
+      <div class="panel">
+        <h4>First visit: scout each spot</h4>
+        <ul>
+          <li>Pick a fixed <b>count zone</b> you can count in under 2 minutes (a whole room, or one floor of a big one). Write down where it starts and ends.</li>
+          <li>Count <b>capacity</b>: chairs at tables, plus one per couch cushion.</li>
+          <li>Note outlets (most seats / some / none), food rules from signs, noise, and whether any door needed a TCard.</li>
+          <li>Take one photo of the space with no faces in it. The app will need photos later.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Each count</h4>
+        <ul>
+          <li>A seat is <b>taken</b> if a person or their stuff is on it or in front of it.</li>
+          <li>Record occupied seats and the time you counted that spot, not just when the round started.</li>
+          <li>If an event, a class or a closure is affecting the space, note it and leave the level blank.</li>
+          <li>Don’t round. Write the number you counted.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Levels</h3>
+    <div class="levels">
+      <span class="lvl p">Plenty: under 50% taken</span>
+      <span class="lvl s">Some: 50–85%</span>
+      <span class="lvl f">Full: over 85%, or no free seat in sight</span>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">The cut-offs are my choice <span class="judge">judgement</span>. 85% is about when a student would give up and go somewhere else.</p>
+
+    <h3>Log</h3>
+    <p class="prose">One row per spot per round, in a spreadsheet on your phone. Use the IDs from the route above so the counts join back to the spot list.</p>
+    <pre class="code" id="log-header">date,round_start,spot_id,time_counted,occupied,capacity,note</pre>
+    <div><button class="btn" id="copy-log" type="button">Copy log header</button></div>
+
+    <h3>How to score it</h3>
+    <div class="two">
+      <div class="panel">
+        <h4>Predictions</h4>
+        <ul>
+          <li>For each spot and time slot, the prediction is the average % taken in Week 1. If Week 1 has no count for that slot, use the spot’s overall Week 1 average.</li>
+          <li>Turn each prediction into a level, then compare it with every Week 2 and Week 3 count.</li>
+          <li><b>Comparison:</b> also predict every count from the spot’s overall Week 1 average, ignoring the time of day. If the time-of-day version isn’t clearly better, the time pattern isn’t adding anything.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Pass marks <span class="judge">judgement</span></h4>
+        <ul>
+          <li>At least 70% of predictions hit the right level.</li>
+          <li>At most 10% are bad misses: predicted plenty or some, but it was full. A bad miss sends someone to a full room, which is the mistake that loses users.</li>
+          <li>The time-of-day version beats the comparison by about 10 points or more.</li>
+          <li><b>Imbalance:</b> in at least half of the midday rounds, one spot is full while another on the route has plenty.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Result</th><th>What it means for the app</th></tr></thead>
+        <tbody>
+          <tr><td>Predictable and imbalanced</td><td>Build it: spot info plus predicted busyness. The idea holds up.</td></tr>
+          <tr><td>Predictable but balanced</td><td>A good static guide does the job. Predictions don’t send anyone anywhere better.</td></tr>
+          <tr><td>Not predictable</td><td>Busyness needs live data (UofT Wi-Fi counts or student reports), which is the hard path. Ask UofT IT about Wi-Fi data before building anything.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel">
+      <h4>What three weeks can’t tell you</h4>
+      <ul>
+        <li>Exam season (Dec 10–22) is busier than anything in October, so expect October numbers to under-predict December.</li>
+        <li>One counter on one route covers about 8 spots. That’s enough to test the method, not to cover campus.</li>
+        <li>Weekends, Winter term and members-only rooms are untested.</li>
+        <li>Effort: about 22 rounds × 20–25 minutes, or roughly 7–9 hours over three weeks <span class="judge">estimate</span>. Splitting routes with a friend doubles coverage for the same time each.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="excluded">
+    <h2>Left out, and why</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Space</th><th>Reason</th><th>Source</th></tr></thead>
+        <tbody id="excl"></tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">Reddit is blocked in both browsers I can use and in web search, so spots known only from r/UofT are missing. Your first walk will probably turn up a few more.</p>
+  </section>
+
+  <section class="block sources" id="sources">
+    <h2>Sources</h2>
+    <p class="muted" style="font-size:14px">Every link below was loaded on Oct 4, 2026. Dates in brackets are when the page was published, where it says.</p>
+    <ol id="src-list"></ol>
+  </section>
+
+  <footer>Compiled Oct 4, 2026 for the study-space app planning. Library hours come from the LibCal feed as of Oct 12, 2026, so pull fresh hours rather than trusting this snapshot.</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var S = {
+    utlHours: ["U of T Libraries: libraries & hours (hours, plus access labels defined on hover)", "https://library.utoronto.ca/libraries"],
+    utlSpaces: ["U of T Libraries: Find a space (noise levels, capacities)", "https://library.utoronto.ca/spaces"],
+    libcal: ["U of T Libraries opening hours on LibCal (same data as the JSON feed)", "https://libcal.library.utoronto.ca/hours/"],
+    overnight: ["U of T Libraries: overnight study at Robarts Common", "https://library.utoronto.ca/use/service/overnight-study-robarts-common"],
+    robVisit: ["U of T Libraries: visiting Robarts Library", "https://library.utoronto.ca/policy/visiting-robarts-library"],
+    gerVisit: ["U of T Libraries: visiting Gerstein", "https://library.utoronto.ca/policy/visiting-gerstein-science-information-centre"],
+    kelly: ["Kelly Library: facilities and study space", "https://library.stmikes.utoronto.ca/?p=3215"],
+    pratt: ["E.J. Pratt Library: about", "https://library.vicu.utoronto.ca/about_us"],
+    innis: ["Innis Library: locations & hours", "https://innis.utoronto.ca/library/locations-hours"],
+    innisQ: ["Innis College: places & spaces", "https://innis.utoronto.ca/about-innis/quiet-spaces"],
+    ssc: ["Sidney Smith Commons: spaces open on campus", "https://sidneysmithcommons.artsci.utoronto.ca/?p=13765"],
+    cg: ["Campus Guides: study spots for 5 kinds of studiers [2020]", "https://campusguides.ca/2020/01/21/study-spots-for-5-kinds-of-studiers-at-uoft-st-george/"],
+    ramy: ["Student blog: top 10 spots on St. George [Aug 2024]", "https://ramyzhang.com/blog/places-uoft-campus-copy"],
+    fs: ["Facilities & Services: cozy spots on St. George [Jan 2026]", "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"],
+    utsu: ["UTSU: Student Commons", "https://www.utsu.ca/student-commons/"],
+    my: ["EngSci orientation: Myhal Centre", "https://orientation.engsci.utoronto.ca/myhal-centre/"],
+    myPdf: ["Myhal Centre access & bookings protocol [Oct 2018]", "https://www.engineering.utoronto.ca/files/2019/10/Myhal-Centre-Protocol-Building-Access-and-Bookings-v2.pdf"],
+    ba: ["EngSci orientation: Bahen Centre", "https://orientation.engsci.utoronto.ca/bahen-centre/"],
+    sf: ["EngSci orientation: Sandford Fleming", "https://orientation.engsci.utoronto.ca/sandford-fleming-building/"],
+    tcs: ["CS Teaching Labs: Bahen labs and after-hours access", "https://teach.cs.toronto.edu/using-labs/on-campus-labs"],
+    skChem: ["Skulepedia: Chemical Engineering Club", "https://skulepedia.ca/wiki/Chemical_Engineering_Club"],
+    skCiv: ["Skulepedia: Civil Engineering Club", "https://skulepedia.ca/wiki/Civil_Engineering_Club"],
+    civRoom: ["CIV Club: common room access [2021–22]", "https://www.civ.skule.ca/?p=2551"],
+    skECE: ["Skulepedia: ECE Club (common room, study hall)", "https://skulepedia.ca/wiki/Electrical_and_Computer_Engineering_Club"],
+    skEngSci: ["Skulepedia: Engineering Science Club", "https://skulepedia.ca/wiki/Engineering_Science_Club"],
+    skMech: ["Skulepedia: Mechanical Engineering Club", "https://skulepedia.ca/wiki/Mechanical_Engineering_Club"],
+    skIndy: ["Skulepedia: Industrial Engineering Club", "https://skulepedia.ca/wiki/Industrial_Engineering_Club"],
+    skMSE: ["Skulepedia: Materials Science & Engineering Club", "https://skulepedia.ca/wiki/Materials_Science_and_Engineering_Club"],
+    skCat: ["Skulepedia: list of engineering discipline clubs", "https://skulepedia.ca/wiki/Category:Discipline_Clubs"],
+    minClub: ["CivMin: Min Club chair interview [2023]", "https://civmin.utoronto.ca/meet-your-2023-2024-min-club-chair-evan-beri/"],
+    hh: ["Hart House: open for you (undated, looks out of date)", "https://harthouse.ca/open"],
+    hhReno: ["The Varsity: Hart House renovation [Mar 2026]", "https://thevarsity.ca/2026/03/22/u-of-t-is-spending-240-million-to-renovate-hart-house/"],
+    vcd: ["Vic Commuter Dons: top 8 U of T libraries [Oct 2017]", "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"],
+    vLibs: ["The Varsity: underappreciated libraries [Mar 2023]", "https://thevarsity.ca/2023/03/05/underappreciated-libraries-on-utsg-campus/"],
+    vTcard: ["The Varsity: TCard scanners at building entrances [Feb 2025]", "https://thevarsity.ca/2025/02/11/does-u-of-t-need-more-tcard-scanners-at-building-entrances/"],
+    colleges: ["U of T: navigate faculties & colleges", "https://parentsandsupporters.utoronto.ca/explore/navigate-faculties-colleges/"],
+    trin: ["Trinity College: community spaces", "https://www.trinity.utoronto.ca/arts-science/student-services/student-life-2/community-spaces/"],
+    uc: ["University College: the UC building", "https://www.uc.utoronto.ca/about-uc-our-buildings-uc-building"],
+    ucComm: ["University College: commuter life", "https://www.uc.utoronto.ca/commuters"],
+    vicCampus: ["Victoria College: campus and residence life", "https://vic.utoronto.ca/future-students/campus"],
+    vicSpaces: ["Victoria College: study/gathering spaces portal", "https://vic.utoronto.ca/current-students/study-spaces"],
+    ncA: ["New College: amenity spaces", "https://www.newcollege.utoronto.ca/student-experience/orsl/amenities/"],
+    ncS: ["New College: building updates [Jul 2022]", "https://www.newcollege.utoronto.ca/new-spaces-new-college-building-updates/"],
+    wdw: ["Woodsworth College: about", "https://wdw.utoronto.ca/about-woodsworth"],
+    smc: ["St. Michael’s: commuter life", "https://stmikes.utoronto.ca/community/campus-life/commuter-life"],
+    pharm: ["Leslie Dan Pharmacy: atrium renewal [2024]", "https://pharmacy.utoronto.ca/node/1867"],
+    sric: ["Schwartz Reisman Innovation Campus: about", "https://sric.utoronto.ca/about-us/"],
+    msb: ["Temerty Medicine: MSB student lounge [Oct 2014]", "https://temertymedicine.utoronto.ca/news/new-student-lounge-now-open"],
+    ssf: ["UofT Synchronous Space Finder (App Store, v3.2, Sep 2022)", "https://apps.apple.com/us/app/-/id1584199861"],
+    lsm: ["LSM: Synchronous Space Finder", "https://lsm.utoronto.ca/syncstudy.html"],
+    asDates: ["Arts & Science: academic dates (Fall 2026)", "https://www.artsci.utoronto.ca/current/dates-deadlines/academic-dates"],
+    engDates: ["Engineering: October 2026 dates", "https://undergrad.engineering.utoronto.ca/events/category/2026-fall-term/2026-10/"]
+  };
+
+  var ZONES = {
+    S: "South · Engineering & King’s College Circle",
+    M: "Middle · St. George St to Spadina",
+    N: "North · Robarts, Bloor, Innis, Trinity",
+    E: "East · Vic & St. Mike’s"
+  };
+  var STATUS = { checked: "Checked", partial: "Partial", scout: "Scout" };
+  var COL = { UC: "UC", Vic: "Vic", Trin: "Trinity", SMC: "St. Mike’s", NC: "New College", Innis: "Innis", WDW: "Woodsworth" };
+  var PROG = { EngSci: "EngSci", ECE: "ECE", Chem: "Chem Eng", Civ: "Civil", Min: "Mineral", Mech: "Mech", Indy: "Industrial", MSE: "Materials" };
+
+  function ruleLabel(r) {
+    if (r === "all") return "Anyone";
+    if (r === "uoft") return "Any U of T student";
+    if (r === "csc") return "CS students / CSC course";
+    if (r === "md") return "MD students";
+    if (r === "?") return "Access unclear";
+    var p = r.split(":");
+    if (p[0] === "prog") return PROG[p[1]] + " students";
+    if (p[0] === "col") return COL[p[1]] + " students";
+    if (p[0] === "res") return COL[p[1]] + " residents";
+    if (p[0] === "comm") return COL[p[1]] + " commuters";
+    return r;
+  }
+  function isOpenRule(r) { return r === "all" || r === "uoft"; }
+
+  // 0 id, 1 zone, 2 name, 3 where, 4 type, 5 noise, 6 official noise?, 7 who (rules, any one is enough),
+  // 8 basis (stated | assumed | unknown), 9 card door?, 10 hours, 11 note, 12 status, 13 sources
+  var R = [
+    // ---------- South ----------
+    ["stcommons","S","Student Commons","230 College St (at Huron)","Commons","Mixed",false,["uoft"],"stated",false,"Not published on the UTSU page","Quiet zones and individual seating, plus team suites, open tables and bookable meeting rooms. Acacia Café on the 2nd floor (8am–3pm weekdays; the lounge stays open after).","partial",["utsu","fs"]],
+    ["myhal-2","S","Myhal Centre, 2nd floor tables","Myhal (MY), 55 St. George St","Atrium / lounge","Social",false,["all"],"stated",false,"Building: Mon–Fri 7am–10pm · Sat–Sun 8am–8pm (2018)","Open area with lots of tables for eating, studying and groups, looking over St. George St. During building hours all floors are open.","partial",["my","myPdf"]],
+    ["myhal-5","S","Myhal Centre, 5th floor atrium","Myhal (MY), 55 St. George St","Atrium / lounge","Collaborative",false,["all"],"stated",false,"Building: Mon–Fri 7am–10pm · Sat–Sun 8am–8pm (2018)","Large open space with many tables, good for group work. Has a dedicated quiet study room and lots of window light.","partial",["my","myPdf"]],
+    ["myhal-8","S","Myhal Centre, 8th floor study space and terrace","Myhal (MY), 55 St. George St","Atrium / lounge","Quiet",false,["?"],"unknown",false,"Building: Mon–Fri 7am–10pm · Sat–Sun 8am–8pm (2018)","Quiet tables plus the Dr. Woo Hon Fai Terrace for outdoor study. The 2018 protocol puts the terrace on fob-controlled access, so check whether it’s unlocked.","scout",["my","myPdf"]],
+    ["myhal-4","S","Myhal Centre, 4th floor locker areas","Myhal (MY), 55 St. George St","Hallway nook","Quiet",false,["all"],"assumed",false,"Building hours","A student blog calls it very quiet with almost nobody around. Seating not described.","scout",["ramy"]],
+    ["myhal-67","S","Myhal Centre, 6th–7th floor group spaces","Myhal (MY), 55 St. George St","Atrium / lounge","Collaborative",false,["?"],"unknown",false,"Building hours","Group study spaces among offices. The protocol says lounges and study spaces can be fob-controlled.","scout",["my","myPdf"]],
+    ["bahen-3","S","Bahen Centre, 3rd floor study areas","Bahen (BA), 40 St. George St","Hallway nook","Quiet",false,["all"],"stated",false,"Business hours for everyone. After hours: CS students only (TCard)","Described as quieter than the 2nd-floor lounge, which gets loud at lunch.","partial",["ba","tcs"]],
+    ["bahen-labs","S","Bahen CS labs","Bahen (BA), 40 St. George St","Computer lab","Quiet",false,["csc"],"stated",true,"24 h every day in term, TCard swipe","Lab rooms open to students in a CS program or taking at least one CSC course. A student blog calls the 2nd-floor labs good for all-nighters.","checked",["tcs","ramy"]],
+    ["bahen-cssu","S","CSSU Lounge (BA2250)","Bahen (BA), 2nd floor","Lounge","Social",false,["?"],"unknown",false,"Lounge open hours not published","Computer Science Student Union lounge with cheap snacks and drinks.","scout",["ba"]],
+    ["eng-engsci","S","EngSci Common Room","Bahen (BA), 2nd floor","Lounge","Social",false,["prog:EngSci"],"stated",false,"Not published","EngSci’s study and social room: lunch, games and studying.","partial",["skEngSci","ba"]],
+    ["eng-ece-hall","S","ECE Study Hall (BA1120)","Bahen (BA), 1st floor near the front elevators","Lounge","Collaborative",false,["prog:ECE"],"stated",true,"TCard swipe","Large tables, leather chairs and a whiteboard, suited to group study. Department tutors sit in at set hours.","partial",["skECE"]],
+    ["eng-ece","S","ECE Common Room (SF B650)","Sandford Fleming (SF), basement","Lounge","Social",false,["prog:ECE"],"stated",false,"Not published","TV, games, foosball, microwave.","partial",["skECE","sf"]],
+    ["sf-pit","S","The Pit","Sandford Fleming (SF), basement","Atrium / lounge","Social",false,["all"],"stated",false,"Building hours","Sunken platform with tables and benches. Anyone can use it, and it hosts frequent events. Hard Hat Café and Veda are next to it.","partial",["sf"]],
+    ["eng-chem","S","Chem Eng Common Room (WB238)","Wallberg (WB), 200 College St","Lounge","Social",false,["prog:Chem"],"stated",false,"Not published","Foosball, video games and vending machines.","partial",["skChem"]],
+    ["eng-mse","S","Materials Common Room (WB143)","Wallberg (WB), 200 College St","Lounge","Social",false,["prog:MSE"],"stated",false,"Not published","Materials Science club common room.","partial",["skMSE"]],
+    ["eng-civ","S","Civil Common Room (GB123)","Galbraith (GB), 35 St. George St","Lounge","Social",false,["prog:Civ"],"stated",true,"Fob access, registered through the department","Lounge plus a small study room, with couches, tables, microwaves and the CIV Club office.","partial",["skCiv","civRoom"]],
+    ["eng-mech","S","Mech & Industrial Common Room (MB225B)","Mining Building (MB), 170 College St","Lounge","Social",false,["prog:Mech","prog:Indy"],"stated",false,"Not published","Recently renovated. Ping pong, pool, video games, snacks. Shared by the Mech and Industrial clubs.","partial",["skMech","skIndy"]],
+    ["eng-min","S","Mineral Engineering Common Room (MB131)","Lassonde Mining Building, 1st floor","Lounge","Social",false,["prog:Min"],"stated",false,"Not published","Min Club’s common room (location as of 2023).","partial",["minClub"]],
+    ["ecsl-main","S","Engineering & Computer Science Library, open study","SF, 10 King’s College Rd, Rm 2402","Library","Collaborative",true,["uoft"],"stated",true,"Mon–Thu 9am–9pm · Fri 9am–6pm · Sat 12–5pm · Sun closed","Large open tables on the main floor, lounge chairs with built-in outlets, 30 computers. Food and drink allowed.","checked",["utlHours","utlSpaces","sf"]],
+    ["ecsl-quiet","S","ECSL Quiet Study Space","SF, library 2nd floor","Library","Silent",true,["uoft"],"stated",true,"Same as library","Carrels with lamps and outlets, plus long tables. No eating, phones silenced.","checked",["utlHours","utlSpaces"]],
+    ["ecsl-rooms","S","ECSL group study rooms","SF, library","Bookable room","Collaborative",false,["uoft"],"stated",true,"Book 12 h to 2 weeks ahead, max 3 h/day","4 rooms: two for up to 6 people, two for up to 8. Monitor, HDMI and whiteboard in each.","checked",["utlSpaces"]],
+    ["gerstein-rr","S","Gerstein Reading Room","Gerstein, 9 King’s College Circle, main floor","Library","Silent",true,["uoft"],"stated",true,"Sun 10am–10pm · Mon–Thu 8:30am–11pm · Fri 8:30am–10pm · Sat 9am–10pm","94 seats under a restored heritage ceiling with a skylight. Gerstein is open to TCard holders. If you forget your TCard, security lets you in with your UTORid up to three times a term.","checked",["utlHours","utlSpaces","fs","gerVisit"]],
+    ["gerstein-silent","S","Gerstein Silent Study Room and Lower Silent Study Room","Gerstein, Heritage Wing","Library","Silent",true,["uoft"],"stated",true,"Same as Gerstein","Lower room has 50 seats, no food and no talking. It isn’t wheelchair accessible.","checked",["utlHours","utlSpaces"]],
+    ["gerstein-morrison","S","Gerstein Morrison Pavilion","Gerstein, east end, 5 floors","Library","Quiet",true,["uoft"],"stated",true,"Same as Gerstein","About 650 study spaces with lots of natural light. Too big to count whole, so count one floor.","checked",["utlHours","utlSpaces"]],
+    ["gerstein-wallace","S","Gerstein Wallace Room (Remote Zone)","Gerstein, main floor","Library","Collaborative",true,["uoft"],"stated",true,"Same as Gerstein","206 seats, meant for joining online classes. First come, first served.","checked",["utlHours","utlSpaces"]],
+    ["gerstein-lower","S","Gerstein B110 and Lower Reference Room (B105)","Gerstein, one floor down, Heritage Wing","Library","Collaborative",true,["uoft"],"stated",true,"Same as Gerstein","Recently renovated, mixed seating. 59 + 30 seats.","checked",["utlHours","utlSpaces"]],
+    ["gerstein-heritage","S","Gerstein Heritage lounge","Gerstein, 2nd floor, Heritage Wing","Library","Collaborative",true,["uoft"],"stated",true,"Same as Gerstein","Casual 8-seat area overlooking the Reading Room.","checked",["utlHours","utlSpaces"]],
+    ["gerstein-rooms","S","Gerstein group study rooms","Gerstein","Bookable room","Collaborative",false,["uoft"],"stated",true,"Book through U of T Libraries","21 bookable rooms in the directory.","checked",["utlSpaces"]],
+    ["uc-clark","S","Clark Reading Room","University College, West Hall, 15 King’s College Circle","Reading room","Quiet",false,["?"],"unknown",false,"Not published","Quiet study space created in UC’s 2018 renovation of West Hall.","scout",["uc"]],
+    ["uc-lib","S","University College Library","UC, Rooms 266/366","Library","—",false,["all"],"stated",false,"Sun 10am–6pm · Mon–Thu 9am–8pm · Fri 9am–5pm · Sat 10am–6pm","Vaulted ceilings and stained glass, with small nooks. The upper level is the cozy part. 2 bookable rooms.","checked",["utlHours","vLibs","utlSpaces"]],
+    ["uc-csc","S","UC Commuter Student Centre","University College (location not given on UC’s page)","Lounge","Social",false,["comm:UC"],"stated",false,"Not published","Lounge, kitchenette, dedicated study spaces, lockers and a TV, for UC students who live off campus.","scout",["ucComm"]],
+    ["hh-lib","S","Hart House Library","Hart House, 7 Hart House Circle","Reading room","—",false,["uoft"],"stated",false,"Hart House’s page says Mon–Fri 7am–11pm · weekends 9am–6pm (page looks dated)","Small and ornate, with a fireplace and window-facing couches. A 2017 student guide mentions a charging station and plenty of outlets. Drop in during building hours.","partial",["hh","vLibs","hhReno","vcd"]],
+    ["hh-reading","S","Hart House Reading Room","Hart House","Reading room","—",false,["uoft"],"stated",false,"Same as Hart House","Drop-in study during building hours.","partial",["hh","hhReno"]],
+    ["hh-map","S","Hart House Map Room","Hart House","Reading room","—",false,["uoft"],"stated",false,"Same as Hart House","Drop-in study during building hours.","partial",["hh","hhReno"]],
+    ["hh-arbor","S","Arbor Room","Hart House, lower level","Café","Social",false,["uoft"],"stated",false,"Mon–Fri 8:30am–7pm · Sat–Sun 9am–3pm (Jan 2026)","Café with armchairs and tall gothic windows. Open to students, staff and faculty.","checked",["fs"]],
+    ["donnelly","S","Bamboo Forest atrium","Donnelly Centre, 160 College St, 1st floor","Atrium / lounge","—",false,["all"],"stated",false,"Not published","Japanese-style indoor garden with benches and two patios under a skylight, near the MSB food hall.","partial",["fs"]],
+    ["md-msb","S","MSB student lounge","Medical Sciences Building, main floor","Lounge","Social",false,["md"],"stated",false,"Not published","Built for MD students. One half has a kitchen and games, and the other half can be closed off.","partial",["msb"]],
+    ["pharm","S","Pharmacy building atrium","Leslie Dan Pharmacy, 144 College St","Atrium / lounge","—",false,["?"],"unknown",false,"Not published","Refurnished in 2024 for studying and socializing. The page doesn’t say who can use it.","scout",["pharm"]],
+    ["sric","S","Schwartz Reisman Innovation Campus, ground floor and winter gardens","108 College St","Atrium / lounge","—",false,["?"],"unknown",false,"Not published","Café seating on the ground floor and two winter gardens overlooking Queen’s Park. Nothing published on student use or hours.","scout",["sric"]],
+    ["chem-lib","S","Chemistry Library (A D Allen)","Lash Miller, 80 St. George St, Rm 480","Library","Quiet",true,["all"],"stated",false,"Mon–Fri 10am–5pm","Upper level is quiet. Lower level is collaborative and has 1 bookable room.","checked",["utlHours","utlSpaces"]],
+    ["math-lib","S","Mathematical Sciences Library","Bahen, 40 St. George St, Rm 6141","Library","—",false,["uoft"],"stated",true,"Mon–Fri 9am–5pm","Small departmental library.","checked",["utlHours"]],
+    ["phys-lib","S","Physics Library","McLennan, 60 St. George St, Rm 101B","Library","—",false,["all"],"stated",false,"Mon–Fri 10am–5pm","Small departmental library.","checked",["utlHours"]],
+    ["knox","S","Knox College Library (Caven)","59 St. George St","Library","—",false,["all"],"stated",false,"Mon–Fri 8:30am–4:30pm","Small, quiet and rarely busy, with high ceilings and wooden desks. It can get hot in warm months, so take a window seat. Outlets are very limited (student blogs, 2017 and 2024).","checked",["utlHours","ramy","vcd"]],
+    ["empty-rooms","S","Empty classrooms","Across campus, via the UofT Synchronous Space Finder app","Classroom","—",false,["uoft"],"stated",false,"Updated weekly","Official app listing classrooms not in use. Last updated Sep 2022, so check it still has current data. No food or drink.","partial",["ssf","lsm"]],
+    // ---------- Middle ----------
+    ["ssc","M","Sidney Smith Commons","Sidney Smith Hall, 100 St. George St","Commons","Collaborative",false,["uoft"],"stated",false,"Mon–Thu 10am–7:30pm · Fri 10am–5pm","Four sections: lounge seating, movable tables, group tables with whiteboards. A student blog says the west side is reliably quiet.","checked",["ssc","cg","ramy"]],
+    ["art-lib","M","Department of Art Library","Sidney Smith Hall, Rm 6034","Library","—",false,["all"],"stated",false,"Mon–Fri 12–6pm","Small departmental library.","checked",["utlHours"]],
+    ["rotman-lib","M","Milt Harris Library","Rotman, 105 St. George St, Rm 5005","Library","—",false,["all"],"stated",false,"Mon–Thu 10am–8pm · Fri 10am–5pm","Business library inside Rotman.","checked",["utlHours"]],
+    ["wdw","M","Kruger Hall Commons","Woodsworth College, 119 St. George St","Lounge","Social",false,["col:WDW"],"assumed",false,"Not published","Study, meeting and social space for Woodsworth students and alumni.","scout",["wdw"]],
+    ["innis-events","M","Innis Events Room","Innis Residence, 111 St. George St, ground level","Lounge","Quiet",false,["col:Innis"],"stated",false,"Becomes a 24/7 quiet study space in exam season","Open to all Innis students, whether or not they live in the residence.","partial",["innisQ"]],
+    ["newman","M","Newman Industrial Relations Library","121 St. George St","Library","—",false,["all"],"stated",false,"Mon–Fri 9am–5pm","Small library with 1 bookable room.","checked",["utlHours"]],
+    ["nc-ivey","M","New College Ivey Library","Wilson Hall, 40 Willcocks St","Library","—",false,["all"],"stated",false,"Sun 11am–7pm · Mon–Thu 9am–9pm · Fri 9am–5pm · Sat 11am–7pm","Computer labs and group rooms. New College says its 24-hour exam study is for New College students.","checked",["utlHours","ncA"]],
+    ["nc-wilson","M","Wilson Hall Lounge","New College, 40 Willcocks St","Lounge","Social",false,["col:NC","res:NC"],"assumed",false,"Not published","Tables, chairs and bar stools with extra outlets, plus the Coffee Shed.","scout",["ncS","ncA"]],
+    ["nc-45","M","45 Willcocks atrium and lounges","New College, by the William Doo Auditorium","Lounge","Social",false,["col:NC","res:NC"],"assumed",false,"Not published","Lots of seating and a Second Cup. More lounges downstairs (GNU Lounge, The Den) and a Mezzanine Lobby.","scout",["ncS"]],
+    ["nc-multi","M","New College multipurpose room","45 Willcocks, basement","Bookable room","—",false,["col:NC","res:NC"],"stated",false,"Drop in or book ahead","Desks, chairs and A/V for studying and group projects. For New College students and New College residents.","partial",["ncA"]],
+    ["earth-lib","M","Earth Sciences Library (Noranda)","5 Bancroft Ave, 2nd floor","Library","—",false,["uoft"],"stated",true,"Mon–Thu 9am–8pm · Fri 9am–5pm · weekends closed","A round, two-storey reading room: open tables on the main floor and individual booths around the upper level. Lots of window light, calm and rarely busy (2017 student guide).","checked",["utlHours","vcd"]],
+    ["arch-lib","M","Eberhard Zeidler Library","Daniels Building, 1 Spadina Cres","Library","—",false,["all"],"stated",false,"Sun 12–5pm · Mon–Thu 9:30am–9pm · Fri 9:30am–7pm · Sat closed","Architecture, landscape and design library. 1 bookable room.","checked",["utlHours"]],
+    // ---------- North ----------
+    ["robarts-common","N","Robarts Common","Robarts, floors 2–5 wing; overnight entry at Harbord and Huron","Library","Collaborative",true,["uoft"],"stated",true,"Sun from 10am, then 24 h until Fri 11pm · Sat 9am–10pm","1,200 seats over five floors, with the 5th floor kept quiet. Food and drink allowed. Overnight you need your physical TCard, and group rooms are first come, first served.","checked",["utlHours","utlSpaces","overnight"]],
+    ["robarts-floors","N","Robarts Library floors and carrels","Robarts, 130 St. George St","Library","Quiet",true,["uoft"],"stated",true,"Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm","Carrels with power and natural light. You need a valid TCard to get in. A student blog says the 4th floor gets busy but has high ceilings.","checked",["utlHours","utlSpaces","ramy","robVisit"]],
+    ["pjrc","N","Petro Jacyk Resource Centre","Robarts 3rd floor, Rm 3008","Library","Quiet",true,["uoft"],"stated",true,"Same as Robarts","Individual and group seating. The libraries page tags it both Public and U of T access. It sits inside Robarts, which needs a TCard at the door, so I’ve treated it as U of T only (judgement).","checked",["utlHours","utlSpaces"]],
+    ["robarts-rooms","N","Robarts group study rooms","Robarts and Robarts Common","Bookable room","Collaborative",false,["uoft"],"stated",true,"Book through U of T Libraries","56 bookable rooms in the directory.","checked",["utlSpaces"]],
+    ["oise-ground","N","OISE Library, ground floor","252 Bloor St W (above St. George station)","Library","Collaborative",true,["uoft"],"stated",true,"Mon–Thu 8:45am–7pm · Fri 8:45am–5pm · Sat 10am–5pm · Sun closed","Popular because it’s right above the subway, with big windows.","checked",["utlHours","utlSpaces","vTcard"]],
+    ["oise-quiet","N","OISE Library, concourse and 2nd floor","OISE Library","Library","Quiet",true,["uoft"],"stated",true,"Same as OISE Library","Large tables and individual desks.","checked",["utlHours","utlSpaces"]],
+    ["oise-collab","N","OISE Library, mezzanine and 3rd floor","OISE Library","Library","Collaborative",true,["uoft"],"stated",true,"Same as OISE Library","Mezzanine has 10 open carrels and 22 bookable rooms (covered drinks only). The 3rd floor has whiteboard tables. 29 bookable rooms across the library.","checked",["utlHours","utlSpaces"]],
+    ["oise-nexus","N","Nexus Lounge","OISE, 252 Bloor St W, 12th floor","Lounge","—",false,["all"],"stated",false,"Open when not privately booked","Panoramic skyline views.","partial",["fs"]],
+    ["innis-cinema","N","Innis Cinema Studies Lounge","Innis College, 2 Sussex Ave, 2nd floor east wing","Lounge","Quiet",false,["col:Innis"],"stated",false,"Not published","Armchairs and couches for solo or group study.","partial",["innisQ"]],
+    ["innis-carrels","N","Innis quiet study carrels","Innis College, 3rd floor east wing","Hallway nook","Quiet",false,["col:Innis"],"stated",false,"Not published","Individual stations with glass walls looking onto the library.","partial",["innisQ"]],
+    ["innis-commuter","N","Innis Commuter Student Lounge (IN105)","Innis College, 2 Sussex Ave","Lounge","Quiet",false,["col:Innis"],"stated",false,"Not published","Kitchenette, and described as a quiet nook for studying.","partial",["innisQ"]],
+    ["innis-roof","N","Innis rooftop patio","Innis College","Outdoor","Social",false,["col:Innis"],"stated",false,"Not published","Quietness varies. Busiest at lunch and dinner.","partial",["innisQ"]],
+    ["trinity-graham","N","John W. Graham Library","Trinity College, 3 Devonshire Pl","Library","Quiet",false,["all"],"stated",false,"Sun 1:15–10:45pm · Mon–Thu 8:30am–10:45pm · Fri 8:30am–7:45pm · Sat 9:15am–7:45pm","Wood panelling, carrels by windows over the courtyard, armchairs by a fireplace. Only one set of washrooms, in the basement (2017 student guide). 6 bookable rooms.","checked",["utlHours","vLibs","utlSpaces","vcd"]],
+    ["trinity-buttery","N","The Buttery","Gerald Larkin Building, 15 Devonshire Pl","Café","Social",false,["col:Trin"],"stated",false,"Not published","Lounge, eating area and servery, with a microwave and fireplace. Trinity lists it among its community spaces for its students.","partial",["trin"]],
+    ["trinity-jcr","N","Trinity Junior Common Room","Trinity College, 6 Hoskin Ave, beside Strachan Hall","Lounge","Social",false,["col:Trin"],"stated",false,"Not published","Open for student use. Also hosts student meetings.","partial",["trin"]],
+    ["trinity-hildas","N","St. Hilda’s: Stedman Library, Adams Room, Melinda Seaman Hall","St. Hilda’s College, 44 Devonshire Pl","Reading room","Silent",false,["col:Trin"],"stated",false,"Not published","Stedman is a silent library with leather couches. Adams Room is quiet group study. Melinda Seaman is informal study space.","partial",["trin"]],
+    ["music-lib","N","Music Library","Edward Johnson Building, 80 Queen’s Park","Library","Quiet",true,["all"],"stated",false,"Mon–Thu 8:30am–7pm · Fri 8:30am–6pm · weekends closed","Individual and group seating on two floors, open to everyone. 3 bookable rooms.","checked",["utlHours","utlSpaces"]],
+    // ---------- East ----------
+    ["pratt","E","E.J. Pratt Library","Victoria University, 71 Queen’s Park Cres E","Library","—",false,["all"],"stated",false,"Until Oct 29: Sun 1–11:30pm · Mon–Thu 9am–11:30pm · Fri 9am–4:45pm · Sat 12–5:45pm. From Oct 30: Fri 9am–6:45pm · Sat–Sun 10am–11:30pm","Three floors with glass walls and lots of light. A lounge downstairs where you can eat and talk, and carrels along the east and west ends (2017 student guide). Has group study rooms.","checked",["utlHours","vLibs","pratt","vcd"]],
+    ["crrs","E","Centre for Reformation and Renaissance Studies reading room","E.J. Pratt Library, Rm 301 (3rd floor)","Reading room","Quiet",false,["all"],"stated",false,"Mon–Fri 9am–5pm","Hidden reading room with lots of natural light overlooking the Vic Quad. Bags go in a closet at the front, and nothing can be borrowed (2017 student guide).","checked",["utlHours","vcd"]],
+    ["emmanuel","E","Emmanuel College Library","75 Queen’s Park Cres E, 3rd floor","Library","Quiet",false,["all"],"stated",false,"Mon–Thu 9am–9pm · Fri 9am–5pm · Sat 1–5pm · Sun closed","Chandeliers, fireplace, wood desks, reliably silent. No group study rooms. A student blog says every seat has an outlet.","checked",["utlHours","vLibs","ramy","vcd"]],
+    ["goldring","E","Goldring Student Centre and Cat’s Eye lounge","Victoria University, 150 Charles St W","Lounge","Social",false,["col:Vic"],"assumed",false,"Not published","Vic’s student centre: study space, Ned’s Café and the Cat’s Eye student lounge.","scout",["vicCampus"]],
+    ["vic-commuter","E","Vic commuter lounge and kitchen","Victoria University (location not given)","Lounge","Social",false,["comm:Vic"],"stated",false,"Not published","For Vic’s 3,000+ commuting students. Free lockers too.","scout",["vicCampus"]],
+    ["vic-rooms","E","Vic open classrooms","Victoria University, via Vic’s space portal (UTORid sign-in)","Classroom","—",false,["col:Vic"],"stated",false,"Weekdays 9am–5pm","Vic and Emmanuel students can use listed rooms with no booking. Leave before any academic booking. Old Vic’s empty classrooms were already a commuter tip in 2017.","checked",["vicSpaces","vcd"]],
+    ["kelly-g","E","Kelly Library ground floor and Kelly Café","113 St. Joseph St","Library","Social",false,["all"],"stated",false,"Sun 1–11:30pm · Mon–Fri 8:30am–11:30pm · Sat 10am–11:30pm","Busiest floor. The café seats 100+ and there are group tables. Food allowed everywhere except Special Collections.","checked",["utlHours","kelly"]],
+    ["kelly-2","E","Kelly Library 2nd floor","113 St. Joseph St","Library","Quiet",false,["all"],"stated",false,"Same as Kelly","200+ seats, quieter than the ground floor. 5 bookable group rooms.","checked",["utlHours","kelly"]],
+    ["kelly-3","E","Kelly Library 3rd floor","113 St. Joseph St","Library","Silent",false,["all"],"stated",false,"Same as Kelly","150+ seats in individual carrels, reserved for silent study.","checked",["utlHours","kelly"]],
+    ["smc-commuter","E","St. Mike’s Commuter Lounge","Brennan Hall, Rm 115a","Lounge","Social",false,["comm:SMC"],"stated",false,"Not published","Kitchenette, TV and locked charging station.","checked",["smc"]],
+    ["smc-canada","E","Canada Room","St. Michael’s dining hall","Lounge","Social",false,["col:SMC"],"stated",false,"Not published","Open to all St. Mike’s students.","partial",["smc"]],
+    ["smc-brennan","E","Brennan Hall lounge","St. Michael’s College, Brennan Hall","Lounge","Social",false,["col:SMC"],"assumed",false,"Not published","Renovated lounge for studying and eating. I couldn’t load an official page for it.","scout",[]]
+  ];
+
+  var EXCL = [
+    ["Innis College Library","Physically closed until late spring 2027. It reopens in the new west wing.","innis"],
+    ["Trinity residence common rooms","Bookable by residence students only.","trin"],
+    ["Track One (first-year general engineering) common room","No discipline club or common room found in the list of engineering discipline clubs.","skCat"],
+    ["East Asian, Map & Data, Canada-Hong Kong, Criminology, Gardiner, ICS libraries","Specialist collections, mostly weekday 11am/12pm–5pm or less. Little use as general study space.","utlHours"],
+    ["Massey College and Dentistry libraries","Listed as restricted access. Dentistry is also far east of campus.","utlHours"],
+    ["Fisher Rare Book reading room","For using rare materials, not general study.","utlHours"]
+  ];
+
+  var ROUTE = [
+    ["stcommons","Student Commons, 2nd floor main seating","Start at the west end, at College and Huron."],
+    ["myhal-2","Myhal 2nd floor tables","Busy at lunch. Good contrast with the quiet spots."],
+    ["myhal-5","Myhal 5th floor atrium","Count the open atrium. Glance into the quiet room and note if it’s full."],
+    ["sf-pit","The Pit, Sandford Fleming basement","Note any event happening."],
+    ["ecsl-main","ECSL open tables (main floor)","Count the open tables only, not the computers. TCard at the entrance."],
+    ["ecsl-quiet","ECSL Quiet Study Space","Silent room, so count from the doorway."],
+    ["gerstein-rr","Gerstein Reading Room","94 seats, your big-library baseline. TCard at the entrance."],
+    ["uc-clark","UC Clark Reading Room","Niche quiet room. If it isn’t open to everyone, use the Donnelly atrium instead."]
+  ];
+
+  // Date exceptions to the regular week, from the LibCal feed (pulled Oct 12, 2026, covering to Jan 2, 2027)
+  var GAP = "The feed lists no holiday closures here at all, not even Thanksgiving, so its holiday hours probably just weren’t entered.";
+  var X_ROB = "Oct 12 closed · Dec 24–26 closed · Dec 27–30 9am–5pm · Dec 31–Jan 2 closed";
+  var X_GER = "Oct 12 closed · Dec 24–Jan 2 closed";
+  var X_OISE = "Oct 12 closed · Dec 24–26 and Dec 28–Jan 2 closed";
+  var EXC = {
+    "robarts-floors": X_ROB, "robarts-rooms": X_ROB, "pjrc": "Oct 12 closed · Dec 24–Jan 2 closed",
+    "robarts-common": "Oct 11 closes 10pm · Oct 12 closed · Oct 13 opens 8:30am · no hours listed Dec 24–Jan 2",
+    "gerstein-rr": X_GER, "gerstein-silent": X_GER, "gerstein-morrison": X_GER, "gerstein-wallace": X_GER, "gerstein-lower": X_GER, "gerstein-heritage": X_GER, "gerstein-rooms": X_GER,
+    "ecsl-main": "Dec 23–26 and Dec 28–Jan 2 closed. The feed shows it open on Thanksgiving, so check.", "ecsl-quiet": "Same as ECSL", "ecsl-rooms": "Same as ECSL",
+    "oise-ground": X_OISE, "oise-quiet": X_OISE, "oise-collab": X_OISE,
+    "kelly-g": GAP, "kelly-2": GAP, "kelly-3": GAP,
+    "pratt": "Oct 12 closed · Dec 23 9am–4:45pm · Dec 24–Jan 2 closed",
+    "emmanuel": "Oct 12 closed · Dec 19 closed · Dec 21–22 9am–5pm · Dec 23 9am–3pm · Dec 24–26 and Dec 28–Jan 2 closed",
+    "trinity-graham": "Oct 12 closed. No winter closure listed yet.",
+    "uc-lib": "Oct 12 closed · Dec 24–Jan 2 closed",
+    "nc-ivey": "Oct 12 closed · reading week Oct 26–29 9am–5pm · Dec 24–Jan 2 closed",
+    "chem-lib": "Oct 12 closed · Dec 24–25 and Dec 28–Jan 1 closed",
+    "phys-lib": "Oct 12 closed. No winter closure listed yet.",
+    "math-lib": GAP, "earth-lib": GAP, "art-lib": GAP, "knox": GAP,
+    "music-lib": "Oct 12 closed · Dec 21–23 9am–5pm · Dec 24–25 and Dec 28–Jan 1 closed",
+    "arch-lib": "Oct 12 closed. No winter closure listed yet.",
+    "rotman-lib": "Oct 12 closed · Dec 24–25 and Dec 28–Jan 1 closed",
+    "newman": "Oct 12 closed · Dec 24–25 and Dec 28–Jan 1 closed"
+  };
+
+  var byId = {};
+  R.forEach(function (r) { byId[r[0]] = r; });
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" }[c]; }); }
+
+  var srcKeys = Object.keys(S);
+  var srcNum = {};
+  srcKeys.forEach(function (k, i) { srcNum[k] = i + 1; });
+  document.getElementById("src-list").innerHTML = srcKeys.map(function (k) {
+    return "<li><a href=\"" + esc(S[k][1]) + "\" target=\"_blank\" rel=\"noopener\">" + esc(S[k][0]) + "</a></li>";
+  }).join("");
+  function srcLinks(keys) {
+    if (!keys.length) return "<span>No official page found</span>";
+    return keys.map(function (k) {
+      return "<a href=\"" + esc(S[k][1]) + "\" target=\"_blank\" rel=\"noopener\" title=\"" + esc(S[k][0]) + "\">[" + srcNum[k] + "] " + esc(S[k][0].split(":")[0]) + "</a>";
+    }).join("");
+  }
+
+  // Summary
+  var c = { all: R.length, open: 0, members: 0, unclear: 0, scout: 0 };
+  R.forEach(function (r) {
+    if (r[7].some(isOpenRule)) c.open++;
+    else if (r[7][0] === "?") c.unclear++;
+    else c.members++;
+    if (r[12] === "scout") c.scout++;
+  });
+  document.getElementById("summary").innerHTML = [
+    [c.all, "spots listed"], [c.open, "open to any U of T student"], [c.members, "for one group only"], [c.unclear, "access unclear"], [c.scout, "to scout on site"]
+  ].map(function (s) { return "<div class=\"stat\"><b>" + s[0] + "</b><span>" + s[1] + "</span></div>"; }).join("");
+
+  // Filters
+  function fillSelect(id, label, entries) {
+    document.getElementById(id).innerHTML = "<option value=\"\">All " + label + "</option>" + entries.map(function (e) { return "<option value=\"" + esc(e[0]) + "\">" + esc(e[1]) + "</option>"; }).join("");
+  }
+  fillSelect("f-zone", "zones", Object.keys(ZONES).map(function (k) { return [k, ZONES[k]]; }));
+  fillSelect("f-noise", "noise", ["Silent", "Quiet", "Collaborative", "Social", "Mixed", "—"].map(function (n) { return [n, n === "—" ? "Not stated" : n]; }));
+  fillSelect("f-status", "statuses", Object.keys(STATUS).map(function (k) { return [k, STATUS[k]]; }));
+
+  var IDS = ["p-fac", "p-prog", "p-col", "p-res", "p-csc", "p-unclear", "f-zone", "f-noise", "f-status", "f-q"];
+  var KEY = "spots-state-v2";
+  function el(id) { return document.getElementById(id); }
+  function val(id) { var e = el(id); return e.type === "checkbox" ? e.checked : e.value; }
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    IDS.forEach(function (id) {
+      if (saved[id] == null) return;
+      var e = el(id);
+      if (e.type === "checkbox") e.checked = !!saved[id]; else e.value = saved[id];
+    });
+  } catch (e) {}
+
+  function profile() {
+    return { fac: val("p-fac"), prog: val("p-prog"), col: val("p-col"), res: val("p-res"), csc: val("p-csc"), unclear: val("p-unclear") };
+  }
+  function allows(rule, p) {
+    if (rule === "all") return true;
+    if (rule === "uoft") return p.fac !== "visitor";
+    if (rule === "?") return p.unclear && p.fac !== "visitor";
+    if (rule === "csc") return p.csc && p.fac !== "visitor";
+    if (rule === "md") return p.fac === "md";
+    var parts = rule.split(":");
+    if (parts[0] === "prog") return p.fac === "eng" && p.prog === parts[1];
+    if (parts[0] === "col") return p.fac === "as" && p.col === parts[1];
+    if (parts[0] === "res") return p.res === parts[1];
+    if (parts[0] === "comm") return p.fac === "as" && p.col === parts[1] && p.res === "none";
+    return false;
+  }
+
+  function rowHtml(r, p, research) {
+    var who = r[7];
+    var yours = !research && who.some(function (w) { return !isOpenRule(w) && w !== "?" && allows(w, p); });
+    var whoChip;
+    if (who[0] === "?") whoChip = "<span class=\"chip off\">Access unclear</span>";
+    else {
+      var txt = who.map(ruleLabel).join(" or ") + (r[8] === "assumed" ? " (assumed)" : "");
+      var cls = who.some(isOpenRule) ? "chip" : (yours ? "chip you" : "chip members");
+      whoChip = "<span class=\"" + cls + "\">" + (yours ? "Yours: " : "") + esc(txt) + "</span>";
+    }
+    var card = r[9] ? "<span class=\"chip\">Card or fob door</span>" : "";
+    var noise = r[5] === "—" ? "<span class=\"chip off\">noise not stated</span>" : "<span class=\"chip\">" + esc(r[5]) + (r[6] ? " · official" : "") + "</span>";
+    var st = "<span class=\"chip s-" + r[12] + "\">" + esc(STATUS[r[12]]) + "</span>";
+    return "<article class=\"spot\" id=\"spot-" + esc(r[0]) + "\">" +
+      "<div class=\"main\"><h3>" + esc(r[2]) + "</h3><p class=\"where\">" + esc(r[3]) + " · " + esc(r[4]) + "</p>" +
+      "<p class=\"note\">" + esc(r[11]) + "</p><p class=\"src\">" + srcLinks(r[13]) + "</p></div>" +
+      "<div class=\"meta\"><div class=\"chips\">" + whoChip + card + "</div><div class=\"chips\">" + st + noise + "</div>" +
+      "<div class=\"hours\">" + esc(r[10]) + "</div>" + (EXC[r[0]] ? "<div class=\"hours\" style=\"color:var(--warn)\">Exceptions: " + esc(EXC[r[0]]) + "</div>" : "") + "<div class=\"hours\" style=\"color:var(--muted)\">id: " + esc(r[0]) + "</div></div></article>";
+  }
+
+  function syncProfileControls(p) {
+    el("p-prog").disabled = p.fac !== "eng";
+    el("p-col").disabled = p.fac !== "as";
+    el("p-csc").disabled = p.fac === "" || p.fac === "visitor";
+    el("p-res").disabled = p.fac === "" || p.fac === "visitor";
+    el("p-unclear").disabled = p.fac === "" || p.fac === "visitor";
+  }
+
+  function render() {
+    var state = {};
+    IDS.forEach(function (id) { state[id] = val(id); });
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    var p = profile();
+    syncProfileControls(p);
+    var research = p.fac === "";
+    var q = String(state["f-q"]).trim().toLowerCase();
+    var shown = R.filter(function (r) {
+      if (!research && !r[7].some(function (w) { return allows(w, p); })) return false;
+      if (state["f-zone"] && r[1] !== state["f-zone"]) return false;
+      if (state["f-noise"] && r[5] !== state["f-noise"]) return false;
+      if (state["f-status"] && r[12] !== state["f-status"]) return false;
+      if (q && (r[2] + " " + r[3] + " " + r[4] + " " + r[11]).toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+    var html = "";
+    Object.keys(ZONES).forEach(function (z) {
+      var rows = shown.filter(function (r) { return r[1] === z; });
+      if (!rows.length) return;
+      html += "<div class=\"zone\"><h2>" + esc(ZONES[z]) + " <small>" + rows.length + " spot" + (rows.length === 1 ? "" : "s") + "</small></h2>" + rows.map(function (r) { return rowHtml(r, p, research); }).join("") + "</div>";
+    });
+    el("list").innerHTML = html || "<p class=\"empty\">No spots match. Clear a filter or change the student profile.</p>";
+    el("count").textContent = shown.length + " of " + R.length + " shown";
+
+    var msg;
+    if (research) msg = "Research view: every spot is listed, with who can use it.";
+    else if (p.fac === "visitor") msg = "Visitors see only spots open to the public.";
+    else {
+      var own = shown.filter(function (r) { return r[7].some(function (w) { return !isOpenRule(w) && w !== "?" && allows(w, p); }); }).length;
+      msg = shown.length + " spots for this student, " + own + " of them only open to their group.";
+      if (p.fac !== "as" && p.fac !== "") msg += " No college question: only Arts & Science students belong to one.";
+    }
+    el("who-summary").textContent = msg;
+  }
+  IDS.forEach(function (id) {
+    var e = el(id);
+    e.addEventListener(id === "f-q" ? "input" : "change", render);
+  });
+  render();
+
+  // Route
+  el("route").innerHTML = ROUTE.map(function (s) {
+    var r = byId[s[0]];
+    return "<li><div><b>" + esc(s[1]) + "</b><div class=\"hours\" style=\"color:var(--muted)\">" + esc(s[0]) + (r ? " · " + esc(r[10]) : "") + "</div></div><div class=\"zone-note\">" + esc(s[2]) + "</div></li>";
+  }).join("");
+
+  // Excluded
+  el("excl").innerHTML = EXCL.map(function (e) {
+    return "<tr><td>" + esc(e[0]) + "</td><td>" + esc(e[1]) + "</td><td><a href=\"" + esc(S[e[2]][1]) + "\" target=\"_blank\" rel=\"noopener\">[" + srcNum[e[2]] + "]</a></td></tr>";
+  }).join("");
+
+  // Copy helpers
+  function csvCell(v) { v = String(v); return /[",\n]/.test(v) ? "\"" + v.replace(/"/g, "\"\"") + "\"" : v; }
+  function toCsv() {
+    var head = ["id","zone","name","where","type","noise","noise_official","who","who_basis","card_door","hours","hours_exceptions","notes","status","sources"];
+    return [head.join(",")].concat(R.map(function (r) {
+      return [r[0], ZONES[r[1]], r[2], r[3], r[4], r[5], r[6] ? "yes" : "no", r[7].join(" | "), r[8], r[9] ? "yes" : "no", r[10], EXC[r[0]] || "", r[11], STATUS[r[12]], r[13].map(function (k) { return S[k][1]; }).join(" ")].map(csvCell).join(",");
+    })).join("\n");
+  }
+  function copyText(text, btn, fallbackEl) {
+    var label = btn.textContent;
+    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = label; }, 1600); };
+    var fail = function () {
+      if (fallbackEl) { fallbackEl.hidden = false; fallbackEl.value = text; fallbackEl.focus(); fallbackEl.select(); btn.textContent = "Select all and copy below"; }
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fail);
+      else fail();
+    } catch (e) { fail(); }
+  }
+  el("copy-csv").addEventListener("click", function (ev) { copyText(toCsv(), ev.currentTarget, el("csv-fallback")); });
+  el("copy-log").addEventListener("click", function (ev) { copyText(el("log-header").textContent, ev.currentTarget, null); });
+})();
+</script>

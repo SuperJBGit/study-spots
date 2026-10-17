@@ -1,0 +1,3377 @@
+{
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on.",
+ "spots": [
+  {
+   "id": "stcommons",
+   "name": "Student Commons",
+   "where": "230 College St (at Huron)",
+   "zone": "S",
+   "type": "Commons",
+   "building": "stcommons",
+   "noise": "Mixed",
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published on the UTSU page",
+   "outlets": null,
+   "food": "yes",
+   "notes": "Quiet zones and individual seating, plus team suites, open tables and bookable meeting rooms. Acacia Café on the 2nd floor (8am–3pm weekdays; the lounge stays open after).",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "UTSU: Student Commons",
+     "url": "https://www.utsu.ca/student-commons/"
+    },
+    {
+     "title": "Facilities & Services: cozy spots on St. George [Jan 2026]",
+     "url": "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"
+    }
+   ]
+  },
+  {
+   "id": "myhal-2",
+   "name": "Myhal Centre, 2nd floor tables",
+   "where": "Myhal (MY), 55 St. George St",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "myhal",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "sat": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ],
+     "sun": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ]
+    },
+    "asOf": "Myhal access protocol, Oct 2018",
+    "dated": true
+   },
+   "hoursText": "Building: Mon–Fri 7am–10pm · Sat–Sun 8am–8pm (2018)",
+   "outlets": null,
+   "food": "yes",
+   "notes": "Open area with lots of tables for eating, studying and groups, looking over St. George St. During building hours all floors are open.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "EngSci orientation: Myhal Centre",
+     "url": "https://orientation.engsci.utoronto.ca/myhal-centre/"
+    },
+    {
+     "title": "Myhal Centre access & bookings protocol [Oct 2018]",
+     "url": "https://www.engineering.utoronto.ca/files/2019/10/Myhal-Centre-Protocol-Building-Access-and-Bookings-v2.pdf"
+    }
+   ]
+  },
+  {
+   "id": "myhal-5",
+   "name": "Myhal Centre, 5th floor atrium",
+   "where": "Myhal (MY), 55 St. George St",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "myhal",
+   "noise": "Collaborative",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "sat": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ],
+     "sun": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ]
+    },
+    "asOf": "Myhal access protocol, Oct 2018",
+    "dated": true
+   },
+   "hoursText": "Building: Mon–Fri 7am–10pm · Sat–Sun 8am–8pm (2018)",
+   "outlets": null,
+   "food": null,
+   "notes": "Large open space with many tables, good for group work. Has a dedicated quiet study room and lots of window light.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "EngSci orientation: Myhal Centre",
+     "url": "https://orientation.engsci.utoronto.ca/myhal-centre/"
+    },
+    {
+     "title": "Myhal Centre access & bookings protocol [Oct 2018]",
+     "url": "https://www.engineering.utoronto.ca/files/2019/10/Myhal-Centre-Protocol-Building-Access-and-Bookings-v2.pdf"
+    }
+   ]
+  },
+  {
+   "id": "myhal-8",
+   "name": "Myhal Centre, 8th floor study space and terrace",
+   "where": "Myhal (MY), 55 St. George St",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "myhal",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "?"
+   ],
+   "whoBasis": "unknown",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "sat": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ],
+     "sun": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ]
+    },
+    "asOf": "Myhal access protocol, Oct 2018",
+    "dated": true
+   },
+   "hoursText": "Building: Mon–Fri 7am–10pm · Sat–Sun 8am–8pm (2018)",
+   "outlets": null,
+   "food": null,
+   "notes": "Quiet tables plus the Dr. Woo Hon Fai Terrace for outdoor study. The 2018 protocol puts the terrace on fob-controlled access, so check whether it’s unlocked.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "EngSci orientation: Myhal Centre",
+     "url": "https://orientation.engsci.utoronto.ca/myhal-centre/"
+    },
+    {
+     "title": "Myhal Centre access & bookings protocol [Oct 2018]",
+     "url": "https://www.engineering.utoronto.ca/files/2019/10/Myhal-Centre-Protocol-Building-Access-and-Bookings-v2.pdf"
+    }
+   ]
+  },
+  {
+   "id": "myhal-4",
+   "name": "Myhal Centre, 4th floor locker areas",
+   "where": "Myhal (MY), 55 St. George St",
+   "zone": "S",
+   "type": "Hallway nook",
+   "building": "myhal",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "assumed",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "sat": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ],
+     "sun": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ]
+    },
+    "asOf": "Myhal access protocol, Oct 2018",
+    "dated": true
+   },
+   "hoursText": "Building hours",
+   "outlets": null,
+   "food": null,
+   "notes": "A student blog calls it very quiet with almost nobody around. Seating not described.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "Student blog: top 10 spots on St. George [Aug 2024]",
+     "url": "https://ramyzhang.com/blog/places-uoft-campus-copy"
+    }
+   ]
+  },
+  {
+   "id": "myhal-67",
+   "name": "Myhal Centre, 6th–7th floor group spaces",
+   "where": "Myhal (MY), 55 St. George St",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "myhal",
+   "noise": "Collaborative",
+   "noiseOfficial": false,
+   "who": [
+    "?"
+   ],
+   "whoBasis": "unknown",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "22:00"
+      ]
+     ],
+     "sat": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ],
+     "sun": [
+      [
+       "08:00",
+       "20:00"
+      ]
+     ]
+    },
+    "asOf": "Myhal access protocol, Oct 2018",
+    "dated": true
+   },
+   "hoursText": "Building hours",
+   "outlets": null,
+   "food": null,
+   "notes": "Group study spaces among offices. The protocol says lounges and study spaces can be fob-controlled.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "EngSci orientation: Myhal Centre",
+     "url": "https://orientation.engsci.utoronto.ca/myhal-centre/"
+    },
+    {
+     "title": "Myhal Centre access & bookings protocol [Oct 2018]",
+     "url": "https://www.engineering.utoronto.ca/files/2019/10/Myhal-Centre-Protocol-Building-Access-and-Bookings-v2.pdf"
+    }
+   ]
+  },
+  {
+   "id": "bahen-3",
+   "name": "Bahen Centre, 3rd floor study areas",
+   "where": "Bahen (BA), 40 St. George St",
+   "zone": "S",
+   "type": "Hallway nook",
+   "building": "bahen",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Business hours for everyone. After hours: CS students only (TCard)",
+   "outlets": null,
+   "food": null,
+   "notes": "Described as quieter than the 2nd-floor lounge, which gets loud at lunch.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "EngSci orientation: Bahen Centre",
+     "url": "https://orientation.engsci.utoronto.ca/bahen-centre/"
+    },
+    {
+     "title": "CS Teaching Labs: Bahen labs and after-hours access",
+     "url": "https://teach.cs.toronto.edu/using-labs/on-campus-labs"
+    }
+   ]
+  },
+  {
+   "id": "bahen-labs",
+   "name": "Bahen CS labs",
+   "where": "Bahen (BA), 40 St. George St",
+   "zone": "S",
+   "type": "Computer lab",
+   "building": "bahen",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "csc"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "tue": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "wed": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "thu": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "fri": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "sat": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "sun": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ]
+    },
+    "asOf": "CS Teaching Labs page (in term)"
+   },
+   "hoursText": "24 h every day in term, TCard swipe",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Lab rooms open to students in a CS program or taking at least one CSC course. A student blog calls the 2nd-floor labs good for all-nighters.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "CS Teaching Labs: Bahen labs and after-hours access",
+     "url": "https://teach.cs.toronto.edu/using-labs/on-campus-labs"
+    },
+    {
+     "title": "Student blog: top 10 spots on St. George [Aug 2024]",
+     "url": "https://ramyzhang.com/blog/places-uoft-campus-copy"
+    }
+   ]
+  },
+  {
+   "id": "bahen-cssu",
+   "name": "CSSU Lounge (BA2250)",
+   "where": "Bahen (BA), 2nd floor",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "bahen",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "?"
+   ],
+   "whoBasis": "unknown",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Lounge open hours not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Computer Science Student Union lounge with cheap snacks and drinks.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "EngSci orientation: Bahen Centre",
+     "url": "https://orientation.engsci.utoronto.ca/bahen-centre/"
+    }
+   ]
+  },
+  {
+   "id": "eng-engsci",
+   "name": "EngSci Common Room",
+   "where": "Bahen (BA), 2nd floor",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "bahen",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "prog:EngSci"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "EngSci’s study and social room: lunch, games and studying.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Skulepedia: Engineering Science Club",
+     "url": "https://skulepedia.ca/wiki/Engineering_Science_Club"
+    },
+    {
+     "title": "EngSci orientation: Bahen Centre",
+     "url": "https://orientation.engsci.utoronto.ca/bahen-centre/"
+    }
+   ]
+  },
+  {
+   "id": "eng-ece-hall",
+   "name": "ECE Study Hall (BA1120)",
+   "where": "Bahen (BA), 1st floor near the front elevators",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "bahen",
+   "noise": "Collaborative",
+   "noiseOfficial": false,
+   "who": [
+    "prog:ECE"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "TCard swipe",
+   "outlets": null,
+   "food": null,
+   "notes": "Large tables, leather chairs and a whiteboard, suited to group study. Department tutors sit in at set hours.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Skulepedia: ECE Club (common room, study hall)",
+     "url": "https://skulepedia.ca/wiki/Electrical_and_Computer_Engineering_Club"
+    }
+   ]
+  },
+  {
+   "id": "eng-ece",
+   "name": "ECE Common Room (SF B650)",
+   "where": "Sandford Fleming (SF), basement",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "sf",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "prog:ECE"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "TV, games, foosball, microwave.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Skulepedia: ECE Club (common room, study hall)",
+     "url": "https://skulepedia.ca/wiki/Electrical_and_Computer_Engineering_Club"
+    },
+    {
+     "title": "EngSci orientation: Sandford Fleming",
+     "url": "https://orientation.engsci.utoronto.ca/sandford-fleming-building/"
+    }
+   ]
+  },
+  {
+   "id": "sf-pit",
+   "name": "The Pit",
+   "where": "Sandford Fleming (SF), basement",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "sf",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Building hours",
+   "outlets": null,
+   "food": "yes",
+   "notes": "Sunken platform with tables and benches. Anyone can use it, and it hosts frequent events. Hard Hat Café and Veda are next to it.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "EngSci orientation: Sandford Fleming",
+     "url": "https://orientation.engsci.utoronto.ca/sandford-fleming-building/"
+    }
+   ]
+  },
+  {
+   "id": "eng-chem",
+   "name": "Chem Eng Common Room (WB238)",
+   "where": "Wallberg (WB), 200 College St",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "wallberg",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "prog:Chem"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Foosball, video games and vending machines.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Skulepedia: Chemical Engineering Club",
+     "url": "https://skulepedia.ca/wiki/Chemical_Engineering_Club"
+    }
+   ]
+  },
+  {
+   "id": "eng-mse",
+   "name": "Materials Common Room (WB143)",
+   "where": "Wallberg (WB), 200 College St",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "wallberg",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "prog:MSE"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Materials Science club common room.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Skulepedia: Materials Science & Engineering Club",
+     "url": "https://skulepedia.ca/wiki/Materials_Science_and_Engineering_Club"
+    }
+   ]
+  },
+  {
+   "id": "eng-civ",
+   "name": "Civil Common Room (GB123)",
+   "where": "Galbraith (GB), 35 St. George St",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "galbraith",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "prog:Civ"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Fob access, registered through the department",
+   "outlets": null,
+   "food": null,
+   "notes": "Lounge plus a small study room, with couches, tables, microwaves and the CIV Club office.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Skulepedia: Civil Engineering Club",
+     "url": "https://skulepedia.ca/wiki/Civil_Engineering_Club"
+    },
+    {
+     "title": "CIV Club: common room access [2021–22]",
+     "url": "https://www.civ.skule.ca/?p=2551"
+    }
+   ]
+  },
+  {
+   "id": "eng-mech",
+   "name": "Mech & Industrial Common Room (MB225B)",
+   "where": "Mining Building (MB), 170 College St",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "mining",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "prog:Mech",
+    "prog:Indy"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Recently renovated. Ping pong, pool, video games, snacks. Shared by the Mech and Industrial clubs.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Skulepedia: Mechanical Engineering Club",
+     "url": "https://skulepedia.ca/wiki/Mechanical_Engineering_Club"
+    },
+    {
+     "title": "Skulepedia: Industrial Engineering Club",
+     "url": "https://skulepedia.ca/wiki/Industrial_Engineering_Club"
+    }
+   ]
+  },
+  {
+   "id": "eng-min",
+   "name": "Mineral Engineering Common Room (MB131)",
+   "where": "Lassonde Mining Building, 1st floor",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "mining",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "prog:Min"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Min Club’s common room (location as of 2023).",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "CivMin: Min Club chair interview [2023]",
+     "url": "https://civmin.utoronto.ca/meet-your-2023-2024-min-club-chair-evan-beri/"
+    }
+   ]
+  },
+  {
+   "id": "ecsl-main",
+   "name": "Engineering & Computer Science Library, open study",
+   "where": "SF, 10 King’s College Rd, Rm 2402",
+   "zone": "S",
+   "type": "Library",
+   "building": "sf",
+   "noise": "Collaborative",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8400
+   },
+   "hoursText": "Mon–Thu 9am–9pm · Fri 9am–6pm · Sat 12–5pm · Sun closed",
+   "outlets": "yes",
+   "food": "yes",
+   "notes": "Large open tables on the main floor, lounge chairs with built-in outlets, 30 computers. Food and drink allowed.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    },
+    {
+     "title": "EngSci orientation: Sandford Fleming",
+     "url": "https://orientation.engsci.utoronto.ca/sandford-fleming-building/"
+    }
+   ]
+  },
+  {
+   "id": "ecsl-quiet",
+   "name": "ECSL Quiet Study Space",
+   "where": "SF, library 2nd floor",
+   "zone": "S",
+   "type": "Library",
+   "building": "sf",
+   "noise": "Silent",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8400
+   },
+   "hoursText": "Same as library",
+   "outlets": "yes",
+   "food": "no",
+   "notes": "Carrels with lamps and outlets, plus long tables. No eating, phones silenced.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "ecsl-rooms",
+   "name": "ECSL group study rooms",
+   "where": "SF, library",
+   "zone": "S",
+   "type": "Bookable room",
+   "building": "sf",
+   "noise": "Collaborative",
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": false,
+   "hours": {
+    "type": "libcal",
+    "lid": 8400
+   },
+   "hoursText": "Book 12 h to 2 weeks ahead, max 3 h/day",
+   "outlets": null,
+   "food": null,
+   "bookUrl": "https://library.utoronto.ca/spaces?library=Engineering%20%26%20Computer%20Science%20Library",
+   "notes": "4 rooms: two for up to 6 people, two for up to 8. Monitor, HDMI and whiteboard in each.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "gerstein-rr",
+   "name": "Gerstein Reading Room",
+   "where": "Gerstein, 9 King’s College Circle, main floor",
+   "zone": "S",
+   "type": "Library",
+   "building": "gerstein",
+   "noise": "Silent",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8321
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Thu 8:30am–11pm · Fri 8:30am–10pm · Sat 9am–10pm",
+   "outlets": "yes",
+   "food": null,
+   "notes": "94 seats under a restored heritage ceiling with a skylight. Gerstein is open to TCard holders. If you forget your TCard, security lets you in with your UTORid up to three times a term.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    },
+    {
+     "title": "Facilities & Services: cozy spots on St. George [Jan 2026]",
+     "url": "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"
+    },
+    {
+     "title": "U of T Libraries: visiting Gerstein",
+     "url": "https://library.utoronto.ca/policy/visiting-gerstein-science-information-centre"
+    }
+   ]
+  },
+  {
+   "id": "gerstein-silent",
+   "name": "Gerstein Silent Study Room and Lower Silent Study Room",
+   "where": "Gerstein, Heritage Wing",
+   "zone": "S",
+   "type": "Library",
+   "building": "gerstein",
+   "noise": "Silent",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8321
+   },
+   "hoursText": "Same as Gerstein",
+   "outlets": "yes",
+   "food": "no",
+   "notes": "Lower room has 50 seats, no food and no talking. It isn’t wheelchair accessible.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "gerstein-morrison",
+   "name": "Gerstein Morrison Pavilion",
+   "where": "Gerstein, east end, 5 floors",
+   "zone": "S",
+   "type": "Library",
+   "building": "gerstein",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8321
+   },
+   "hoursText": "Same as Gerstein",
+   "outlets": "yes",
+   "food": null,
+   "notes": "About 650 study spaces with lots of natural light. Too big to count whole, so count one floor.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "gerstein-wallace",
+   "name": "Gerstein Wallace Room (Remote Zone)",
+   "where": "Gerstein, main floor",
+   "zone": "S",
+   "type": "Library",
+   "building": "gerstein",
+   "noise": "Collaborative",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8321
+   },
+   "hoursText": "Same as Gerstein",
+   "outlets": "yes",
+   "food": null,
+   "notes": "206 seats, meant for joining online classes. First come, first served.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "gerstein-lower",
+   "name": "Gerstein B110 and Lower Reference Room (B105)",
+   "where": "Gerstein, one floor down, Heritage Wing",
+   "zone": "S",
+   "type": "Library",
+   "building": "gerstein",
+   "noise": "Collaborative",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8321
+   },
+   "hoursText": "Same as Gerstein",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Recently renovated, mixed seating. 59 + 30 seats.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "gerstein-heritage",
+   "name": "Gerstein Heritage lounge",
+   "where": "Gerstein, 2nd floor, Heritage Wing",
+   "zone": "S",
+   "type": "Library",
+   "building": "gerstein",
+   "noise": "Collaborative",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8321
+   },
+   "hoursText": "Same as Gerstein",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Casual 8-seat area overlooking the Reading Room.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "gerstein-rooms",
+   "name": "Gerstein group study rooms",
+   "where": "Gerstein",
+   "zone": "S",
+   "type": "Bookable room",
+   "building": "gerstein",
+   "noise": "Collaborative",
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": false,
+   "hours": {
+    "type": "libcal",
+    "lid": 8321
+   },
+   "hoursText": "Book through U of T Libraries",
+   "outlets": null,
+   "food": null,
+   "bookUrl": "https://library.utoronto.ca/spaces?library=Gerstein%20Science%20Information%20Centre",
+   "notes": "21 bookable rooms in the directory.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "uc-clark",
+   "name": "Clark Reading Room",
+   "where": "University College, West Hall, 15 King’s College Circle",
+   "zone": "S",
+   "type": "Reading room",
+   "building": "uc",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "?"
+   ],
+   "whoBasis": "unknown",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Quiet study space created in UC’s 2018 renovation of West Hall.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "University College: the UC building",
+     "url": "https://www.uc.utoronto.ca/about-uc-our-buildings-uc-building"
+    }
+   ]
+  },
+  {
+   "id": "uc-lib",
+   "name": "University College Library",
+   "where": "UC, Rooms 266/366",
+   "zone": "S",
+   "type": "Library",
+   "building": "uc",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8435
+   },
+   "hoursText": "Sun 10am–6pm · Mon–Thu 9am–8pm · Fri 9am–5pm · Sat 10am–6pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Vaulted ceilings and stained glass, with small nooks. The upper level is the cozy part. 2 bookable rooms.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "The Varsity: underappreciated libraries [Mar 2023]",
+     "url": "https://thevarsity.ca/2023/03/05/underappreciated-libraries-on-utsg-campus/"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "uc-csc",
+   "name": "UC Commuter Student Centre",
+   "where": "University College (location not given on UC’s page)",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "uc",
+   "locationApprox": true,
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "comm:UC"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Lounge, kitchenette, dedicated study spaces, lockers and a TV, for UC students who live off campus.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "University College: commuter life",
+     "url": "https://www.uc.utoronto.ca/commuters"
+    }
+   ]
+  },
+  {
+   "id": "hh-lib",
+   "name": "Hart House Library",
+   "where": "Hart House, 7 Hart House Circle",
+   "zone": "S",
+   "type": "Reading room",
+   "building": "hartHouse",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "sat": [
+      [
+       "09:00",
+       "18:00"
+      ]
+     ],
+     "sun": [
+      [
+       "09:00",
+       "18:00"
+      ]
+     ]
+    },
+    "asOf": "Hart House 'open' page (undated, looks old)",
+    "dated": true
+   },
+   "hoursText": "Hart House’s page says Mon–Fri 7am–11pm · weekends 9am–6pm (page looks dated)",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Small and ornate, with a fireplace and window-facing couches. A 2017 student guide mentions a charging station and plenty of outlets. Drop in during building hours.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Hart House: open for you (undated, looks out of date)",
+     "url": "https://harthouse.ca/open"
+    },
+    {
+     "title": "The Varsity: underappreciated libraries [Mar 2023]",
+     "url": "https://thevarsity.ca/2023/03/05/underappreciated-libraries-on-utsg-campus/"
+    },
+    {
+     "title": "The Varsity: Hart House renovation [Mar 2026]",
+     "url": "https://thevarsity.ca/2026/03/22/u-of-t-is-spending-240-million-to-renovate-hart-house/"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "hh-reading",
+   "name": "Hart House Reading Room",
+   "where": "Hart House",
+   "zone": "S",
+   "type": "Reading room",
+   "building": "hartHouse",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "sat": [
+      [
+       "09:00",
+       "18:00"
+      ]
+     ],
+     "sun": [
+      [
+       "09:00",
+       "18:00"
+      ]
+     ]
+    },
+    "asOf": "Hart House 'open' page (undated, looks old)",
+    "dated": true
+   },
+   "hoursText": "Same as Hart House",
+   "outlets": null,
+   "food": null,
+   "notes": "Drop-in study during building hours.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Hart House: open for you (undated, looks out of date)",
+     "url": "https://harthouse.ca/open"
+    },
+    {
+     "title": "The Varsity: Hart House renovation [Mar 2026]",
+     "url": "https://thevarsity.ca/2026/03/22/u-of-t-is-spending-240-million-to-renovate-hart-house/"
+    }
+   ]
+  },
+  {
+   "id": "hh-map",
+   "name": "Hart House Map Room",
+   "where": "Hart House",
+   "zone": "S",
+   "type": "Reading room",
+   "building": "hartHouse",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "23:00"
+      ]
+     ],
+     "sat": [
+      [
+       "09:00",
+       "18:00"
+      ]
+     ],
+     "sun": [
+      [
+       "09:00",
+       "18:00"
+      ]
+     ]
+    },
+    "asOf": "Hart House 'open' page (undated, looks old)",
+    "dated": true
+   },
+   "hoursText": "Same as Hart House",
+   "outlets": null,
+   "food": null,
+   "notes": "Drop-in study during building hours.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Hart House: open for you (undated, looks out of date)",
+     "url": "https://harthouse.ca/open"
+    },
+    {
+     "title": "The Varsity: Hart House renovation [Mar 2026]",
+     "url": "https://thevarsity.ca/2026/03/22/u-of-t-is-spending-240-million-to-renovate-hart-house/"
+    }
+   ]
+  },
+  {
+   "id": "hh-arbor",
+   "name": "Arbor Room",
+   "where": "Hart House, lower level",
+   "zone": "S",
+   "type": "Café",
+   "building": "hartHouse",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "08:30",
+       "19:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:30",
+       "19:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:30",
+       "19:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:30",
+       "19:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:30",
+       "19:00"
+      ]
+     ],
+     "sat": [
+      [
+       "09:00",
+       "15:00"
+      ]
+     ],
+     "sun": [
+      [
+       "09:00",
+       "15:00"
+      ]
+     ]
+    },
+    "asOf": "Facilities & Services, Jan 2026"
+   },
+   "hoursText": "Mon–Fri 8:30am–7pm · Sat–Sun 9am–3pm (Jan 2026)",
+   "outlets": null,
+   "food": "yes",
+   "notes": "Café with armchairs and tall gothic windows. Open to students, staff and faculty.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "Facilities & Services: cozy spots on St. George [Jan 2026]",
+     "url": "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"
+    }
+   ]
+  },
+  {
+   "id": "donnelly",
+   "name": "Bamboo Forest atrium",
+   "where": "Donnelly Centre, 160 College St, 1st floor",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "donnelly",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Japanese-style indoor garden with benches and two patios under a skylight, near the MSB food hall.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Facilities & Services: cozy spots on St. George [Jan 2026]",
+     "url": "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"
+    }
+   ]
+  },
+  {
+   "id": "md-msb",
+   "name": "MSB student lounge",
+   "where": "Medical Sciences Building, main floor",
+   "zone": "S",
+   "type": "Lounge",
+   "building": "msb",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "md"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Built for MD students. One half has a kitchen and games, and the other half can be closed off.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Temerty Medicine: MSB student lounge [Oct 2014]",
+     "url": "https://temertymedicine.utoronto.ca/news/new-student-lounge-now-open"
+    }
+   ]
+  },
+  {
+   "id": "pharm",
+   "name": "Pharmacy building atrium",
+   "where": "Leslie Dan Pharmacy, 144 College St",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "pharmacy",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "?"
+   ],
+   "whoBasis": "unknown",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Refurnished in 2024 for studying and socializing. The page doesn’t say who can use it.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "Leslie Dan Pharmacy: atrium renewal [2024]",
+     "url": "https://pharmacy.utoronto.ca/node/1867"
+    }
+   ]
+  },
+  {
+   "id": "sric",
+   "name": "Schwartz Reisman Innovation Campus, ground floor and winter gardens",
+   "where": "108 College St",
+   "zone": "S",
+   "type": "Atrium / lounge",
+   "building": "sric",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "?"
+   ],
+   "whoBasis": "unknown",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Café seating on the ground floor and two winter gardens overlooking Queen’s Park. Nothing published on student use or hours.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "Schwartz Reisman Innovation Campus: about",
+     "url": "https://sric.utoronto.ca/about-us/"
+    }
+   ]
+  },
+  {
+   "id": "chem-lib",
+   "name": "Chemistry Library (A D Allen)",
+   "where": "Lash Miller, 80 St. George St, Rm 480",
+   "zone": "S",
+   "type": "Library",
+   "building": "lashMiller",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8322
+   },
+   "hoursText": "Mon–Fri 10am–5pm",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Upper level is quiet. Lower level is collaborative and has 1 bookable room.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "math-lib",
+   "name": "Mathematical Sciences Library",
+   "where": "Bahen, 40 St. George St, Rm 6141",
+   "zone": "S",
+   "type": "Library",
+   "building": "bahen",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8325
+   },
+   "hoursText": "Mon–Fri 9am–5pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Small departmental library.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "phys-lib",
+   "name": "Physics Library",
+   "where": "McLennan, 60 St. George St, Rm 101B",
+   "zone": "S",
+   "type": "Library",
+   "building": "mcLennan",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8323
+   },
+   "hoursText": "Mon–Fri 10am–5pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Small departmental library.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "knox",
+   "name": "Knox College Library (Caven)",
+   "where": "59 St. George St",
+   "zone": "S",
+   "type": "Library",
+   "building": "knox",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8441
+   },
+   "hoursText": "Mon–Fri 8:30am–4:30pm",
+   "outlets": "limited",
+   "food": null,
+   "notes": "Small, quiet and rarely busy, with high ceilings and wooden desks. It can get hot in warm months, so take a window seat. Outlets are very limited (student blogs, 2017 and 2024).",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "Student blog: top 10 spots on St. George [Aug 2024]",
+     "url": "https://ramyzhang.com/blog/places-uoft-campus-copy"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "empty-rooms",
+   "name": "Empty classrooms",
+   "where": "Across campus, via the UofT Synchronous Space Finder app",
+   "zone": "S",
+   "type": "Classroom",
+   "building": null,
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": false,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Updated weekly",
+   "outlets": null,
+   "food": "no",
+   "notes": "Official app listing classrooms not in use. Last updated Sep 2022, so check it still has current data. No food or drink.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "UofT Synchronous Space Finder (App Store, v3.2, Sep 2022)",
+     "url": "https://apps.apple.com/us/app/-/id1584199861"
+    },
+    {
+     "title": "LSM: Synchronous Space Finder",
+     "url": "https://lsm.utoronto.ca/syncstudy.html"
+    }
+   ]
+  },
+  {
+   "id": "ssc",
+   "name": "Sidney Smith Commons",
+   "where": "Sidney Smith Hall, 100 St. George St",
+   "zone": "M",
+   "type": "Commons",
+   "building": "sidSmith",
+   "noise": "Collaborative",
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "10:00",
+       "19:30"
+      ]
+     ],
+     "tue": [
+      [
+       "10:00",
+       "19:30"
+      ]
+     ],
+     "wed": [
+      [
+       "10:00",
+       "19:30"
+      ]
+     ],
+     "thu": [
+      [
+       "10:00",
+       "19:30"
+      ]
+     ],
+     "fri": [
+      [
+       "10:00",
+       "17:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "Sidney Smith Commons page, 2026"
+   },
+   "hoursText": "Mon–Thu 10am–7:30pm · Fri 10am–5pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Four sections: lounge seating, movable tables, group tables with whiteboards. A student blog says the west side is reliably quiet.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "Sidney Smith Commons: spaces open on campus",
+     "url": "https://sidneysmithcommons.artsci.utoronto.ca/?p=13765"
+    },
+    {
+     "title": "Campus Guides: study spots for 5 kinds of studiers [2020]",
+     "url": "https://campusguides.ca/2020/01/21/study-spots-for-5-kinds-of-studiers-at-uoft-st-george/"
+    },
+    {
+     "title": "Student blog: top 10 spots on St. George [Aug 2024]",
+     "url": "https://ramyzhang.com/blog/places-uoft-campus-copy"
+    }
+   ]
+  },
+  {
+   "id": "art-lib",
+   "name": "Department of Art Library",
+   "where": "Sidney Smith Hall, Rm 6034",
+   "zone": "M",
+   "type": "Library",
+   "building": "sidSmith",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8363
+   },
+   "hoursText": "Mon–Fri 12–6pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Small departmental library.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "rotman-lib",
+   "name": "Milt Harris Library",
+   "where": "Rotman, 105 St. George St, Rm 5005",
+   "zone": "M",
+   "type": "Library",
+   "building": "rotman",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8362
+   },
+   "hoursText": "Mon–Thu 10am–8pm · Fri 10am–5pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Business library inside Rotman.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "wdw",
+   "name": "Kruger Hall Commons",
+   "where": "Woodsworth College, 119 St. George St",
+   "zone": "M",
+   "type": "Lounge",
+   "building": "woodsworth",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:WDW"
+   ],
+   "whoBasis": "assumed",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Study, meeting and social space for Woodsworth students and alumni.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "Woodsworth College: about",
+     "url": "https://wdw.utoronto.ca/about-woodsworth"
+    }
+   ]
+  },
+  {
+   "id": "innis-events",
+   "name": "Innis Events Room",
+   "where": "Innis Residence, 111 St. George St, ground level",
+   "zone": "M",
+   "type": "Lounge",
+   "building": "innisRes",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "col:Innis"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Becomes a 24/7 quiet study space in exam season",
+   "outlets": null,
+   "food": null,
+   "notes": "Open to all Innis students, whether or not they live in the residence.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Innis College: places & spaces",
+     "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    }
+   ]
+  },
+  {
+   "id": "newman",
+   "name": "Newman Industrial Relations Library",
+   "where": "121 St. George St",
+   "zone": "M",
+   "type": "Library",
+   "building": "irhr",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8351
+   },
+   "hoursText": "Mon–Fri 9am–5pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Small library with 1 bookable room.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "nc-ivey",
+   "name": "New College Ivey Library",
+   "where": "Wilson Hall, 40 Willcocks St",
+   "zone": "M",
+   "type": "Library",
+   "building": "wilsonHall",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8442
+   },
+   "hoursText": "Sun 11am–7pm · Mon–Thu 9am–9pm · Fri 9am–5pm · Sat 11am–7pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Computer labs and group rooms. New College says its 24-hour exam study is for New College students.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "New College: amenity spaces",
+     "url": "https://www.newcollege.utoronto.ca/student-experience/orsl/amenities/"
+    }
+   ]
+  },
+  {
+   "id": "nc-wilson",
+   "name": "Wilson Hall Lounge",
+   "where": "New College, 40 Willcocks St",
+   "zone": "M",
+   "type": "Lounge",
+   "building": "wilsonHall",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:NC",
+    "res:NC"
+   ],
+   "whoBasis": "assumed",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Tables, chairs and bar stools with extra outlets, plus the Coffee Shed.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "New College: building updates [Jul 2022]",
+     "url": "https://www.newcollege.utoronto.ca/new-spaces-new-college-building-updates/"
+    },
+    {
+     "title": "New College: amenity spaces",
+     "url": "https://www.newcollege.utoronto.ca/student-experience/orsl/amenities/"
+    }
+   ]
+  },
+  {
+   "id": "nc-45",
+   "name": "45 Willcocks atrium and lounges",
+   "where": "New College, by the William Doo Auditorium",
+   "zone": "M",
+   "type": "Lounge",
+   "building": "nc45",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:NC",
+    "res:NC"
+   ],
+   "whoBasis": "assumed",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Lots of seating and a Second Cup. More lounges downstairs (GNU Lounge, The Den) and a Mezzanine Lobby.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "New College: building updates [Jul 2022]",
+     "url": "https://www.newcollege.utoronto.ca/new-spaces-new-college-building-updates/"
+    }
+   ]
+  },
+  {
+   "id": "nc-multi",
+   "name": "New College multipurpose room",
+   "where": "45 Willcocks, basement",
+   "zone": "M",
+   "type": "Bookable room",
+   "building": "nc45",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "col:NC",
+    "res:NC"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": false,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Drop in or book ahead",
+   "outlets": null,
+   "food": null,
+   "notes": "Desks, chairs and A/V for studying and group projects. For New College students and New College residents.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "New College: amenity spaces",
+     "url": "https://www.newcollege.utoronto.ca/student-experience/orsl/amenities/"
+    }
+   ]
+  },
+  {
+   "id": "earth-lib",
+   "name": "Earth Sciences Library (Noranda)",
+   "where": "5 Bancroft Ave, 2nd floor",
+   "zone": "M",
+   "type": "Library",
+   "building": "earthSci",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8324
+   },
+   "hoursText": "Mon–Thu 9am–8pm · Fri 9am–5pm · weekends closed",
+   "outlets": null,
+   "food": null,
+   "notes": "A round, two-storey reading room: open tables on the main floor and individual booths around the upper level. Lots of window light, calm and rarely busy (2017 student guide).",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "arch-lib",
+   "name": "Eberhard Zeidler Library",
+   "where": "Daniels Building, 1 Spadina Cres",
+   "zone": "M",
+   "type": "Library",
+   "building": "daniels",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8163
+   },
+   "hoursText": "Sun 12–5pm · Mon–Thu 9:30am–9pm · Fri 9:30am–7pm · Sat closed",
+   "outlets": null,
+   "food": null,
+   "notes": "Architecture, landscape and design library. 1 bookable room.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "robarts-common",
+   "name": "Robarts Common",
+   "where": "Robarts, floors 2–5 wing; overnight entry at Harbord and Huron",
+   "zone": "N",
+   "type": "Library",
+   "building": "robartsCommon",
+   "noise": "Collaborative",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8315
+   },
+   "hoursText": "Sun from 10am, then 24 h until Fri 11pm · Sat 9am–10pm",
+   "outlets": "yes",
+   "food": "yes",
+   "notes": "1,200 seats over five floors, with the 5th floor kept quiet. Food and drink allowed. Overnight you need your physical TCard, and group rooms are first come, first served.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    },
+    {
+     "title": "U of T Libraries: overnight study at Robarts Common",
+     "url": "https://library.utoronto.ca/use/service/overnight-study-robarts-common"
+    }
+   ]
+  },
+  {
+   "id": "robarts-floors",
+   "name": "Robarts Library floors and carrels",
+   "where": "Robarts, 130 St. George St",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Carrels with power and natural light. You need a valid TCard to get in. A student blog says the 4th floor gets busy but has high ceilings.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    },
+    {
+     "title": "Student blog: top 10 spots on St. George [Aug 2024]",
+     "url": "https://ramyzhang.com/blog/places-uoft-campus-copy"
+    },
+    {
+     "title": "U of T Libraries: visiting Robarts Library",
+     "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    }
+   ]
+  },
+  {
+   "id": "pjrc",
+   "name": "Petro Jacyk Resource Centre",
+   "where": "Robarts 3rd floor, Rm 3008",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8413
+   },
+   "hoursText": "Same as Robarts",
+   "outlets": null,
+   "food": null,
+   "notes": "Individual and group seating. The libraries page tags it both Public and U of T access. It sits inside Robarts, which needs a TCard at the door, so I’ve treated it as U of T only (judgement).",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "robarts-rooms",
+   "name": "Robarts group study rooms",
+   "where": "Robarts and Robarts Common",
+   "zone": "N",
+   "type": "Bookable room",
+   "building": "robarts",
+   "noise": "Collaborative",
+   "noiseOfficial": false,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": false,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Book through U of T Libraries",
+   "outlets": null,
+   "food": null,
+   "bookUrl": "https://libcal.library.utoronto.ca/r/search/robarts",
+   "notes": "56 bookable rooms in the directory.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "oise-ground",
+   "name": "OISE Library, ground floor",
+   "where": "252 Bloor St W (above St. George station)",
+   "zone": "N",
+   "type": "Library",
+   "building": "oise",
+   "noise": "Collaborative",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8328
+   },
+   "hoursText": "Mon–Thu 8:45am–7pm · Fri 8:45am–5pm · Sat 10am–5pm · Sun closed",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Popular because it’s right above the subway, with big windows.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    },
+    {
+     "title": "The Varsity: TCard scanners at building entrances [Feb 2025]",
+     "url": "https://thevarsity.ca/2025/02/11/does-u-of-t-need-more-tcard-scanners-at-building-entrances/"
+    }
+   ]
+  },
+  {
+   "id": "oise-quiet",
+   "name": "OISE Library, concourse and 2nd floor",
+   "where": "OISE Library",
+   "zone": "N",
+   "type": "Library",
+   "building": "oise",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8328
+   },
+   "hoursText": "Same as OISE Library",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Large tables and individual desks.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "oise-collab",
+   "name": "OISE Library, mezzanine and 3rd floor",
+   "where": "OISE Library",
+   "zone": "N",
+   "type": "Library",
+   "building": "oise",
+   "noise": "Collaborative",
+   "noiseOfficial": true,
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8328
+   },
+   "hoursText": "Same as OISE Library",
+   "outlets": "yes",
+   "food": "drinks",
+   "bookUrl": "https://libcal.library.utoronto.ca/r/search/OISE",
+   "notes": "Mezzanine has 10 open carrels and 22 bookable rooms (covered drinks only). The 3rd floor has whiteboard tables. 29 bookable rooms across the library.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "oise-nexus",
+   "name": "Nexus Lounge",
+   "where": "OISE, 252 Bloor St W, 12th floor",
+   "zone": "N",
+   "type": "Lounge",
+   "building": "oise",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Open when not privately booked",
+   "outlets": null,
+   "food": null,
+   "notes": "Panoramic skyline views.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Facilities & Services: cozy spots on St. George [Jan 2026]",
+     "url": "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"
+    }
+   ]
+  },
+  {
+   "id": "innis-cinema",
+   "name": "Innis Cinema Studies Lounge",
+   "where": "Innis College, 2 Sussex Ave, 2nd floor east wing",
+   "zone": "N",
+   "type": "Lounge",
+   "building": "innis",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "col:Innis"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Armchairs and couches for solo or group study.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Innis College: places & spaces",
+     "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    }
+   ]
+  },
+  {
+   "id": "innis-carrels",
+   "name": "Innis quiet study carrels",
+   "where": "Innis College, 3rd floor east wing",
+   "zone": "N",
+   "type": "Hallway nook",
+   "building": "innis",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "col:Innis"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Individual stations with glass walls looking onto the library.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Innis College: places & spaces",
+     "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    }
+   ]
+  },
+  {
+   "id": "innis-commuter",
+   "name": "Innis Commuter Student Lounge (IN105)",
+   "where": "Innis College, 2 Sussex Ave",
+   "zone": "N",
+   "type": "Lounge",
+   "building": "innis",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "col:Innis"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Kitchenette, and described as a quiet nook for studying.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Innis College: places & spaces",
+     "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    }
+   ]
+  },
+  {
+   "id": "innis-roof",
+   "name": "Innis rooftop patio",
+   "where": "Innis College",
+   "zone": "N",
+   "type": "Outdoor",
+   "building": "innis",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:Innis"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Quietness varies. Busiest at lunch and dinner.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Innis College: places & spaces",
+     "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    }
+   ]
+  },
+  {
+   "id": "trinity-graham",
+   "name": "John W. Graham Library",
+   "where": "Trinity College, 3 Devonshire Pl",
+   "zone": "N",
+   "type": "Library",
+   "building": "graham",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8347
+   },
+   "hoursText": "Sun 1:15–10:45pm · Mon–Thu 8:30am–10:45pm · Fri 8:30am–7:45pm · Sat 9:15am–7:45pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Wood panelling, carrels by windows over the courtyard, armchairs by a fireplace. Only one set of washrooms, in the basement (2017 student guide). 6 bookable rooms.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "The Varsity: underappreciated libraries [Mar 2023]",
+     "url": "https://thevarsity.ca/2023/03/05/underappreciated-libraries-on-utsg-campus/"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "trinity-buttery",
+   "name": "The Buttery",
+   "where": "Gerald Larkin Building, 15 Devonshire Pl",
+   "zone": "N",
+   "type": "Café",
+   "building": "larkin",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:Trin"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": "yes",
+   "notes": "Lounge, eating area and servery, with a microwave and fireplace. Trinity lists it among its community spaces for its students.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Trinity College: community spaces",
+     "url": "https://www.trinity.utoronto.ca/arts-science/student-services/student-life-2/community-spaces/"
+    }
+   ]
+  },
+  {
+   "id": "trinity-jcr",
+   "name": "Trinity Junior Common Room",
+   "where": "Trinity College, 6 Hoskin Ave, beside Strachan Hall",
+   "zone": "N",
+   "type": "Lounge",
+   "building": "trinity",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:Trin"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Open for student use. Also hosts student meetings.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Trinity College: community spaces",
+     "url": "https://www.trinity.utoronto.ca/arts-science/student-services/student-life-2/community-spaces/"
+    }
+   ]
+  },
+  {
+   "id": "trinity-hildas",
+   "name": "St. Hilda’s: Stedman Library, Adams Room, Melinda Seaman Hall",
+   "where": "St. Hilda’s College, 44 Devonshire Pl",
+   "zone": "N",
+   "type": "Reading room",
+   "building": "stHildas",
+   "noise": "Silent",
+   "noiseOfficial": false,
+   "who": [
+    "col:Trin"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Stedman is a silent library with leather couches. Adams Room is quiet group study. Melinda Seaman is informal study space.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "Trinity College: community spaces",
+     "url": "https://www.trinity.utoronto.ca/arts-science/student-services/student-life-2/community-spaces/"
+    }
+   ]
+  },
+  {
+   "id": "music-lib",
+   "name": "Music Library",
+   "where": "Edward Johnson Building, 80 Queen’s Park",
+   "zone": "N",
+   "type": "Library",
+   "building": "edJohnson",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8344
+   },
+   "hoursText": "Mon–Thu 8:30am–7pm · Fri 8:30am–6pm · weekends closed",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Individual and group seating on two floors, open to everyone. 3 bookable rooms.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "U of T Libraries: Find a space (noise levels, capacities)",
+     "url": "https://library.utoronto.ca/spaces"
+    }
+   ]
+  },
+  {
+   "id": "pratt",
+   "name": "E.J. Pratt Library",
+   "where": "Victoria University, 71 Queen’s Park Cres E",
+   "zone": "E",
+   "type": "Library",
+   "building": "pratt",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8438
+   },
+   "hoursText": "Until Oct 29: Sun 1–11:30pm · Mon–Thu 9am–11:30pm · Fri 9am–4:45pm · Sat 12–5:45pm. From Oct 30: Fri 9am–6:45pm · Sat–Sun 10am–11:30pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Three floors with glass walls and lots of light. A lounge downstairs where you can eat and talk, and carrels along the east and west ends (2017 student guide). Has group study rooms.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "The Varsity: underappreciated libraries [Mar 2023]",
+     "url": "https://thevarsity.ca/2023/03/05/underappreciated-libraries-on-utsg-campus/"
+    },
+    {
+     "title": "E.J. Pratt Library: about",
+     "url": "https://library.vicu.utoronto.ca/about_us"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "crrs",
+   "name": "Centre for Reformation and Renaissance Studies reading room",
+   "where": "E.J. Pratt Library, Rm 301 (3rd floor)",
+   "zone": "E",
+   "type": "Reading room",
+   "building": "pratt",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8437
+   },
+   "hoursText": "Mon–Fri 9am–5pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Hidden reading room with lots of natural light overlooking the Vic Quad. Bags go in a closet at the front, and nothing can be borrowed (2017 student guide).",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "emmanuel",
+   "name": "Emmanuel College Library",
+   "where": "75 Queen’s Park Cres E, 3rd floor",
+   "zone": "E",
+   "type": "Library",
+   "building": "emmanuel",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8416
+   },
+   "hoursText": "Mon–Thu 9am–9pm · Fri 9am–5pm · Sat 1–5pm · Sun closed",
+   "outlets": "yes",
+   "food": null,
+   "notes": "Chandeliers, fireplace, wood desks, reliably silent. No group study rooms. A student blog says every seat has an outlet.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "The Varsity: underappreciated libraries [Mar 2023]",
+     "url": "https://thevarsity.ca/2023/03/05/underappreciated-libraries-on-utsg-campus/"
+    },
+    {
+     "title": "Student blog: top 10 spots on St. George [Aug 2024]",
+     "url": "https://ramyzhang.com/blog/places-uoft-campus-copy"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "goldring",
+   "name": "Goldring Student Centre and Cat’s Eye lounge",
+   "where": "Victoria University, 150 Charles St W",
+   "zone": "E",
+   "type": "Lounge",
+   "building": "goldring",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:Vic"
+   ],
+   "whoBasis": "assumed",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Vic’s student centre: study space, Ned’s Café and the Cat’s Eye student lounge.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "Victoria College: campus and residence life",
+     "url": "https://vic.utoronto.ca/future-students/campus"
+    }
+   ]
+  },
+  {
+   "id": "vic-commuter",
+   "name": "Vic commuter lounge and kitchen",
+   "where": "Victoria University (location not given)",
+   "zone": "E",
+   "type": "Lounge",
+   "building": "vic",
+   "locationApprox": true,
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "comm:Vic"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "For Vic’s 3,000+ commuting students. Free lockers too.",
+   "status": "scout",
+   "sources": [
+    {
+     "title": "Victoria College: campus and residence life",
+     "url": "https://vic.utoronto.ca/future-students/campus"
+    }
+   ]
+  },
+  {
+   "id": "vic-rooms",
+   "name": "Vic open classrooms",
+   "where": "Victoria University, via Vic’s space portal (UTORid sign-in)",
+   "zone": "E",
+   "type": "Classroom",
+   "building": "vic",
+   "noise": null,
+   "noiseOfficial": false,
+   "who": [
+    "col:Vic"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "09:00",
+       "17:00"
+      ]
+     ],
+     "tue": [
+      [
+       "09:00",
+       "17:00"
+      ]
+     ],
+     "wed": [
+      [
+       "09:00",
+       "17:00"
+      ]
+     ],
+     "thu": [
+      [
+       "09:00",
+       "17:00"
+      ]
+     ],
+     "fri": [
+      [
+       "09:00",
+       "17:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "Vic study spaces page"
+   },
+   "hoursText": "Weekdays 9am–5pm",
+   "outlets": null,
+   "food": null,
+   "notes": "Vic and Emmanuel students can use listed rooms with no booking. Leave before any academic booking. Old Vic’s empty classrooms were already a commuter tip in 2017.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "Victoria College: study/gathering spaces portal",
+     "url": "https://vic.utoronto.ca/current-students/study-spaces"
+    },
+    {
+     "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
+     "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    }
+   ]
+  },
+  {
+   "id": "kelly-g",
+   "name": "Kelly Library ground floor and Kelly Café",
+   "where": "113 St. Joseph St",
+   "zone": "E",
+   "type": "Library",
+   "building": "kelly",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8454
+   },
+   "hoursText": "Sun 1–11:30pm · Mon–Fri 8:30am–11:30pm · Sat 10am–11:30pm",
+   "outlets": null,
+   "food": "yes",
+   "notes": "Busiest floor. The café seats 100+ and there are group tables. Food allowed everywhere except Special Collections.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "Kelly Library: facilities and study space",
+     "url": "https://library.stmikes.utoronto.ca/?p=3215"
+    }
+   ]
+  },
+  {
+   "id": "kelly-2",
+   "name": "Kelly Library 2nd floor",
+   "where": "113 St. Joseph St",
+   "zone": "E",
+   "type": "Library",
+   "building": "kelly",
+   "noise": "Quiet",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8454
+   },
+   "hoursText": "Same as Kelly",
+   "outlets": null,
+   "food": "yes",
+   "notes": "200+ seats, quieter than the ground floor. 5 bookable group rooms.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "Kelly Library: facilities and study space",
+     "url": "https://library.stmikes.utoronto.ca/?p=3215"
+    }
+   ]
+  },
+  {
+   "id": "kelly-3",
+   "name": "Kelly Library 3rd floor",
+   "where": "113 St. Joseph St",
+   "zone": "E",
+   "type": "Library",
+   "building": "kelly",
+   "noise": "Silent",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8454
+   },
+   "hoursText": "Same as Kelly",
+   "outlets": null,
+   "food": "yes",
+   "notes": "150+ seats in individual carrels, reserved for silent study.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    },
+    {
+     "title": "Kelly Library: facilities and study space",
+     "url": "https://library.stmikes.utoronto.ca/?p=3215"
+    }
+   ]
+  },
+  {
+   "id": "smc-commuter",
+   "name": "St. Mike’s Commuter Lounge",
+   "where": "Brennan Hall, Rm 115a",
+   "zone": "E",
+   "type": "Lounge",
+   "building": "brennan",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "comm:SMC"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Kitchenette, TV and locked charging station.",
+   "status": "checked",
+   "sources": [
+    {
+     "title": "St. Michael’s: commuter life",
+     "url": "https://stmikes.utoronto.ca/community/campus-life/commuter-life"
+    }
+   ]
+  },
+  {
+   "id": "smc-canada",
+   "name": "Canada Room",
+   "where": "St. Michael’s dining hall",
+   "zone": "E",
+   "type": "Lounge",
+   "building": "brennan",
+   "locationApprox": true,
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:SMC"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Open to all St. Mike’s students.",
+   "status": "partial",
+   "sources": [
+    {
+     "title": "St. Michael’s: commuter life",
+     "url": "https://stmikes.utoronto.ca/community/campus-life/commuter-life"
+    }
+   ]
+  },
+  {
+   "id": "smc-brennan",
+   "name": "Brennan Hall lounge",
+   "where": "St. Michael’s College, Brennan Hall",
+   "zone": "E",
+   "type": "Lounge",
+   "building": "brennan",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "col:SMC"
+   ],
+   "whoBasis": "assumed",
+   "cardDoor": false,
+   "walkIn": true,
+   "hours": {
+    "type": "unknown"
+   },
+   "hoursText": "Not published",
+   "outlets": null,
+   "food": null,
+   "notes": "Renovated lounge for studying and eating. I couldn’t load an official page for it.",
+   "status": "scout",
+   "sources": []
+  }
+ ]
+}

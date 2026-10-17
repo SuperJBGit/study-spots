@@ -1,0 +1,12 @@
+{
+  "name": "study-spots",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Where can I study right now? St. George study spots, filtered to what you can use.",
+  "scripts": {
+    "test": "node --test test/logic.test.js",
+    "start": "python -m http.server 8080",
+    "import": "node scripts/import-research.mjs research/study-spots.html"
+  }
+}
