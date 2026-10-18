@@ -52,6 +52,7 @@ const state = {
   skipped: new Set(),
   tab: "now",
   map: null, mapLayer: null,
+  picksKey: "",
 };
 const ctx = () => ({ libcal: state.hours.libcal, calendar: state.calendar });
 const profile = () => state.profile || { fac: "other", prog: "", col: "", res: "none", csc: false };
@@ -171,12 +172,12 @@ function startLocation({ userAsked }) {
   }
   stopLocation();
   state.locStatus = "finding";
-  $("#locate").textContent = "Locating…";
+  $("#locate .locate-label").textContent = "Locating…";
   render();
   state.watchId = navigator.geolocation.watchPosition(
     (pos) => {
       const p = { lat: pos.coords.latitude, lon: pos.coords.longitude };
-      $("#locate").textContent = "Update location";
+      $("#locate .locate-label").textContent = "Update location";
       const fromCampus = walkMinutes(p, state.buildings.uc);
       if (fromCampus > 40) {
         // Off campus (at home, say): keep watching, but measure from UC until they get closer.
@@ -197,7 +198,7 @@ function startLocation({ userAsked }) {
     },
     (err) => {
       stopLocation();
-      $("#locate").textContent = "Use my location";
+      $("#locate .locate-label").textContent = "Use my location";
       state.locStatus = err.code === 1 ? "blocked" : "failed";
       if (state.near === "gps") state.near = null;
       if (userAsked && err.code === 1) alertBanner("Location is blocked for this site. Allow it in your browser’s site settings, then tap Use my location.");
@@ -256,10 +257,13 @@ function render() {
 
 function statusTag(spot, now) {
   const st = openStatus(spot, now, ctx());
-  if (st.open === true) return { st, html: `<span class="tag open">${esc(cap(openLabel(st, now)))}</span>` };
-  if (st.open === false) return { st, html: `<span class="tag closed">Closed${st.opensAt ? " · opens " + esc(fmtTime(st.opensAt, now)) : ""}</span>` };
-  return { st, html: `<span class="tag unknown">Hours unknown</span>` };
+  if (st.open === true) return { st, html: `<span class="status open">${esc(cap(openLabel(st, now)))}</span>` };
+  if (st.open === false) return { st, html: `<span class="status closed">Closed${st.opensAt ? ", opens " + esc(fmtTime(st.opensAt, now)) : ""}</span>` };
+  return { st, html: `<span class="status">Hours unknown</span>` };
 }
+// Status first, then short plain-text facts separated by dots.
+const SEP = `<span class="sep" aria-hidden="true">·</span>`;
+const factLine = (parts) => parts.filter(Boolean).join(SEP);
 
 function renderNow() {
   const now = nowDate();
@@ -275,8 +279,12 @@ function renderNow() {
     ctx(), state.buildings,
   );
   const top = ranked.slice(0, 3);
+  // Animate the picks in only when they change, not on the once-a-minute refresh.
+  const key = top.map((r) => r.spot.id).join() || "none";
+  $("#picks").classList.toggle("still", key === state.picksKey);
+  state.picksKey = key;
   $("#picks").innerHTML = top.length
-    ? top.map((r) => pickCard(r, now)).join("")
+    ? top.map((r, i) => pickCard(r, now, i === 0)).join("")
     : `<li class="empty">Nothing we can confirm is open for that long right now. Try less time, fewer preferences, or Explore for spots with unpublished hours.</li>`;
   $("#next").hidden = ranked.length <= 1;
   $("#reset-skips").hidden = state.skipped.size === 0;
@@ -291,32 +299,43 @@ function renderNow() {
     .slice(0, 4);
   $("#also").hidden = also.length === 0;
   $("#also-list").innerHTML = also
-    .map(({ s, walk }) => `<li><a href="#" data-open="${s.id}">${esc(s.name)}</a> <span class="hint">· ${walk} min · ${esc(s.who.map(ruleLabel).join(" or "))}</span></li>`)
+    .map(({ s, walk }) => `<li><a href="#" data-open="${s.id}">${esc(s.name)}</a> <span class="meta">${SEP}${walk} min${SEP}${esc(s.who.map(ruleLabel).join(" or "))}</span></li>`)
     .join("");
 }
 
-function pickCard(r, now) {
+// The best pick gets a big photo and its walk time in large type; the next two are compact rows.
+function pickCard(r, now, hero) {
   const s = r.spot;
   const b = state.buildings[s.building];
-  const tags = [`<span class="tag open">${esc(cap(openLabel(r.status, now)))}</span>`];
+  const facts = [`<span class="status open">${esc(cap(openLabel(r.status, now)))}</span>`];
   for (const reason of r.reasons) {
     if (/min walk|^open /.test(reason)) continue;
-    tags.push(`<span class="tag${reason === "only for your group" ? " you" : ""}">${esc(reason)}</span>`);
+    facts.push(reason === "only for your group" ? `<span class="mine">only for your group</span>` : esc(reason));
   }
-  for (const w of r.warnings) tags.push(`<span class="tag warn">${esc(w)}</span>`);
+  for (const w of r.warnings) facts.push(`<span class="warn-text">${esc(w)}</span>`);
   const ph = photoFor(s);
-  return `<li class="pick" data-id="${s.id}">
-    ${ph ? `<button type="button" class="photo-btn" data-open="${s.id}" aria-label="Details for ${esc(s.name)}"><img class="photo" src="${esc(ph.src)}" alt="${esc(ph.alt)}" loading="lazy">${ph.outside ? `<span class="photo-label">Outside</span>` : ""}</button>` : ""}
-    <div class="pick-head">
-      <div><h3>${esc(s.name)}</h3><p class="where">${esc(b ? b.name : s.where)}</p></div>
-      <div class="walk">${r.walk ?? "?"} min<small>walk</small></div>
-    </div>
-    <div class="tags">${tags.join("")}</div>
-    <div class="card-actions">
-      ${b ? `<a class="btn small" href="${directionsUrl(b)}" target="_blank" rel="noopener">Directions</a>` : ""}
-      <button type="button" class="btn small ghost" data-open="${s.id}">Details</button>
-      <button type="button" class="btn small ghost" data-save="${s.id}" aria-pressed="${state.saved.has(s.id)}">${state.saved.has(s.id) ? "Saved" : "Save"}</button>
-    </div>
+  const photo = ph
+    ? `<button type="button" class="photo-btn" data-open="${s.id}" aria-label="Details for ${esc(s.name)}"><img class="photo" src="${esc(ph.src)}" alt="${esc(ph.alt)}" loading="lazy">${ph.outside ? `<span class="photo-label">Outside</span>` : ""}</button>`
+    : hero ? "" : `<span class="no-photo" aria-hidden="true">${esc(b?.code || "")}</span>`;
+  const walk = `<p class="walk"><b>${r.walk ?? "?"}</b><span>${hero ? "min walk" : "min"}</span></p>`;
+  const actions = `<div class="text-actions">
+      ${b ? `<a href="${directionsUrl(b)}" target="_blank" rel="noopener">Directions</a>` : ""}
+      <button type="button" data-open="${s.id}">Details</button>
+      <button type="button" data-save="${s.id}" aria-pressed="${state.saved.has(s.id)}">${state.saved.has(s.id) ? "Saved" : "Save"}</button>
+    </div>`;
+  const title = `<h3>${esc(s.name)}</h3><p class="where">${esc(b ? b.name : s.where)}</p>`;
+  if (hero) {
+    return `<li class="pick hero" data-id="${s.id}">
+    ${photo}
+    <div class="head"><div><p class="eyebrow-best">Best pick right now</p>${title}</div>${walk}</div>
+    <p class="line">${factLine(facts)}</p>
+    ${actions}
+  </li>`;
+  }
+  return `<li class="pick compact" data-id="${s.id}">
+    ${photo}
+    <div class="body">${title}<p class="line">${factLine(facts)}</p>${actions}</div>
+    ${walk}
   </li>`;
 }
 
@@ -345,17 +364,18 @@ function listRow(s, now, from) {
   const b = state.buildings[s.building];
   const walk = b && from ? walkMinutes(from, b) : null;
   const acc = access(s, profile());
-  const extra = [];
-  if (acc.mine) extra.push(`<span class="tag you">Yours</span>`);
-  if (acc.unclear) extra.push(`<span class="tag unknown">Access unclear</span>`);
-  if (s.noise) extra.push(`<span class="tag">${esc(s.noise)}</span>`);
-  if (!s.walkIn) extra.push(`<span class="tag">Book or check first</span>`);
+  const facts = [html];
+  if (acc.mine) facts.push(`<span class="mine">Yours</span>`);
+  if (acc.unclear) facts.push(`<span class="warn-text">Access unclear</span>`);
+  if (s.noise) facts.push(esc(s.noise));
+  if (!s.walkIn) facts.push("Book or check first");
   const ph = photoFor(s);
-  return `<li><button type="button" class="row-item${ph ? " has-thumb" : ""}" data-open="${s.id}">
-    ${ph ? `<img class="thumb" src="${esc(ph.src)}" alt="" loading="lazy">` : ""}
-    <span><span class="name">${esc(s.name)}</span><br><span class="meta">${esc(b ? b.name : s.where)}</span></span>
+  return `<li><button type="button" class="row-item" data-open="${s.id}">
+    ${ph ? `<img class="thumb" src="${esc(ph.src)}" alt="" loading="lazy">` : `<span class="no-thumb" aria-hidden="true">${esc(b?.code || "")}</span>`}
+    <span class="name">${esc(s.name)}</span>
     <span class="side">${walk != null ? walk + " min" : ""}</span>
-    <span class="tags">${html}${extra.join("")}</span>
+    <span class="meta">${esc(b ? b.name : s.where)}</span>
+    <span class="line">${factLine(facts)}</span>
   </button></li>`;
 }
 
@@ -451,7 +471,7 @@ function openSheet(id) {
       ? `From ${esc(s.hours.asOf)}.${s.hours.dated ? " This source is old, so check on site." : ""}`
       : `Hours aren’t published${s.hoursText && !/^Not published/.test(s.hoursText) ? `: ${esc(s.hoursText)}` : ""}.`;
   const facts = [
-    ["Who can use it", esc(s.who.map(ruleLabel).join(" or ")) + (s.whoBasis === "assumed" ? " (assumed from the college’s wording)" : "") + (acc.mine ? ` <span class="tag you">Yours</span>` : "")],
+    ["Who can use it", esc(s.who.map(ruleLabel).join(" or ")) + (s.whoBasis === "assumed" ? " (assumed from the college’s wording)" : "") + (acc.mine ? ` <span class="mine">(yours)</span>` : "")],
     ["Door", s.cardDoor ? "TCard or fob needed to get in" : "No card reader known"],
     ["Noise", s.noise ? esc(s.noise) + (s.noiseOfficial ? " (official library label)" : "") : "Not stated"],
     ["Outlets", s.outlets === "yes" ? "Yes" : s.outlets === "limited" ? "Very limited" : "Unknown"],
@@ -463,19 +483,19 @@ function openSheet(id) {
   $("#sheet-body").innerHTML = `<div class="sheet">
     ${ph ? `<figure class="sheet-photo"><img src="${esc(ph.src)}" alt="${esc(ph.alt)}"><figcaption>${ph.caption ? `${esc(ph.caption)}. ` : ""}${photoCredit(ph)}</figcaption></figure>` : ""}
     <h2 id="sheet-h">${esc(s.name)}</h2>
-    ${walk != null ? `<p class="hint">${walk} min walk from ${esc(fromLabel())}</p>` : ""}
-    <div class="tags" style="margin-top:8px">${tag}${s.status === "scout" ? `<span class="tag warn">Not yet checked on site</span>` : ""}</div>
-    <p style="margin-top:10px">${esc(s.notes)}</p>
-    <div class="card-actions" style="margin-top:12px">
+    <p class="line">${factLine([tag, walk != null ? `${walk} min walk from ${esc(fromLabel())}` : "", s.status === "scout" ? `<span class="warn-text">Not yet checked on site</span>` : ""])}</p>
+    <p>${esc(s.notes)}</p>
+    <div class="text-actions">
       ${b ? `<a class="btn small" href="${directionsUrl(b)}" target="_blank" rel="noopener">Directions</a>` : ""}
-      ${s.bookUrl ? `<a class="btn small ghost" href="${esc(s.bookUrl)}" target="_blank" rel="noopener">Book a room</a>` : ""}
-      <button type="button" class="btn small ghost" data-save="${s.id}" aria-pressed="${state.saved.has(s.id)}">${state.saved.has(s.id) ? "Saved" : "Save"}</button>
+      ${s.bookUrl ? `<a href="${esc(s.bookUrl)}" target="_blank" rel="noopener">Book a room</a>` : ""}
+      <button type="button" data-save="${s.id}" aria-pressed="${state.saved.has(s.id)}">${state.saved.has(s.id) ? "Saved" : "Save"}</button>
     </div>
-    <h3 style="margin-top:18px">Hours</h3>
+    <h4>Hours</h4>
     <table class="hours-table"><tbody>${days.join("")}</tbody></table>
-    <p class="hint" style="margin-top:6px">${hoursNote}</p>
-    <dl class="kv" style="margin-top:14px">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
-    <h3 style="margin-top:18px">Sources</h3>
+    <p class="hint">${hoursNote}</p>
+    <h4>Details</h4>
+    <dl class="kv">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+    <h4>Sources</h4>
     <ul class="sources">${s.sources.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a></li>`).join("") || "<li>No official page found</li>"}</ul>
   </div>`;
   if (!$("#sheet").open) $("#sheet").showModal();

@@ -1,6 +1,6 @@
 // Service worker: makes the app installable and lets it open offline.
 // Network first, so every push shows up right away; the cache is only a fallback when offline.
-const CACHE = "study-spots-v1";
+const CACHE = "study-spots-v2";
 const SHELL = [
   "./", "index.html", "styles.css", "src/app.js", "src/logic.js", "src/hours.js",
   "data/spots.json", "data/buildings.json", "data/calendar.json", "data/photos.json",

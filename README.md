@@ -43,6 +43,13 @@ Open the site in Chrome on Android, then menu > Install app (or Add to Home scre
 
 "Use my location" (or picking "My location" under Near) watches your position while the app is open, so the closest spots re-rank as you walk. Once you've allowed it, the app uses your location automatically on later visits. The position never leaves the device.
 
+## Design
+
+- **Colours** follow U of T's Colour Quick Guide: U of T Blue `#1e3765` carries the app, and the secondary colours appear only as status signals (green open, red closed, yellow highlight, purple "yours"), since the guide says to use them as accents. Dark mode is deep blue rather than black, as the guide advises against black backgrounds. The tokens are at the top of `styles.css`.
+- **Type**: Source Serif 4 for spot names and headings, Public Sans for everything else (both Google Fonts).
+- **Layout**: one large best pick, then compact rows. Status is a coloured dot with plain text. A spot with no photo shows its building's official code.
+- The About section says the app isn't affiliated with U of T. Keep that line while the app uses U of T's colours.
+
 ## Editing data
 
 - **Add a spot**: copy an entry in `data/spots.json`.
