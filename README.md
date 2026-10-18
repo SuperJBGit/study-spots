@@ -29,7 +29,7 @@ The tests use a real slice of the LibCal hours feed (`test/fixtures/`). They cov
 | `data/spots.json` | 85 spots: access rules, hours source, noise, outlets, food, notes, sources |
 | `data/buildings.json` | Building coordinates (OpenStreetMap footprints) and official building codes (U of T campus map) |
 | `data/calendar.json` | University closure days, and libraries whose holiday hours the feed lacks |
-| `data/photos.json`, `photos/` | 47 Wikimedia Commons photos: one per building, plus interiors for 7 spots. Credits in `photos/CREDITS.md` |
+| `data/photos.json`, `photos/` | 47 Wikimedia Commons photos: one per building, plus photos of 7 specific spots (6 interiors, and the Graham Library's own building). Credits in `photos/CREDITS.md` |
 | `research/study-spots.html` | The research sheet the spot data came from, with sources for every spot |
 | `scripts/import-research.mjs` | One-time import from the research sheet |
 | `scripts/update-2026-10-18.mjs` | Data update: building codes, plus hours found for 8 more spots |
