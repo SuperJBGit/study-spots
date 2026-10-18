@@ -257,6 +257,7 @@ function render() {
 
 function statusTag(spot, now) {
   const st = openStatus(spot, now, ctx());
+  if (spot.closed) return { st, html: `<span class="status closed">Closed for ${esc(spot.closed.reason)}</span>` };
   if (st.open === true) return { st, html: `<span class="status open">${esc(cap(openLabel(st, now)))}</span>` };
   if (st.open === false) return { st, html: `<span class="status closed">Closed${st.opensAt ? ", opens " + esc(fmtTime(st.opensAt, now)) : ""}</span>` };
   return { st, html: `<span class="status">Hours unknown</span>` };
@@ -465,7 +466,9 @@ function openSheet(id) {
     days.push(`<tr class="${k === 0 ? "today" : ""}"><td>${k === 0 ? "Today" : d.toLocaleDateString("en-CA", { weekday: "short", month: "short", day: "numeric" })}</td><td>${esc(txt)}</td></tr>`);
   }
   const acc = access(s, profile());
-  const hoursNote = s.hours.type === "libcal"
+  const hoursNote = s.closed
+    ? esc(s.closed.text)
+    : s.hours.type === "libcal"
     ? "From U of T Libraries’ live hours."
     : s.hours.type === "weekly"
       ? `From ${esc(s.hours.asOf)}.${s.hours.dated ? " This source is old, so check on site." : ""}`

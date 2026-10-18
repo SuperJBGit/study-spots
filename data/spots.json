@@ -1,5 +1,5 @@
 {
- "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs).",
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026.",
  "spots": [
   {
    "id": "stcommons",
@@ -827,8 +827,17 @@
     {
      "title": "EngSci orientation: Sandford Fleming",
      "url": "https://orientation.engsci.utoronto.ca/sandford-fleming-building/"
+    },
+    {
+     "title": "U of T tender: Sandford Fleming basement atrium renovation (ConstructConnect listing)",
+     "url": "https://projects.constructconnect.com/details/6901841-rfp-sanford-fleming-building-basement-atrium-renovation-commissioning&find_loc=-M5S-3G8"
     }
-   ]
+   ],
+   "closed": {
+    "reason": "construction",
+    "reported": "2026-10-18",
+    "text": "Closed for construction, reported Oct 18, 2026. U of T put a renovation of the Sandford Fleming basement atrium out to tender in December 2024 (new floor, ceiling and washrooms, a ramp and cafeteria seating). No reopening date is published."
+   }
   },
   {
    "id": "eng-chem",

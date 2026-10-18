@@ -67,6 +67,8 @@ export function isClosureDay(dateISO, calendar) {
 // Minutes are from that date's midnight; an end past 1440 runs into the next day.
 // ctx: { libcal: { [lid]: { [dateISO]: times } }, calendar }
 export function dayHours(spot, dateISO, ctx) {
+  // Temporarily closed (construction and the like): `closed: { reason, reported, text }` in spots.json.
+  if (spot.closed) return { state: "closed", intervals: [], note: spot.closed.reason };
   const closure = isClosureDay(dateISO, ctx.calendar);
   if (spot.hours.type === "libcal") {
     const lid = spot.hours.lid;

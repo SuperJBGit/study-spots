@@ -51,7 +51,7 @@ test("day hours handle 24 h days, closures and missing holiday data", () => {
   // Fixed weekly hours close on university closure days too
   assert.equal(dayHours(spot("myhal-5"), "2026-10-12", ctx).state, "closed");
   assert.deepEqual(dayHours(spot("myhal-5"), "2026-10-17", ctx).intervals, [[480, 1200]]); // Saturday 8am-8pm
-  assert.equal(dayHours(spot("sf-pit"), "2026-10-14", ctx).state, "unknown");
+  assert.equal(dayHours(spot("bahen-cssu"), "2026-10-14", ctx).state, "unknown");
 });
 
 test("Robarts Common's 24 h days chain into one opening", () => {
@@ -78,7 +78,20 @@ test("closed spots report when they reopen", () => {
   assert.equal(st.open, false);
   assert.equal(st.opensAt.toString(), at("2026-10-20T08:30:00").toString());
   assert.equal(openStatus(spot("robarts-floors"), at("2026-10-19T22:00:00"), ctx).open, true);
-  assert.equal(openStatus(spot("sf-pit"), at("2026-10-19T12:00:00"), ctx).open, null);
+  assert.equal(openStatus(spot("bahen-cssu"), at("2026-10-19T12:00:00"), ctx).open, null);
+});
+
+test("temporarily closed spots stay closed and are never suggested", () => {
+  const now = at("2026-10-20T14:10:00");
+  const pit = spot("sf-pit");
+  assert.ok(pit.closed);
+  assert.equal(dayHours(pit, "2026-10-20", ctx).state, "closed");
+  assert.deepEqual(openStatus(pit, now, ctx), { open: false, until: null, opensAt: null });
+  // Even with made-up 24/7 hours, the closure wins
+  const fake = { ...pit, hours: { type: "weekly", week: Object.fromEntries(["sun", "mon", "tue", "wed", "thu", "fri", "sat"].map((d) => [d, [["00:00", "24:00"]]])) } };
+  assert.equal(openStatus(fake, now, ctx).open, false);
+  const ranked = rankSpots(spots, { profile: engsci, from: buildings.sf, now, needMinutes: 30, prefs: {} }, ctx, buildings);
+  assert.ok(!ranked.some((r) => r.spot.closed));
 });
 
 test("walking time is plausible across campus", () => {

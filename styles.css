@@ -36,6 +36,9 @@
   --f-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --f-sans: "Public Sans", "Segoe UI", Roboto, system-ui, sans-serif;
   --tabbar-h: 62px;
+  /* System bars. The Android app draws under them (edge-to-edge); Capacitor also sets --safe-area-inset-* for older WebViews. */
+  --safe-top: max(env(safe-area-inset-top, 0px), var(--safe-area-inset-top, 0px));
+  --safe-bottom: max(env(safe-area-inset-bottom, 0px), var(--safe-area-inset-bottom, 0px));
   --radius: 6px;
   color-scheme: light;
 }
@@ -58,7 +61,7 @@ body {
   background: var(--bg); color: var(--ink);
   font: 400 16px/1.5 var(--f-sans);
   -webkit-font-smoothing: antialiased;
-  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) + 20px);
+  padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 20px);
 }
 h1, h2, h3 { margin: 0; line-height: 1.15; text-wrap: balance; }
 h2 { font: 700 26px/1.15 var(--f-serif); letter-spacing: -0.01em; }
@@ -73,7 +76,7 @@ button, select, input { font: inherit; color: inherit; }
 /* ---------- header: a blue band, like campus signage ---------- */
 header.top {
   background: var(--header-bg); color: var(--header-ink);
-  padding: calc(14px + env(safe-area-inset-top, 0px)) 16px 14px;
+  padding: calc(14px + var(--safe-top)) 16px 14px;
 }
 header.top .inner { max-width: 720px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
 .brand h1 { font: 700 28px/1 var(--f-serif); letter-spacing: -0.015em; }
@@ -213,7 +216,7 @@ ul.list { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1p
 .disclaimer { font-size: 13px; color: var(--muted); }
 
 /* ---------- tab bar ---------- */
-.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); padding-bottom: var(--safe-bottom); }
 .tabbar button { border: 0; background: none; height: var(--tabbar-h); cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 600; display: grid; place-items: center; align-content: center; gap: 3px; position: relative; }
 .tabbar svg { width: 22px; height: 22px; }
 .tabbar button[aria-current="page"] { color: var(--uoft-blue); }
@@ -221,14 +224,17 @@ ul.list { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1p
 @media (prefers-color-scheme: dark) { .tabbar button[aria-current="page"] { color: var(--ink); } }
 
 /* ---------- dialogs ---------- */
-dialog { border: 0; padding: 0; background: var(--surface); color: var(--ink); width: min(640px, 100vw - 24px); max-height: calc(100dvh - 32px); border-radius: 10px; }
+/* Kept clear of the status and navigation bars, so nothing in a dialog sits under them. */
+dialog { border: 0; padding: 0; background: var(--surface); color: var(--ink); width: min(640px, 100vw - 24px); border-radius: 10px;
+  top: calc(var(--safe-top) + 12px); bottom: calc(var(--safe-bottom) + 12px); max-height: calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px); }
 dialog::backdrop { background: rgb(14 23 41 / .55); }
 #onboard form { padding: 22px 20px; }
 #onboard h2 { font-size: 24px; }
-.sheet-inner { position: relative; padding: 20px 18px 24px; display: grid; gap: 12px; }
-.close { position: absolute; top: 8px; right: 8px; z-index: 2; border: 0; width: 36px; height: 36px; border-radius: 50%; background: rgb(14 23 41 / .6); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; }
+.sheet-inner { padding: 20px 18px 24px; }
+/* Sticks to the top corner while the sheet scrolls; the negative margins keep it out of the flow. */
+.close { position: sticky; top: 10px; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; margin: -10px -8px -34px auto; border: 0; border-radius: 50%; background: rgb(14 23 41 / .72); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
 .sheet { display: grid; gap: 10px; }
-.sheet h2 { padding-right: 40px; }
+.sheet h2 { padding-right: 48px; }
 .sheet .line { font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; }
 .sheet h4 { margin: 12px 0 0; font: 700 13px/1 var(--f-sans); color: var(--muted); letter-spacing: .02em; }
 .sheet-photo { margin: -20px -18px 4px; }

@@ -56,6 +56,7 @@ Open the site in Chrome on Android, then menu > Install app (or Add to Home scre
   - `who` is a list of rules, and any one of them is enough: `all`, `uoft`, `csc`, `md`, `prog:EngSci`, `col:Innis`, `res:NC`, `comm:UC` or `?`.
   - `hours` is `{ "type": "libcal", "lid": 8158 }`, `{ "type": "weekly", "week": { "mon": [["07:00","22:00"]], … }, "asOf": "…" }` or `{ "type": "unknown" }`.
 - **Each term**: add the next term's closure days to `data/calendar.json`.
+- **Temporarily closed** (construction, say): add `"closed": { "reason": "construction", "reported": "2026-10-18", "text": "…" }` to the spot. It then shows as "Closed for construction" everywhere and is never suggested. Delete the field when it reopens. The Pit has one now.
 - **Spots with `"type": "unknown"` hours never appear in the top picks.** Finding their hours is the most useful data work left: 30 spots, mostly college and engineering-club lounges whose owners don't publish hours.
 - **Photos**: an inside photo goes under `photos` in `data/photos.json` with `kind: "spot"` and a caption saying exactly what it shows, mapped from the spot id under `spots`; it then replaces the outside fallback for that spot. Add a line to `photos/CREDITS.md`. Your own photos from the headcount walks are the best source: about 70 spots still only have the outside shot.
 
