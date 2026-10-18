@@ -29,7 +29,7 @@ The tests use a real slice of the LibCal hours feed (`test/fixtures/`). They cov
 | `data/spots.json` | 85 spots: access rules, hours source, noise, outlets, food, notes, sources |
 | `data/buildings.json` | Building coordinates (OpenStreetMap footprints) and official building codes (U of T campus map) |
 | `data/calendar.json` | University closure days, and libraries whose holiday hours the feed lacks |
-| `data/photos.json`, `photos/` | 14 inside photos, each matched to the spot it shows (Wikimedia Commons, plus one U of T Libraries photo). Credits in `photos/CREDITS.md` |
+| `data/photos.json`, `photos/` | 14 inside photos matched to the spot they show, plus an outside photo of each building as a fallback (labelled Outside). Credits in `photos/CREDITS.md` |
 | `research/study-spots.html` | The research sheet the spot data came from, with sources for every spot |
 | `scripts/import-research.mjs` | One-time import from the research sheet |
 | `scripts/update-2026-10-18.mjs` | Data update: building codes, plus hours found for 8 more spots |
@@ -50,7 +50,7 @@ Open the site in Chrome on Android, then menu > Install app (or Add to Home scre
   - `hours` is `{ "type": "libcal", "lid": 8158 }`, `{ "type": "weekly", "week": { "mon": [["07:00","22:00"]], … }, "asOf": "…" }` or `{ "type": "unknown" }`.
 - **Each term**: add the next term's closure days to `data/calendar.json`.
 - **Spots with `"type": "unknown"` hours never appear in the top picks.** Finding their hours is the most useful data work left: 30 spots, mostly college and engineering-club lounges whose owners don't publish hours.
-- **Photos**: inside photos only. Add the file to `photos/`, an entry under `photos` in `data/photos.json` with a caption saying exactly what it shows, map the spot id to it under `spots`, and add a line to `photos/CREDITS.md`. Your own photos from the headcount walks are the best source for the 70-odd spots without one.
+- **Photos**: an inside photo goes under `photos` in `data/photos.json` with `kind: "spot"` and a caption saying exactly what it shows, mapped from the spot id under `spots`; it then replaces the outside fallback for that spot. Add a line to `photos/CREDITS.md`. Your own photos from the headcount walks are the best source: about 70 spots still only have the outside shot.
 
 ## Deploying
 

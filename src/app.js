@@ -306,7 +306,7 @@ function pickCard(r, now) {
   for (const w of r.warnings) tags.push(`<span class="tag warn">${esc(w)}</span>`);
   const ph = photoFor(s);
   return `<li class="pick" data-id="${s.id}">
-    ${ph ? `<button type="button" class="photo-btn" data-open="${s.id}" aria-label="Details for ${esc(s.name)}"><img class="photo" src="${esc(ph.src)}" alt="${esc(ph.alt)}" loading="lazy"></button>` : ""}
+    ${ph ? `<button type="button" class="photo-btn" data-open="${s.id}" aria-label="Details for ${esc(s.name)}"><img class="photo" src="${esc(ph.src)}" alt="${esc(ph.alt)}" loading="lazy">${ph.outside ? `<span class="photo-label">Outside</span>` : ""}</button>` : ""}
     <div class="pick-head">
       <div><h3>${esc(s.name)}</h3><p class="where">${esc(b ? b.name : s.where)}</p></div>
       <div class="walk">${r.walk ?? "?"} min<small>walk</small></div>
@@ -322,13 +322,13 @@ function pickCard(r, now) {
 
 const directionsUrl = (b) => `https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lon}&travelmode=walking`;
 
-// Inside photos only: a spot shows a photo when we have one of that space (or the room it's in).
-// No outside shots of buildings; they don't tell you what studying there is like.
+// An inside photo of the spot when we have one; otherwise the outside of its building, labelled "Outside".
 function photoFor(s) {
   const P = state.photos;
-  const p = P.photos?.[P.spots?.[s.id]];
+  const inside = P.photos?.[P.spots?.[s.id]];
+  const p = inside || P.photos?.[P.buildings?.[s.building]];
   if (!p) return null;
-  return { ...p, src: `photos/${p.file}`, alt: p.alt || s.name };
+  return { ...p, src: `photos/${p.file}`, alt: p.alt || s.name, outside: !inside };
 }
 function photoCredit(p) {
   return `Photo: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.artist)}</a>, ` +
