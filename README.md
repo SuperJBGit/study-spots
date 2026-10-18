@@ -29,11 +29,15 @@ The tests use a real slice of the LibCal hours feed (`test/fixtures/`). They cov
 | `data/spots.json` | 85 spots: access rules, hours source, noise, outlets, food, notes, sources |
 | `data/buildings.json` | Building coordinates (OpenStreetMap footprints) and official building codes (U of T campus map) |
 | `data/calendar.json` | University closure days, and libraries whose holiday hours the feed lacks |
-| `data/photos.json`, `photos/` | 47 Wikimedia Commons photos: one per building, plus photos of 7 specific spots (6 interiors, and the Graham Library's own building). Credits in `photos/CREDITS.md` |
+| `data/photos.json`, `photos/` | 14 inside photos, each matched to the spot it shows (Wikimedia Commons, plus one U of T Libraries photo). Credits in `photos/CREDITS.md` |
 | `research/study-spots.html` | The research sheet the spot data came from, with sources for every spot |
 | `scripts/import-research.mjs` | One-time import from the research sheet |
 | `scripts/update-2026-10-18.mjs` | Data update: building codes, plus hours found for 8 more spots |
 | `scripts/serve.mjs` | Local static server |
+
+## Install on a phone
+
+Open the site in Chrome on Android, then menu > Install app (or Add to Home screen). It installs like an app and updates every time the site does. On iPhone: Safari > Share > Add to Home Screen.
 
 ## Location
 
@@ -46,7 +50,7 @@ The tests use a real slice of the LibCal hours feed (`test/fixtures/`). They cov
   - `hours` is `{ "type": "libcal", "lid": 8158 }`, `{ "type": "weekly", "week": { "mon": [["07:00","22:00"]], … }, "asOf": "…" }` or `{ "type": "unknown" }`.
 - **Each term**: add the next term's closure days to `data/calendar.json`.
 - **Spots with `"type": "unknown"` hours never appear in the top picks.** Finding their hours is the most useful data work left: 30 spots, mostly college and engineering-club lounges whose owners don't publish hours.
-- **Photos**: add the file to `photos/`, an entry to `data/photos.json` (`kind: "spot"` if it shows the room itself, `"building"` otherwise), and a line to `photos/CREDITS.md`. Your own photos from the headcount walks can replace the building shots.
+- **Photos**: inside photos only. Add the file to `photos/`, an entry under `photos` in `data/photos.json` with a caption saying exactly what it shows, map the spot id to it under `spots`, and add a line to `photos/CREDITS.md`. Your own photos from the headcount walks are the best source for the 70-odd spots without one.
 
 ## Deploying
 

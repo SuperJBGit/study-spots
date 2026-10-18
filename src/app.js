@@ -306,7 +306,7 @@ function pickCard(r, now) {
   for (const w of r.warnings) tags.push(`<span class="tag warn">${esc(w)}</span>`);
   const ph = photoFor(s);
   return `<li class="pick" data-id="${s.id}">
-    ${ph ? `<button type="button" class="photo-btn" data-open="${s.id}" aria-label="Details for ${esc(s.name)}"><img class="photo" src="${esc(ph.src)}" alt="${esc(ph.alt)}" loading="lazy">${ph.ofBuilding ? `<span class="photo-label">Building</span>` : ""}</button>` : ""}
+    ${ph ? `<button type="button" class="photo-btn" data-open="${s.id}" aria-label="Details for ${esc(s.name)}"><img class="photo" src="${esc(ph.src)}" alt="${esc(ph.alt)}" loading="lazy"></button>` : ""}
     <div class="pick-head">
       <div><h3>${esc(s.name)}</h3><p class="where">${esc(b ? b.name : s.where)}</p></div>
       <div class="walk">${r.walk ?? "?"} min<small>walk</small></div>
@@ -322,20 +322,18 @@ function pickCard(r, now) {
 
 const directionsUrl = (b) => `https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lon}&travelmode=walking`;
 
-// A photo of the spot itself if we have one, otherwise of its building (labelled as such).
+// Inside photos only: a spot shows a photo when we have one of that space (or the room it's in).
+// No outside shots of buildings; they don't tell you what studying there is like.
 function photoFor(s) {
   const P = state.photos;
-  const own = P.spots?.[s.id];
-  const id = own || P.buildings?.[s.building];
-  const p = id && P.photos?.[id];
+  const p = P.photos?.[P.spots?.[s.id]];
   if (!p) return null;
-  // "spot" photos show the room itself; "building" photos show the outside, so they're labelled as such.
-  return { ...p, src: `photos/${p.file}`, ofBuilding: p.kind !== "spot", alt: p.alt || s.name };
+  return { ...p, src: `photos/${p.file}`, alt: p.alt || s.name };
 }
 function photoCredit(p) {
   return `Photo: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.artist)}</a>, ` +
     (p.licenseUrl ? `<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>` : esc(p.license)) +
-    `, via Wikimedia Commons`;
+    `, via ${esc(p.via || "Wikimedia Commons")}`;
 }
 
 function usableSpots() {
@@ -463,7 +461,7 @@ function openSheet(id) {
   const ph = photoFor(s);
   const walk = b ? walkMinutes(fromPoint(), b) : null;
   $("#sheet-body").innerHTML = `<div class="sheet">
-    ${ph ? `<figure class="sheet-photo"><img src="${esc(ph.src)}" alt="${esc(ph.alt)}"><figcaption>${ph.ofBuilding ? `${esc(b ? b.name : "The building")} (not this room). ` : ""}${photoCredit(ph)}</figcaption></figure>` : ""}
+    ${ph ? `<figure class="sheet-photo"><img src="${esc(ph.src)}" alt="${esc(ph.alt)}"><figcaption>${ph.caption ? `${esc(ph.caption)}. ` : ""}${photoCredit(ph)}</figcaption></figure>` : ""}
     <h2 id="sheet-h">${esc(s.name)}</h2>
     ${walk != null ? `<p class="hint">${walk} min walk from ${esc(fromLabel())}</p>` : ""}
     <div class="tags" style="margin-top:8px">${tag}${s.status === "scout" ? `<span class="tag warn">Not yet checked on site</span>` : ""}</div>
@@ -540,6 +538,11 @@ function renderYou() {
     $("#pf-msg").textContent = "Saved. Your spots are updated.";
     state.skipped.clear();
   });
+}
+
+// Installable app + offline fallback. Skipped inside the Android wrapper's local files, where it isn't needed.
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  navigator.serviceWorker.register("sw.js").catch(() => { /* the app still works without it */ });
 }
 
 boot().catch((e) => {
