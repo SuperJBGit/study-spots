@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { access, parseClock, dayHours, openStatus, openLabel, walkMinutes, rankSpots, fmtTime } from "../src/logic.js";
 import { indexFeed, loadLibraryHours } from "../src/hours.js";
 
@@ -92,6 +92,21 @@ test("temporarily closed spots stay closed and are never suggested", () => {
   assert.equal(openStatus(fake, now, ctx).open, false);
   const ranked = rankSpots(spots, { profile: engsci, from: buildings.sf, now, needMinutes: 30, prefs: {} }, ctx, buildings);
   assert.ok(!ranked.some((r) => r.spot.closed));
+});
+
+test("photo data points at real files and real spots", () => {
+  const P = load("../data/photos.json");
+  const ids = new Set(spots.map((s) => s.id));
+  for (const [spotId, list] of Object.entries(P.spots)) {
+    assert.ok(ids.has(spotId), `photos.json lists unknown spot ${spotId}`);
+    assert.ok(Array.isArray(list) && list.length, `${spotId}: photos must be a non-empty list`);
+    for (const id of list) assert.ok(P.photos[id], `${spotId}: missing photo ${id}`);
+  }
+  for (const [b, id] of Object.entries(P.buildings)) assert.ok(P.photos[id], `building ${b}: missing photo ${id}`);
+  for (const p of Object.values(P.photos)) {
+    assert.ok(existsSync(new URL(`../photos/${p.file}`, import.meta.url)), `missing file ${p.file}`);
+    for (const k of ["alt", "caption", "artist", "license", "page"]) assert.ok(p[k], `${p.file}: no ${k}`);
+  }
 });
 
 test("walking time is plausible across campus", () => {

@@ -156,7 +156,12 @@ function wireControls() {
     const open = e.target.closest("[data-open]");
     if (open) { e.preventDefault(); openSheet(open.dataset.open); return; }
     const save = e.target.closest("[data-save]");
-    if (save) { toggleSave(save.dataset.save); }
+    if (save) { toggleSave(save.dataset.save); return; }
+    const step = e.target.closest("[data-step]");
+    if (step) {
+      const strip = step.parentElement.querySelector(".sheet-photos");
+      strip.scrollBy({ left: Number(step.dataset.step) * strip.clientWidth, behavior: "smooth" });
+    }
   });
 }
 
@@ -342,18 +347,20 @@ function pickCard(r, now, hero) {
 
 const directionsUrl = (b) => `https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lon}&travelmode=walking`;
 
-// An inside photo of the spot when we have one; otherwise the outside of its building, labelled "Outside".
-function photoFor(s) {
+// Inside photos of the spot when we have them (the first goes on cards); otherwise the outside of its building, labelled "Outside".
+function photosFor(s) {
   const P = state.photos;
-  const inside = P.photos?.[P.spots?.[s.id]];
-  const p = inside || P.photos?.[P.buildings?.[s.building]];
-  if (!p) return null;
-  return { ...p, src: `photos/${p.file}`, alt: p.alt || s.name, outside: !inside };
+  const shape = (p, outside) => ({ ...p, src: `photos/${p.file}`, alt: p.alt || s.name, outside });
+  const inside = [].concat(P.spots?.[s.id] ?? []).map((id) => P.photos?.[id]).filter(Boolean);
+  if (inside.length) return inside.map((p) => shape(p, false));
+  const p = P.photos?.[P.buildings?.[s.building]];
+  return p ? [shape(p, true)] : [];
 }
+const photoFor = (s) => photosFor(s)[0] || null;
 function photoCredit(p) {
   return `Photo: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.artist)}</a>, ` +
     (p.licenseUrl ? `<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>` : esc(p.license)) +
-    `, via ${esc(p.via || "Wikimedia Commons")}`;
+    `, via ${esc(p.via || "Wikimedia Commons")}` + (p.changes ? ` (${esc(p.changes)})` : "");
 }
 
 function usableSpots() {
@@ -481,10 +488,17 @@ function openSheet(id) {
     ["Food", s.food === "yes" ? "Allowed" : s.food === "no" ? "Not allowed" : s.food === "drinks" ? "Covered drinks only" : "Unknown"],
     ["Where", esc(s.where) + (b ? `<br><span class="hint">${esc(b.address)}${b.approx || s.locationApprox ? " · map pin is approximate" : ""}</span>` : "")],
   ];
-  const ph = photoFor(s);
+  const phs = photosFor(s);
   const walk = b ? walkMinutes(fromPoint(), b) : null;
+  // Several photos scroll sideways; the arrows are for mouse users, swiping works on phones.
+  const gallery = !phs.length ? "" : `<div class="sheet-gallery">
+    <div class="sheet-photos" tabindex="0" aria-label="Photos of ${esc(s.name)}">${phs.map((ph, i) => `<figure class="sheet-photo">
+      <div class="frame"><img src="${esc(ph.src)}" alt="${esc(ph.alt)}"${i ? ' loading="lazy"' : ""}>${phs.length > 1 ? `<span class="photo-count">${i + 1} of ${phs.length}${i === 0 ? " · swipe" : ""}</span>` : ""}</div>
+      <figcaption>${ph.caption ? `${esc(ph.caption)}. ` : ""}${photoCredit(ph)}</figcaption></figure>`).join("")}</div>
+    ${phs.length > 1 ? `<button type="button" class="gallery-step prev" data-step="-1" aria-label="Previous photo">‹</button><button type="button" class="gallery-step next" data-step="1" aria-label="Next photo">›</button>` : ""}
+  </div>`;
   $("#sheet-body").innerHTML = `<div class="sheet">
-    ${ph ? `<figure class="sheet-photo"><img src="${esc(ph.src)}" alt="${esc(ph.alt)}"><figcaption>${ph.caption ? `${esc(ph.caption)}. ` : ""}${photoCredit(ph)}</figcaption></figure>` : ""}
+    ${gallery}
     <h2 id="sheet-h">${esc(s.name)}</h2>
     <p class="line">${factLine([tag, walk != null ? `${walk} min walk from ${esc(fromLabel())}` : "", s.status === "scout" ? `<span class="warn-text">Not yet checked on site</span>` : ""])}</p>
     <p>${esc(s.notes)}</p>

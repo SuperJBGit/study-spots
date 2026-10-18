@@ -1,5 +1,5 @@
 {
- "_source": "Inside photos first (each matched to the spot it shows); outside photos of the building only when a spot has no inside photo. Wikimedia Commons, plus one U of T Libraries photo. Credits in photos/CREDITS.md.",
+ "_source": "Inside photos first (each matched to the spot it shows; a spot can list several, the first is shown on its card); outside photos of the building only when a spot has no inside photo. Wikimedia Commons, Flickr (Creative Commons) and one U of T Libraries photo. photos/CREDITS.md is generated from this file.",
  "photos": {
   "gerstein-reading-room": {
    "file": "gerstein-reading-room.jpg",
@@ -160,13 +160,13 @@
   "outside-robarts": {
    "file": "outside-robarts.jpg",
    "kind": "building",
-   "alt": "Robarts Library's concrete tower",
-   "caption": "Outside of Robarts Library (no inside photo yet)",
-   "artist": "Maksim Sokolov (maxergon.com)",
-   "license": "CC BY-SA 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-   "page": "https://commons.wikimedia.org/wiki/File:John_P._Robarts_Research_Library.jpg",
-   "title": "John P. Robarts Research Library.jpg"
+   "alt": "Robarts Library, with the glass Robarts Common wing on the left",
+   "caption": "Outside of Robarts Library, with the glass Robarts Common wing on the left (no inside photo yet)",
+   "artist": "Jason Zhang",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Robarts_Library_with_cherry_blossoms,_April_2024.jpg",
+   "title": "Robarts Library with cherry blossoms, April 2024.jpg"
   },
   "outside-gerstein": {
    "file": "outside-gerstein.jpg",
@@ -303,13 +303,13 @@
   "outside-msb": {
    "file": "outside-msb.jpg",
    "kind": "building",
-   "alt": "Medical Sciences Building",
-   "caption": "Outside of Medical Sciences Building (no inside photo yet)",
-   "artist": "MarcusObal",
-   "license": "CC BY-SA 3.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-   "page": "https://commons.wikimedia.org/wiki/File:Medical_Science_Building_at_the_University_of_Toronto.JPG",
-   "title": "Medical Science Building at the University of Toronto.JPG"
+   "alt": "Medical Sciences Building from its entrance plaza",
+   "caption": "Outside of the Medical Sciences Building, from the entrance plaza (no inside photo yet)",
+   "artist": "Sarbjit Bahga",
+   "license": "CC BY-SA 4.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Medical_Sciences_Building._View_from_entrance_plaza.jpg",
+   "title": "Medical Sciences Building. View from entrance plaza.jpg"
   },
   "outside-pharmacy": {
    "file": "outside-pharmacy.jpg",
@@ -457,13 +457,13 @@
   "outside-daniels": {
    "file": "outside-daniels.jpg",
    "kind": "building",
-   "alt": "Daniels Building at One Spadina Crescent",
-   "caption": "Outside of Daniels Building (no inside photo yet)",
-   "artist": "Hadal",
-   "license": "CC BY-SA 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-   "page": "https://commons.wikimedia.org/wiki/File:Daniels_Building_at_One_Spadina_Crescent_Toronto_May_27_2023.jpg",
-   "title": "Daniels Building at One Spadina Crescent Toronto May 27 2023.jpg"
+   "alt": "Daniels Building, One Spadina Crescent",
+   "caption": "Outside of the Daniels Building, One Spadina Crescent (photo from 2005; no inside photo yet)",
+   "artist": "The original uploader was SimonP at English Wikipedia.",
+   "license": "CC BY-SA 3.0",
+   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:1_Spadina_Crescent.JPG",
+   "title": "1 Spadina Crescent.JPG"
   },
   "outside-oise": {
    "file": "outside-oise.jpg",
@@ -579,40 +579,264 @@
    "file": "outside-brennan.jpg",
    "kind": "building",
    "alt": "Brennan Hall",
-   "caption": "Outside of Brennan Hall (St. Michael's) (no inside photo yet)",
-   "artist": "unknown author (see file page)",
+   "caption": "Outside of Brennan Hall (no inside photo yet)",
+   "artist": "Jphillips23",
    "license": "CC BY-SA 3.0",
-   "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-   "page": "https://commons.wikimedia.org/wiki/File:Brennan_Hall,_University_of_Toronto_(2005).jpg",
-   "title": "Brennan Hall, University of Toronto (2005).jpg"
+   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Brennanhall_toronto.jpg",
+   "title": "Brennanhall toronto.jpg"
   },
   "outside-vic": {
    "file": "outside-vic.jpg",
    "kind": "building",
-   "alt": "Victoria College",
-   "caption": "Outside of Victoria College (no inside photo yet)",
-   "artist": "Adam Bishop",
-   "license": "CC BY-SA 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-   "page": "https://commons.wikimedia.org/wiki/File:Victoria_College_University_of_Toronto.jpg",
-   "title": "Victoria College University of Toronto.jpg"
+   "alt": "Old Vic, the main Victoria College building",
+   "caption": "Outside of Old Vic, the main Victoria College building (no inside photo yet)",
+   "artist": "User Paradiso on en.wikipedia",
+   "license": "Public domain",
+   "licenseUrl": "",
+   "page": "https://commons.wikimedia.org/wiki/File:Old_Vic_in_UofT.jpg",
+   "title": "Old Vic in UofT.jpg"
+  },
+  "kelly-ground-tables": {
+   "kind": "spot",
+   "file": "kelly-ground-tables.jpg",
+   "alt": "Long study tables and red armchairs among the stacks",
+   "caption": "Group tables and armchairs in Kelly Library’s ground-floor reference area (2015)",
+   "artist": "Arbron",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+   "page": "https://www.flickr.com/photos/91281489@N00/23756242303",
+   "title": "J. M. Kelly Library",
+   "via": "Flickr"
+  },
+  "kelly-ground-study-tables": {
+   "kind": "spot",
+   "file": "kelly-ground-study-tables.jpg",
+   "alt": "Study table with built-in outlets",
+   "caption": "Study tables with built-in outlets, Kelly Library ground floor (February 2015)",
+   "artist": "kellylib smc",
+   "license": "CC BY-NC 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-nc/2.0/",
+   "page": "https://www.flickr.com/photos/130674987@N02/16565471386",
+   "title": "Study tables with built-in outlets",
+   "via": "Flickr",
+   "nonCommercial": true
+  },
+  "kelly-ground-couches": {
+   "kind": "spot",
+   "file": "kelly-ground-couches.jpg",
+   "alt": "Red and grey couches around a low table",
+   "caption": "Couches in Kelly Library’s ground-floor reference area (February 2015)",
+   "artist": "kellylib smc",
+   "license": "CC BY-NC 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-nc/2.0/",
+   "page": "https://www.flickr.com/photos/130674987@N02/16590262831",
+   "title": "Couches",
+   "via": "Flickr",
+   "nonCommercial": true
+  },
+  "kelly-ground-couches-2": {
+   "kind": "spot",
+   "file": "kelly-ground-couches-2.jpg",
+   "alt": "Couches beside a high study bar",
+   "caption": "More couches in the ground-floor reference area (February 2015)",
+   "artist": "kellylib smc",
+   "license": "CC BY-NC 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-nc/2.0/",
+   "page": "https://www.flickr.com/photos/130674987@N02/15971682683",
+   "title": "Couches",
+   "via": "Flickr",
+   "nonCommercial": true
+  },
+  "kelly-ground-armchairs": {
+   "kind": "spot",
+   "file": "kelly-ground-armchairs.jpg",
+   "alt": "Armchairs with swing-out laptop tables",
+   "caption": "Armchairs with laptop tables, Kelly Library ground floor (February 2015)",
+   "artist": "kellylib smc",
+   "license": "CC BY-NC 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-nc/2.0/",
+   "page": "https://www.flickr.com/photos/130674987@N02/16405601909",
+   "title": "Comfy seating with laptop tables",
+   "via": "Flickr",
+   "nonCommercial": true
+  },
+  "kelly-ground-study-bar": {
+   "kind": "spot",
+   "file": "kelly-ground-study-bar.jpg",
+   "alt": "High study bar with stools",
+   "caption": "Study bar, Kelly Library ground floor (February 2015)",
+   "artist": "kellylib smc",
+   "license": "CC BY-NC 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-nc/2.0/",
+   "page": "https://www.flickr.com/photos/130674987@N02/16591458295",
+   "title": "Study Bar",
+   "via": "Flickr",
+   "nonCommercial": true
+  },
+  "kelly-ground-computers": {
+   "kind": "spot",
+   "file": "kelly-ground-computers.jpg",
+   "alt": "Computer stations, with the entrance doors behind",
+   "caption": "Computer stations on Kelly Library’s ground floor, looking toward the entrance (2015)",
+   "artist": "Arbron",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+   "page": "https://www.flickr.com/photos/91281489@N00/24356851546",
+   "title": "J. M. Kelly Library",
+   "via": "Flickr"
+  },
+  "kelly-upper-carrels": {
+   "kind": "spot",
+   "file": "kelly-upper-carrels.jpg",
+   "alt": "A row of wooden carrels along the windows",
+   "caption": "Carrels along the windows on an upper floor of Kelly Library (2015). The photographer didn’t say which floor",
+   "artist": "Arbron",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+   "page": "https://www.flickr.com/photos/91281489@N00/24356839506",
+   "title": "J. M. Kelly Library",
+   "via": "Flickr"
+  },
+  "kelly-upper-stacks": {
+   "kind": "spot",
+   "file": "kelly-upper-stacks.jpg",
+   "alt": "Stacks with a reading chair and computer desks",
+   "caption": "Stacks, a reading chair and computer desks on an upper floor of Kelly Library (2015). The photographer didn’t say which floor",
+   "artist": "Arbron",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+   "page": "https://www.flickr.com/photos/91281489@N00/23754841664",
+   "title": "J. M. Kelly Library",
+   "via": "Flickr"
+  },
+  "hart-house-reading-room": {
+   "kind": "spot",
+   "file": "hart-house-reading-room.jpg",
+   "alt": "Leather couches and wall lamps in the Hart House Reading Room",
+   "caption": "Hart House Reading Room (January 2019)",
+   "artist": "matilde park",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+   "page": "https://www.flickr.com/photos/82952424@N05/46567776332",
+   "title": "Hart House - reading room",
+   "via": "Flickr",
+   "changes": "cropped to the room"
+  },
+  "robarts-reading-area": {
+   "kind": "spot",
+   "file": "robarts-reading-area.jpg",
+   "alt": "Study tables and stacks under Robarts’ coffered ceiling",
+   "caption": "Study tables, stacks and a reference desk in Robarts Library, seen from a mezzanine (2015)",
+   "artist": "Jeff Hitchcock",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Robarts_Library_2015.jpg",
+   "title": "Robarts Library 2015.jpg"
+  },
+  "robarts-computers": {
+   "kind": "spot",
+   "file": "robarts-computers.jpg",
+   "alt": "Computer stations and stacks in Robarts",
+   "caption": "Computer stations and stacks in Robarts Library (2015)",
+   "artist": "Jeff Hitchcock",
+   "license": "CC BY 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Robarts_Library_2015_(1).jpg",
+   "title": "Robarts Library 2015 (1).jpg"
+  },
+  "robarts-11th-floor": {
+   "kind": "spot",
+   "file": "robarts-11th-floor.jpg",
+   "alt": "Study tables by Robarts’ triangular window bays",
+   "caption": "Study tables by the window bays on Robarts’ 11th floor (June 2016)",
+   "artist": "divirtual",
+   "license": "CC BY-NC-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/2.0/",
+   "page": "https://www.flickr.com/photos/daviding/27212759790",
+   "title": "Robarts Library",
+   "via": "Flickr",
+   "nonCommercial": true
+  },
+  "robarts-11th-floor-view": {
+   "kind": "spot",
+   "file": "robarts-11th-floor-view.jpg",
+   "alt": "View south over the city from an 11th-floor window seat",
+   "caption": "The view south from an 11th-floor window seat in Robarts (August 2018)",
+   "artist": "divirtual",
+   "license": "CC BY-NC-SA 2.0",
+   "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/2.0/",
+   "page": "https://www.flickr.com/photos/daviding/43871919411",
+   "title": "Robarts Library",
+   "via": "Flickr",
+   "nonCommercial": true
   }
  },
  "spots": {
-  "gerstein-rr": "gerstein-reading-room",
-  "myhal-5": "myhal-5th-atrium",
-  "uc-lib": "uc-library",
-  "hh-lib": "hart-house-library",
-  "knox": "knox-library",
-  "pratt": "pratt-interior",
-  "gerstein-morrison": "gerstein-inside",
-  "bahen-3": "bahen-atrium",
-  "ecsl-main": "ecsl-main-floor",
-  "ecsl-quiet": "ecsl-carrels",
-  "pharm": "pharmacy-atrium",
-  "rotman-lib": "rotman-library",
-  "kelly-g": "kelly-research-commons",
-  "oise-ground": "oise-ground-floor"
+  "gerstein-rr": [
+   "gerstein-reading-room"
+  ],
+  "myhal-5": [
+   "myhal-5th-atrium"
+  ],
+  "uc-lib": [
+   "uc-library"
+  ],
+  "hh-lib": [
+   "hart-house-library"
+  ],
+  "knox": [
+   "knox-library"
+  ],
+  "pratt": [
+   "pratt-interior"
+  ],
+  "gerstein-morrison": [
+   "gerstein-inside"
+  ],
+  "bahen-3": [
+   "bahen-atrium"
+  ],
+  "ecsl-main": [
+   "ecsl-main-floor"
+  ],
+  "ecsl-quiet": [
+   "ecsl-carrels"
+  ],
+  "pharm": [
+   "pharmacy-atrium"
+  ],
+  "rotman-lib": [
+   "rotman-library"
+  ],
+  "kelly-g": [
+   "kelly-ground-tables",
+   "kelly-ground-study-tables",
+   "kelly-ground-couches",
+   "kelly-ground-couches-2",
+   "kelly-ground-armchairs",
+   "kelly-ground-study-bar",
+   "kelly-ground-computers",
+   "kelly-research-commons"
+  ],
+  "oise-ground": [
+   "oise-ground-floor"
+  ],
+  "kelly-2": [
+   "kelly-upper-stacks"
+  ],
+  "kelly-3": [
+   "kelly-upper-carrels"
+  ],
+  "hh-reading": [
+   "hart-house-reading-room"
+  ],
+  "robarts-floors": [
+   "robarts-reading-area",
+   "robarts-computers",
+   "robarts-11th-floor",
+   "robarts-11th-floor-view"
+  ]
  },
  "buildings": {
   "robarts": "outside-robarts",

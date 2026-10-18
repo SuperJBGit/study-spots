@@ -58,7 +58,7 @@ Open the site in Chrome on Android, then menu > Install app (or Add to Home scre
 - **Each term**: add the next term's closure days to `data/calendar.json`.
 - **Temporarily closed** (construction, say): add `"closed": { "reason": "construction", "reported": "2026-10-18", "text": "…" }` to the spot. It then shows as "Closed for construction" everywhere and is never suggested. Delete the field when it reopens. The Pit has one now.
 - **Spots with `"type": "unknown"` hours never appear in the top picks.** Finding their hours is the most useful data work left: 30 spots, mostly college and engineering-club lounges whose owners don't publish hours.
-- **Photos**: an inside photo goes under `photos` in `data/photos.json` with `kind: "spot"` and a caption saying exactly what it shows, mapped from the spot id under `spots`; it then replaces the outside fallback for that spot. Add a line to `photos/CREDITS.md`. Your own photos from the headcount walks are the best source: about 70 spots still only have the outside shot.
+- **Photos**: put the file (resized to fit 800 × 600) in `photos/`, add an entry under `photos` in `data/photos.json` with `kind: "spot"` and a caption saying exactly what it shows, then add its id to the spot's list under `spots`. The first photo in the list goes on the card, and the detail sheet shows all of them as a swipeable strip. Any inside photo replaces the outside fallback for that spot. Run `node scripts/credits.mjs` to rebuild `photos/CREDITS.md`; the tests check every photo has a file and a credit. Your own photos from the headcount walks are the best source: 67 spots still only have the outside shot. For your own photos, set `artist` to your name and `license` to whatever you choose (CC BY 4.0 is the simplest).
 
 ## Deploying
 
