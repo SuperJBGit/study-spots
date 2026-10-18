@@ -43,6 +43,8 @@ const state = {
   gps: null,
   gpsAccuracy: null,
   watchId: null,
+  locStatus: "",
+  farKm: null,
   photos: { photos: {}, spots: {}, buildings: {} },
   need: store.get("need-v1", 60),
   prefs: store.get("prefs-v1", { quiet: false, group: false, outlets: false, food: false }),
@@ -71,11 +73,9 @@ async function boot() {
   renderFeedStatus();
   render();
   if (!state.profile) openOnboarding();
-  // Use location straight away if the student chose it before, or already allowed it in this browser.
-  else if (state.near === "gps" || state.near === null) {
-    const perm = await navigator.permissions?.query({ name: "geolocation" }).catch(() => null);
-    if (state.near === "gps" || perm?.state === "granted") startLocation({ userAsked: false });
-  }
+  // Ask for location straight away unless the student picked a building themselves:
+  // the closest spots to where they are is the whole point of the Now screen.
+  else if (state.near === "gps" || state.near === null) startLocation({ userAsked: false });
 
   state.hours = await loadLibraryHours({ now: nowDate() });
   renderFeedStatus();
@@ -108,6 +108,7 @@ function wireControls() {
     const v = e.target.value;
     if (v === "gps") return startLocation({ userAsked: true });
     stopLocation();
+    state.locStatus = "";
     state.near = v;
     store.set("near-v1", v);
     state.skipped.clear();
@@ -160,43 +161,62 @@ function wireControls() {
 
 // Location: watch the position while the app is open, so the closest spots update as you walk.
 // The position stays on the device; it's only used to work out walking times.
+// state.locStatus: "" | "finding" | "on" | "blocked" | "failed" | "unsupported" | "far"
+// Shown under the Near picker, so a missing location never fails silently.
 function startLocation({ userAsked }) {
   if (!navigator.geolocation) {
-    if (userAsked) alertBanner("This browser can’t share your location. Pick the building you’re in instead.");
+    state.locStatus = "unsupported";
+    render();
     return;
   }
   stopLocation();
+  state.locStatus = "finding";
   $("#locate").textContent = "Locating…";
+  render();
   state.watchId = navigator.geolocation.watchPosition(
     (pos) => {
       const p = { lat: pos.coords.latitude, lon: pos.coords.longitude };
       $("#locate").textContent = "Update location";
-      if (walkMinutes(p, state.buildings.uc) > 40) {
-        stopLocation();
-        if (userAsked) alertBanner("You look far from St. George, so walk times are from University College for now.");
-        state.near = state.near === "gps" ? null : state.near;
+      const fromCampus = walkMinutes(p, state.buildings.uc);
+      if (fromCampus > 40) {
+        // Off campus (at home, say): keep watching, but measure from UC until they get closer.
+        state.locStatus = "far";
+        state.farKm = Math.round(haversineMetres(p, state.buildings.uc) / 100) / 10;
+        if (state.near === "gps") state.near = null;
+        state.gps = null;
         render();
         return;
       }
       const moved = !state.gps || haversineMetres(state.gps, p) > 25;
       state.gps = p;
       state.gpsAccuracy = Math.round(pos.coords.accuracy);
+      const switched = state.near !== "gps" || state.locStatus !== "on";
+      state.locStatus = "on";
       if (state.near !== "gps") { state.near = "gps"; store.set("near-v1", "gps"); state.skipped.clear(); }
-      if (moved) render();
+      if (moved || switched) render();
     },
     (err) => {
       stopLocation();
       $("#locate").textContent = "Use my location";
+      state.locStatus = err.code === 1 ? "blocked" : "failed";
       if (state.near === "gps") state.near = null;
-      if (userAsked) {
-        alertBanner(err.code === 1
-          ? "Location is blocked for this site. Allow it in your browser settings, or pick the building you’re in."
-          : "Couldn’t get your location. Pick the building you’re in instead.");
-      }
+      if (userAsked && err.code === 1) alertBanner("Location is blocked for this site. Allow it in your browser’s site settings, then tap Use my location.");
       render();
     },
-    { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 },
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 },
   );
+}
+function nearNote() {
+  const from = (state.buildings[state.near] || state.buildings.uc).name;
+  switch (state.locStatus) {
+    case "on": return usingGps() ? `Walk times from where you are${state.gpsAccuracy ? ` (±${state.gpsAccuracy} m)` : ""}.` : `Walk times from ${from}.`;
+    case "finding": return "Finding you… If your browser asks, allow location.";
+    case "far": return `You’re about ${state.farKm} km from campus, so walk times are from ${from} until you’re closer.`;
+    case "blocked": return `Location is blocked for this site, so walk times are from ${from}. Allow it in your browser’s site settings, then tap Use my location.`;
+    case "failed": return `Couldn’t find you, so walk times are from ${from}. Tap Use my location to try again.`;
+    case "unsupported": return `This browser can’t share location, so walk times are from ${from}.`;
+    default: return state.near && state.near !== "gps" ? `Walk times from ${from}.` : "";
+  }
 }
 function stopLocation() {
   if (state.watchId != null) navigator.geolocation.clearWatch(state.watchId);
@@ -225,9 +245,7 @@ function showTab(tab) {
 // ---------- render ----------
 function render() {
   $("#near").value = nearValue();
-  $("#near-note").textContent = usingGps()
-    ? `Walk times from where you are${state.gpsAccuracy ? ` (±${state.gpsAccuracy} m)` : ""}.`
-    : state.near === "gps" ? "Finding you…" : "";
+  $("#near-note").textContent = nearNote();
   document.querySelectorAll("#need button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.min) === state.need)));
   document.querySelectorAll("#prefs button").forEach((b) => b.setAttribute("aria-pressed", String(!!state.prefs[b.dataset.pref])));
   if (state.tab === "now") renderNow();
