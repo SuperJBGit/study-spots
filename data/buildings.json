@@ -1,48 +1,298 @@
 {
-  "_source": "Building footprint centres from OpenStreetMap (Overpass API, pulled Oct 16, 2026), matched by street address. Robarts checked against Google Maps (43.664486, -79.39969): within about 6 m.",
-  "_codes": "Building codes only where confirmed from course timetables.",
-  "buildings": {
-    "bahen":        { "name": "Bahen Centre", "code": "BA", "address": "40 St. George St", "lat": 43.659709, "lon": -79.397454 },
-    "brennan":      { "name": "Brennan Hall (St. Michael's)", "address": "81 St. Mary St", "lat": 43.666394, "lon": -79.389765 },
-    "daniels":      { "name": "Daniels Building", "address": "1 Spadina Cres", "lat": 43.659646, "lon": -79.400703 },
-    "donnelly":     { "name": "Donnelly Centre", "address": "160 College St", "lat": 43.660135, "lon": -79.392933 },
-    "earthSci":     { "name": "Earth Sciences Centre", "address": "5 Bancroft Ave", "lat": 43.660778, "lon": -79.399651 },
-    "edJohnson":    { "name": "Edward Johnson Building", "address": "80 Queen's Park", "lat": 43.666612, "lon": -79.394587 },
-    "emmanuel":     { "name": "Emmanuel College", "address": "75 Queen's Park Cres E", "lat": 43.666714, "lon": -79.39265 },
-    "galbraith":    { "name": "Galbraith Building", "code": "GB", "address": "35 St. George St", "lat": 43.659959, "lon": -79.395966 },
-    "gerstein":     { "name": "Gerstein Library", "address": "9 King's College Circle", "lat": 43.662088, "lon": -79.39364 },
-    "goldring":     { "name": "Goldring Student Centre (Vic)", "address": "150 Charles St W", "lat": 43.66776, "lon": -79.392416 },
-    "graham":       { "name": "Graham Library (Trinity)", "address": "3 Devonshire Pl", "lat": 43.665025, "lon": -79.396688, "approx": "No footprint of its own in OpenStreetMap; uses 1 Devonshire Pl next door." },
-    "hartHouse":    { "name": "Hart House", "address": "7 Hart House Circle", "lat": 43.663925, "lon": -79.394475 },
-    "innis":        { "name": "Innis College", "address": "2 Sussex Ave", "lat": 43.66562, "lon": -79.399593 },
-    "innisRes":     { "name": "Innis Residence", "address": "111 St. George St", "lat": 43.665948, "lon": -79.398676 },
-    "irhr":         { "name": "Industrial Relations building", "address": "121 St. George St", "lat": 43.666687, "lon": -79.39909 },
-    "kelly":        { "name": "Kelly Library (St. Michael's)", "address": "113 St. Joseph St", "lat": 43.664852, "lon": -79.389511 },
-    "knox":         { "name": "Knox College", "address": "59 St. George St", "lat": 43.661439, "lon": -79.396688 },
-    "larkin":       { "name": "Gerald Larkin Building (Trinity)", "address": "15 Devonshire Pl", "lat": 43.665672, "lon": -79.396945 },
-    "lashMiller":   { "name": "Lash Miller Chemical Labs", "address": "80 St. George St", "lat": 43.661513, "lon": -79.398273 },
-    "mcLennan":     { "name": "McLennan Physical Labs", "code": "MP", "address": "60 St. George St", "lat": 43.660818, "lon": -79.398389 },
-    "mechanical":   { "name": "Mechanical Engineering Building", "code": "MC", "address": "5 King's College Rd", "lat": 43.660056, "lon": -79.393837 },
-    "mining":       { "name": "Lassonde Mining Building", "code": "MB", "address": "170 College St", "lat": 43.659525, "lon": -79.393468 },
-    "msb":          { "name": "Medical Sciences Building", "address": "1 King's College Circle", "lat": 43.661334, "lon": -79.393435 },
-    "myhal":        { "name": "Myhal Centre", "code": "MY", "address": "55 St. George St", "lat": 43.660764, "lon": -79.396536 },
-    "nc45":         { "name": "45 Willcocks (New College)", "address": "45 Willcocks St", "lat": 43.66098, "lon": -79.400845 },
-    "oise":         { "name": "OISE", "address": "252 Bloor St W", "lat": 43.66842, "lon": -79.398703 },
-    "pharmacy":     { "name": "Leslie Dan Pharmacy Building", "address": "144 College St", "lat": 43.65995, "lon": -79.391777 },
-    "pratt":        { "name": "E.J. Pratt Library (Vic)", "address": "71 Queen's Park Cres E", "lat": 43.66632, "lon": -79.391292 },
-    "robarts":      { "name": "Robarts Library", "address": "130 St. George St", "lat": 43.66439, "lon": -79.399444 },
-    "robartsCommon":{ "name": "Robarts Common", "address": "369 Huron St", "lat": 43.664301, "lon": -79.400039 },
-    "rotman":       { "name": "Rotman", "address": "105 St. George St", "lat": 43.66536, "lon": -79.398443 },
-    "sf":           { "name": "Sandford Fleming Building", "code": "SF", "address": "10 King's College Rd", "lat": 43.660152, "lon": -79.395218 },
-    "sidSmith":     { "name": "Sidney Smith Hall", "address": "100 St. George St", "lat": 43.662467, "lon": -79.398805 },
-    "sric":         { "name": "Schwartz Reisman Innovation Campus", "address": "108 College St", "lat": 43.660449, "lon": -79.389344 },
-    "stcommons":    { "name": "Student Commons", "address": "230 College St", "lat": 43.658679, "lon": -79.398001 },
-    "stHildas":     { "name": "St. Hilda's College (Trinity)", "address": "44 Devonshire Pl", "lat": 43.665726, "lon": -79.397951 },
-    "trinity":      { "name": "Trinity College", "address": "6 Hoskin Ave", "lat": 43.665315, "lon": -79.395728 },
-    "uc":           { "name": "University College", "address": "15 King's College Circle", "lat": 43.662834, "lon": -79.395856 },
-    "vic":          { "name": "Victoria College", "address": "91 Charles St W", "lat": 43.666926, "lon": -79.391956 },
-    "wallberg":     { "name": "Wallberg Building", "code": "WB", "address": "200 College St", "lat": 43.659188, "lon": -79.395242 },
-    "wilsonHall":   { "name": "Wilson Hall (New College)", "address": "40 Willcocks St", "lat": 43.661855, "lon": -79.400716 },
-    "woodsworth":   { "name": "Woodsworth College (Kruger Hall)", "address": "119 St. George St", "lat": 43.666662, "lon": -79.398806 }
+ "_source": "Building footprint centres from OpenStreetMap (Overpass API, pulled Oct 16, 2026), matched by street address. Robarts checked against Google Maps (43.664486, -79.39969): within about 6 m.",
+ "_codes": "Building codes from U of T's official campus map (map.utoronto.ca), pulled Oct 18, 2026. Its coordinates agree with these to within a few metres.",
+ "buildings": {
+  "bahen": {
+   "name": "Bahen Centre",
+   "code": "BA",
+   "address": "40 St. George St",
+   "lat": 43.659709,
+   "lon": -79.397454
+  },
+  "brennan": {
+   "name": "Brennan Hall (St. Michael's)",
+   "address": "81 St. Mary St",
+   "lat": 43.666394,
+   "lon": -79.389765,
+   "code": "BR"
+  },
+  "daniels": {
+   "name": "Daniels Building",
+   "address": "1 Spadina Cres",
+   "lat": 43.659646,
+   "lon": -79.400703,
+   "code": "DA"
+  },
+  "donnelly": {
+   "name": "Donnelly Centre",
+   "address": "160 College St",
+   "lat": 43.660135,
+   "lon": -79.392933,
+   "code": "DC"
+  },
+  "earthSci": {
+   "name": "Earth Sciences Centre",
+   "address": "5 Bancroft Ave",
+   "lat": 43.660778,
+   "lon": -79.399651,
+   "code": "ES"
+  },
+  "edJohnson": {
+   "name": "Edward Johnson Building",
+   "address": "80 Queen's Park",
+   "lat": 43.666612,
+   "lon": -79.394587,
+   "code": "EJ"
+  },
+  "emmanuel": {
+   "name": "Emmanuel College",
+   "address": "75 Queen's Park Cres E",
+   "lat": 43.666714,
+   "lon": -79.39265,
+   "code": "EM"
+  },
+  "galbraith": {
+   "name": "Galbraith Building",
+   "code": "GB",
+   "address": "35 St. George St",
+   "lat": 43.659959,
+   "lon": -79.395966
+  },
+  "gerstein": {
+   "name": "Gerstein Library",
+   "address": "9 King's College Circle",
+   "lat": 43.662088,
+   "lon": -79.39364,
+   "code": "SM"
+  },
+  "goldring": {
+   "name": "Goldring Student Centre (Vic)",
+   "address": "150 Charles St W",
+   "lat": 43.66776,
+   "lon": -79.392416,
+   "code": "GC"
+  },
+  "graham": {
+   "name": "Munk School building (Graham Library)",
+   "address": "3 Devonshire Pl",
+   "lat": 43.665025,
+   "lon": -79.396688,
+   "code": "MU"
+  },
+  "hartHouse": {
+   "name": "Hart House",
+   "address": "7 Hart House Circle",
+   "lat": 43.663925,
+   "lon": -79.394475,
+   "code": "HH"
+  },
+  "innis": {
+   "name": "Innis College",
+   "address": "2 Sussex Ave",
+   "lat": 43.66562,
+   "lon": -79.399593,
+   "code": "IN"
+  },
+  "innisRes": {
+   "name": "Innis Residence",
+   "address": "111 St. George St",
+   "lat": 43.665948,
+   "lon": -79.398676,
+   "code": "IS"
+  },
+  "irhr": {
+   "name": "Industrial Relations building",
+   "address": "121 St. George St",
+   "lat": 43.666687,
+   "lon": -79.39909
+  },
+  "kelly": {
+   "name": "Kelly Library (St. Michael's)",
+   "address": "113 St. Joseph St",
+   "lat": 43.664852,
+   "lon": -79.389511,
+   "code": "KL"
+  },
+  "knox": {
+   "name": "Knox College",
+   "address": "59 St. George St",
+   "lat": 43.661439,
+   "lon": -79.396688,
+   "code": "KX"
+  },
+  "larkin": {
+   "name": "Gerald Larkin Building (Trinity)",
+   "address": "15 Devonshire Pl",
+   "lat": 43.665672,
+   "lon": -79.396945,
+   "code": "LA"
+  },
+  "lashMiller": {
+   "name": "Lash Miller Chemical Labs",
+   "address": "80 St. George St",
+   "lat": 43.661513,
+   "lon": -79.398273,
+   "code": "LM"
+  },
+  "mcLennan": {
+   "name": "McLennan Physical Labs",
+   "code": "MP",
+   "address": "60 St. George St",
+   "lat": 43.660818,
+   "lon": -79.398389
+  },
+  "mechanical": {
+   "name": "Mechanical Engineering Building",
+   "code": "MC",
+   "address": "5 King's College Rd",
+   "lat": 43.660056,
+   "lon": -79.393837
+  },
+  "mining": {
+   "name": "Lassonde Mining Building",
+   "code": "MB",
+   "address": "170 College St",
+   "lat": 43.659525,
+   "lon": -79.393468
+  },
+  "msb": {
+   "name": "Medical Sciences Building",
+   "address": "1 King's College Circle",
+   "lat": 43.661334,
+   "lon": -79.393435,
+   "code": "MS"
+  },
+  "myhal": {
+   "name": "Myhal Centre",
+   "code": "MY",
+   "address": "55 St. George St",
+   "lat": 43.660764,
+   "lon": -79.396536
+  },
+  "nc45": {
+   "name": "45 Willcocks (New College)",
+   "address": "45 Willcocks St",
+   "lat": 43.66098,
+   "lon": -79.400845,
+   "code": "NR"
+  },
+  "oise": {
+   "name": "OISE",
+   "address": "252 Bloor St W",
+   "lat": 43.66842,
+   "lon": -79.398703,
+   "code": "OI"
+  },
+  "pharmacy": {
+   "name": "Leslie Dan Pharmacy Building",
+   "address": "144 College St",
+   "lat": 43.65995,
+   "lon": -79.391777,
+   "code": "PB"
+  },
+  "pratt": {
+   "name": "E.J. Pratt Library (Vic)",
+   "address": "71 Queen's Park Cres E",
+   "lat": 43.66632,
+   "lon": -79.391292,
+   "code": "PR"
+  },
+  "robarts": {
+   "name": "Robarts Library",
+   "address": "130 St. George St",
+   "lat": 43.66439,
+   "lon": -79.399444,
+   "code": "RL"
+  },
+  "robartsCommon": {
+   "name": "Robarts Common",
+   "address": "369 Huron St",
+   "lat": 43.664301,
+   "lon": -79.400039,
+   "code": "RL"
+  },
+  "rotman": {
+   "name": "Rotman",
+   "address": "105 St. George St",
+   "lat": 43.66536,
+   "lon": -79.398443,
+   "code": "RT"
+  },
+  "sf": {
+   "name": "Sandford Fleming Building",
+   "code": "SF",
+   "address": "10 King's College Rd",
+   "lat": 43.660152,
+   "lon": -79.395218
+  },
+  "sidSmith": {
+   "name": "Sidney Smith Hall",
+   "address": "100 St. George St",
+   "lat": 43.662467,
+   "lon": -79.398805,
+   "code": "SS"
+  },
+  "sric": {
+   "name": "Schwartz Reisman Innovation Campus",
+   "address": "108 College St",
+   "lat": 43.660449,
+   "lon": -79.389344
+  },
+  "stcommons": {
+   "name": "Student Commons",
+   "address": "230 College St",
+   "lat": 43.658679,
+   "lon": -79.398001,
+   "code": "SU"
+  },
+  "stHildas": {
+   "name": "St. Hilda's College (Trinity)",
+   "address": "44 Devonshire Pl",
+   "lat": 43.665726,
+   "lon": -79.397951,
+   "code": "HI"
+  },
+  "trinity": {
+   "name": "Trinity College",
+   "address": "6 Hoskin Ave",
+   "lat": 43.665315,
+   "lon": -79.395728,
+   "code": "TC"
+  },
+  "uc": {
+   "name": "University College",
+   "address": "15 King's College Circle",
+   "lat": 43.662834,
+   "lon": -79.395856,
+   "code": "UC"
+  },
+  "vic": {
+   "name": "Victoria College",
+   "address": "91 Charles St W",
+   "lat": 43.666926,
+   "lon": -79.391956,
+   "code": "VC"
+  },
+  "wallberg": {
+   "name": "Wallberg Building",
+   "code": "WB",
+   "address": "200 College St",
+   "lat": 43.659188,
+   "lon": -79.395242
+  },
+  "wilsonHall": {
+   "name": "Wilson Hall (New College)",
+   "address": "40 Willcocks St",
+   "lat": 43.661855,
+   "lon": -79.400716,
+   "code": "WI"
+  },
+  "woodsworth": {
+   "name": "Woodsworth College (Kruger Hall)",
+   "address": "119 St. George St",
+   "lat": 43.666662,
+   "lon": -79.398806,
+   "code": "WW"
   }
+ }
 }

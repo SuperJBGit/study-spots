@@ -130,6 +130,8 @@ export function openStatus(spot, now, ctx) {
   const midnight = new Date(today + "T00:00:00");
   const at = (m) => new Date(midnight.getTime() + m * 60000);
   const cur = merged.find(([a, b]) => a <= t && t < b);
+  // Open through the whole week we look at: treat it as always open rather than inventing a closing time.
+  if (cur && cur[1] >= 7 * MIN_PER_DAY) return { open: true, until: null, always: true, opensAt: null };
   if (cur) return { open: true, until: at(cur[1]), opensAt: null };
   if (unknownToday) return { open: null, until: null, opensAt: null };
   const next = merged.find(([a]) => a > t);
@@ -160,7 +162,7 @@ export function scoreSpot(spot, opts, ctx, buildings) {
   if (!acc.ok) return null;
   const st = openStatus(spot, opts.now, ctx);
   if (st.open !== true) return null; // never suggest a spot we can't confirm is open
-  const minutesLeft = Math.round((st.until - opts.now) / 60000);
+  const minutesLeft = st.always ? Infinity : Math.round((st.until - opts.now) / 60000);
   if (minutesLeft < Math.min(opts.needMinutes, 30)) return null;
 
   const b = spot.building ? buildings[spot.building] : null;
@@ -169,7 +171,7 @@ export function scoreSpot(spot, opts, ctx, buildings) {
   const reasons = [];
   const warnings = [];
   if (walk != null) reasons.push(`${walk} min walk`);
-  reasons.push(`open until ${fmtTime(st.until, opts.now)}`);
+  reasons.push(openLabel(st, opts.now));
 
   const { quiet, group, outlets, food } = opts.prefs;
   if (quiet) {
@@ -213,13 +215,20 @@ export function rankSpots(spots, opts, ctx, buildings, spread = 3) {
   scored.sort((a, b) => a.score - b.score || a.spot.name.localeCompare(b.spot.name));
   const out = [];
   const used = new Set();
+  // Same official building code means the same building (Robarts and Robarts Common are both RL).
+  const place = (s) => buildings[s.spot.building]?.code || s.spot.building;
   for (const s of scored) {
-    if (out.length < spread && used.has(s.spot.building)) continue;
+    if (out.length < spread && used.has(place(s))) continue;
     out.push(s);
-    used.add(s.spot.building);
+    used.add(place(s));
   }
   for (const s of scored) if (!out.includes(s)) out.push(s);
   return out;
+}
+
+// "open until 9pm", or "open 24 hours" for spots that don't close this week.
+export function openLabel(st, now) {
+  return st.always ? "open 24 hours" : `open until ${fmtTime(st.until, now)}`;
 }
 
 export function fmtTime(d, now) {

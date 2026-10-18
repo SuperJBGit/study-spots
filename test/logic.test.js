@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { access, parseClock, dayHours, openStatus, walkMinutes, rankSpots, fmtTime } from "../src/logic.js";
+import { access, parseClock, dayHours, openStatus, openLabel, walkMinutes, rankSpots, fmtTime } from "../src/logic.js";
 import { indexFeed, loadLibraryHours } from "../src/hours.js";
 
 const load = (p) => JSON.parse(readFileSync(new URL(p, import.meta.url), "utf8"));
@@ -63,6 +63,16 @@ test("Robarts Common's 24 h days chain into one opening", () => {
   assert.equal(sun.until.toString(), at("2026-10-23T23:00:00").toString());
 });
 
+test("spots open all week say so instead of inventing a closing time", () => {
+  const now = at("2026-10-21T14:10:00");
+  const st = openStatus(spot("eng-engsci"), now, ctx); // EngSci Common Room: 24/7 in term
+  assert.equal(st.open, true);
+  assert.equal(st.always, true);
+  assert.equal(openLabel(st, now), "open 24 hours");
+  // Robarts Common closes Friday night, so it keeps a real closing time
+  assert.equal(openStatus(spot("robarts-common"), now, ctx).always, undefined);
+});
+
 test("closed spots report when they reopen", () => {
   const st = openStatus(spot("robarts-floors"), at("2026-10-19T23:30:00"), ctx);
   assert.equal(st.open, false);
@@ -85,7 +95,7 @@ test("suggestions are open, usable, walk-in and from different buildings", () =>
   }, ctx, buildings);
   assert.ok(ranked.length >= 3);
   const top = ranked.slice(0, 3);
-  assert.equal(new Set(top.map((r) => r.spot.building)).size, 3);
+  assert.equal(new Set(top.map((r) => buildings[r.spot.building].code)).size, 3);
   for (const r of ranked) {
     assert.equal(r.status.open, true, r.spot.id);
     assert.ok(r.spot.walkIn, r.spot.id);

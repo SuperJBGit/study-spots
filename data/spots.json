@@ -1,5 +1,5 @@
 {
- "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on.",
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs).",
  "spots": [
   {
    "id": "stcommons",
@@ -17,9 +17,44 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "09:00",
+       "21:00"
+      ]
+     ],
+     "tue": [
+      [
+       "09:00",
+       "21:00"
+      ]
+     ],
+     "wed": [
+      [
+       "09:00",
+       "21:00"
+      ]
+     ],
+     "thu": [
+      [
+       "09:00",
+       "21:00"
+      ]
+     ],
+     "fri": [
+      [
+       "09:00",
+       "21:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "UTSU contact page (undated; no weekend hours listed)"
    },
-   "hoursText": "Not published on the UTSU page",
+   "hoursText": "Mon–Fri 9am–9pm; weekend hours not published",
    "outlets": null,
    "food": "yes",
    "notes": "Quiet zones and individual seating, plus team suites, open tables and bookable meeting rooms. Acacia Café on the 2nd floor (8am–3pm weekdays; the lounge stays open after).",
@@ -32,6 +67,10 @@
     {
      "title": "Facilities & Services: cozy spots on St. George [Jan 2026]",
      "url": "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"
+    },
+    {
+     "title": "UTSU: contact us (Student Commons building hours)",
+     "url": "https://www.utsu.ca/contact-us/"
     }
    ]
   },
@@ -447,9 +486,45 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "08:00",
+       "23:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:00",
+       "23:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:00",
+       "23:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:00",
+       "23:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:00",
+       "23:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "CS Teaching Labs FAQ, Oct 2022 (weekends: CS TCard only)",
+    "dated": true
    },
-   "hoursText": "Business hours for everyone. After hours: CS students only (TCard)",
+   "hoursText": "Open to everyone Mon–Fri 8am–11pm; TCard (CS) at other times",
    "outlets": null,
    "food": null,
    "notes": "Described as quieter than the 2nd-floor lounge, which gets loud at lunch.",
@@ -462,6 +537,10 @@
     {
      "title": "CS Teaching Labs: Bahen labs and after-hours access",
      "url": "https://teach.cs.toronto.edu/using-labs/on-campus-labs"
+    },
+    {
+     "title": "CS Teaching Labs FAQ: Bahen public hours [Oct 2022]",
+     "url": "https://www.teach.cs.toronto.edu/faq/"
     }
    ]
   },
@@ -581,22 +660,67 @@
    "zone": "S",
    "type": "Lounge",
    "building": "bahen",
-   "noise": "Social",
+   "noise": "Mixed",
    "noiseOfficial": false,
    "who": [
     "prog:EngSci"
    ],
    "whoBasis": "stated",
-   "cardDoor": false,
+   "cardDoor": true,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "tue": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "wed": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "thu": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "fri": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "sat": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ],
+     "sun": [
+      [
+       "00:00",
+       "24:00"
+      ]
+     ]
+    },
+    "asOf": "EngSci orientation page (24/7 during the school year)"
    },
-   "hoursText": "Not published",
+   "hoursText": "24/7 during the school year, with your TCard",
    "outlets": null,
    "food": null,
-   "notes": "EngSci’s study and social room: lunch, games and studying.",
-   "status": "partial",
+   "notes": "Two rooms: a study room at the front (BA 2128) and a lounge at the back (BA 2124), plus rooms for quiet or group work. Gets loud at lunch. EngSci students only.",
+   "status": "checked",
    "sources": [
     {
      "title": "Skulepedia: Engineering Science Club",
@@ -605,6 +729,10 @@
     {
      "title": "EngSci orientation: Bahen Centre",
      "url": "https://orientation.engsci.utoronto.ca/bahen-centre/"
+    },
+    {
+     "title": "EngSci orientation: EngSci Common Room",
+     "url": "https://orientation.engsci.utoronto.ca/engsci-common-room/"
     }
    ]
   },
@@ -1333,64 +1461,14 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "weekly",
-    "week": {
-     "mon": [
-      [
-       "07:00",
-       "23:00"
-      ]
-     ],
-     "tue": [
-      [
-       "07:00",
-       "23:00"
-      ]
-     ],
-     "wed": [
-      [
-       "07:00",
-       "23:00"
-      ]
-     ],
-     "thu": [
-      [
-       "07:00",
-       "23:00"
-      ]
-     ],
-     "fri": [
-      [
-       "07:00",
-       "23:00"
-      ]
-     ],
-     "sat": [
-      [
-       "09:00",
-       "18:00"
-      ]
-     ],
-     "sun": [
-      [
-       "09:00",
-       "18:00"
-      ]
-     ]
-    },
-    "asOf": "Hart House 'open' page (undated, looks old)",
-    "dated": true
+    "type": "unknown"
    },
-   "hoursText": "Hart House’s page says Mon–Fri 7am–11pm · weekends 9am–6pm (page looks dated)",
+   "hoursText": "Closed for renovation from May 1, 2026; reopening not yet confirmed",
    "outlets": "yes",
    "food": null,
-   "notes": "Small and ornate, with a fireplace and window-facing couches. A 2017 student guide mentions a charging station and plenty of outlets. Drop in during building hours.",
-   "status": "partial",
+   "notes": "Closed for renovation from May 1, 2026. Hart House said it would reopen later in the summer with more study space, but hasn’t confirmed a date, so check before going.",
+   "status": "scout",
    "sources": [
-    {
-     "title": "Hart House: open for you (undated, looks out of date)",
-     "url": "https://harthouse.ca/open"
-    },
     {
      "title": "The Varsity: underappreciated libraries [Mar 2023]",
      "url": "https://thevarsity.ca/2023/03/05/underappreciated-libraries-on-utsg-campus/"
@@ -1402,6 +1480,10 @@
     {
      "title": "Vic Commuter Dons: top 8 U of T libraries [Oct 2017]",
      "url": "https://viccommuterdons.medium.com/viccommuterhacks-top-8-uoft-libraries-dd770843a914"
+    },
+    {
+     "title": "Hart House: Hart House Library (renovation notice)",
+     "url": "https://harthouse.ca/spaces/venue/hart-house-library"
     }
    ]
   },
@@ -1455,33 +1537,32 @@
      ],
      "sat": [
       [
-       "09:00",
-       "18:00"
+       "07:00",
+       "23:00"
       ]
      ],
      "sun": [
       [
-       "09:00",
-       "18:00"
+       "07:00",
+       "23:00"
       ]
      ]
     },
-    "asOf": "Hart House 'open' page (undated, looks old)",
-    "dated": true
+    "asOf": "Hart House hours page"
    },
-   "hoursText": "Same as Hart House",
+   "hoursText": "Building open daily 7am–11pm",
    "outlets": null,
    "food": null,
    "notes": "Drop-in study during building hours.",
-   "status": "partial",
+   "status": "checked",
    "sources": [
-    {
-     "title": "Hart House: open for you (undated, looks out of date)",
-     "url": "https://harthouse.ca/open"
-    },
     {
      "title": "The Varsity: Hart House renovation [Mar 2026]",
      "url": "https://thevarsity.ca/2026/03/22/u-of-t-is-spending-240-million-to-renovate-hart-house/"
+    },
+    {
+     "title": "Hart House: hours (building and Arbor Room)",
+     "url": "https://harthouse.ca/contact/hours"
     }
    ]
   },
@@ -1535,33 +1616,32 @@
      ],
      "sat": [
       [
-       "09:00",
-       "18:00"
+       "07:00",
+       "23:00"
       ]
      ],
      "sun": [
       [
-       "09:00",
-       "18:00"
+       "07:00",
+       "23:00"
       ]
      ]
     },
-    "asOf": "Hart House 'open' page (undated, looks old)",
-    "dated": true
+    "asOf": "Hart House hours page"
    },
-   "hoursText": "Same as Hart House",
+   "hoursText": "Building open daily 7am–11pm",
    "outlets": null,
    "food": null,
    "notes": "Drop-in study during building hours.",
-   "status": "partial",
+   "status": "checked",
    "sources": [
-    {
-     "title": "Hart House: open for you (undated, looks out of date)",
-     "url": "https://harthouse.ca/open"
-    },
     {
      "title": "The Varsity: Hart House renovation [Mar 2026]",
      "url": "https://thevarsity.ca/2026/03/22/u-of-t-is-spending-240-million-to-renovate-hart-house/"
+    },
+    {
+     "title": "Hart House: hours (building and Arbor Room)",
+     "url": "https://harthouse.ca/contact/hours"
     }
    ]
   },
@@ -1619,16 +1699,11 @@
        "15:00"
       ]
      ],
-     "sun": [
-      [
-       "09:00",
-       "15:00"
-      ]
-     ]
+     "sun": []
     },
-    "asOf": "Facilities & Services, Jan 2026"
+    "asOf": "Hart House hours page (it lists Saturday 9–3 but also says the café is closed on weekends)"
    },
-   "hoursText": "Mon–Fri 8:30am–7pm · Sat–Sun 9am–3pm (Jan 2026)",
+   "hoursText": "Mon–Fri 8:30am–7pm · Sat 9am–3pm (conflicting note says weekends closed)",
    "outlets": null,
    "food": "yes",
    "notes": "Café with armchairs and tall gothic windows. Open to students, staff and faculty.",
@@ -1637,6 +1712,10 @@
     {
      "title": "Facilities & Services: cozy spots on St. George [Jan 2026]",
      "url": "https://www.fs.utoronto.ca/news/cozy-spots-on-the-st-george-campus/"
+    },
+    {
+     "title": "Hart House: hours (building and Arbor Room)",
+     "url": "https://harthouse.ca/contact/hours"
     }
    ]
   },
@@ -2081,9 +2160,54 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "08:30",
+       "20:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:30",
+       "20:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:30",
+       "20:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:30",
+       "20:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:30",
+       "20:00"
+      ]
+     ],
+     "sat": [
+      [
+       "10:00",
+       "18:00"
+      ]
+     ],
+     "sun": [
+      [
+       "10:00",
+       "18:00"
+      ]
+     ]
+    },
+    "asOf": "Woodsworth College contact page, 2026"
    },
-   "hoursText": "Not published",
+   "hoursText": "Building Mon–Fri 8:30am–8pm · Sat–Sun 10am–6pm",
    "outlets": null,
    "food": null,
    "notes": "Study, meeting and social space for Woodsworth students and alumni.",
@@ -2092,6 +2216,10 @@
     {
      "title": "Woodsworth College: about",
      "url": "https://wdw.utoronto.ca/about-woodsworth"
+    },
+    {
+     "title": "Woodsworth College: contact (building hours)",
+     "url": "https://wdw.utoronto.ca/contact"
     }
    ]
   },
@@ -2659,9 +2787,44 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "Innis College contact page (building ‘typically’ open; weekends not listed)"
    },
-   "hoursText": "Not published",
+   "hoursText": "Building typically open Mon–Fri 8am–9pm",
    "outlets": null,
    "food": null,
    "notes": "Armchairs and couches for solo or group study.",
@@ -2670,6 +2833,10 @@
     {
      "title": "Innis College: places & spaces",
      "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    },
+    {
+     "title": "Innis College: contact us (building hours)",
+     "url": "https://innis.utoronto.ca/contact/"
     }
    ]
   },
@@ -2689,9 +2856,44 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "Innis College contact page (building ‘typically’ open; weekends not listed)"
    },
-   "hoursText": "Not published",
+   "hoursText": "Building typically open Mon–Fri 8am–9pm",
    "outlets": null,
    "food": null,
    "notes": "Individual stations with glass walls looking onto the library.",
@@ -2700,6 +2902,10 @@
     {
      "title": "Innis College: places & spaces",
      "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    },
+    {
+     "title": "Innis College: contact us (building hours)",
+     "url": "https://innis.utoronto.ca/contact/"
     }
    ]
   },
@@ -2719,9 +2925,44 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "Innis College contact page (building ‘typically’ open; weekends not listed)"
    },
-   "hoursText": "Not published",
+   "hoursText": "Building typically open Mon–Fri 8am–9pm",
    "outlets": null,
    "food": null,
    "notes": "Kitchenette, and described as a quiet nook for studying.",
@@ -2730,6 +2971,10 @@
     {
      "title": "Innis College: places & spaces",
      "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    },
+    {
+     "title": "Innis College: contact us (building hours)",
+     "url": "https://innis.utoronto.ca/contact/"
     }
    ]
   },
@@ -2749,9 +2994,44 @@
    "cardDoor": false,
    "walkIn": true,
    "hours": {
-    "type": "unknown"
+    "type": "weekly",
+    "week": {
+     "mon": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:00",
+       "21:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    },
+    "asOf": "Innis College contact page (building ‘typically’ open; weekends not listed)"
    },
-   "hoursText": "Not published",
+   "hoursText": "Building typically open Mon–Fri 8am–9pm",
    "outlets": null,
    "food": null,
    "notes": "Quietness varies. Busiest at lunch and dinner.",
@@ -2760,6 +3040,10 @@
     {
      "title": "Innis College: places & spaces",
      "url": "https://innis.utoronto.ca/about-innis/quiet-spaces"
+    },
+    {
+     "title": "Innis College: contact us (building hours)",
+     "url": "https://innis.utoronto.ca/contact/"
     }
    ]
   },

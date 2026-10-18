@@ -1,8 +1,9 @@
-import { access, openStatus, dayHours, rankSpots, walkMinutes, fmtTime, isoDate, addDays, isClosureDay } from "./logic.js";
+import { access, openStatus, openLabel, dayHours, rankSpots, walkMinutes, fmtTime, isoDate, addDays, isClosureDay } from "./logic.js";
 import { loadLibraryHours } from "./hours.js";
 
 // ---------- small helpers ----------
 const $ = (sel) => document.querySelector(sel);
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const store = {
   get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
@@ -37,8 +38,12 @@ const state = {
   spots: [], buildings: {}, calendar: null,
   hours: { libcal: {}, fetchedAt: null, stale: true, error: null },
   profile: store.get("profile-v1", null),
-  near: store.get("near-v1", "uc"),
+  // "gps", a building key, or null on a first visit (then we try location, falling back to UC).
+  near: store.get("near-v1", null),
   gps: null,
+  gpsAccuracy: null,
+  watchId: null,
+  photos: { photos: {}, spots: {}, buildings: {} },
   need: store.get("need-v1", 60),
   prefs: store.get("prefs-v1", { quiet: false, group: false, outlets: false, food: false }),
   saved: new Set(store.get("saved-v1", [])),
@@ -48,7 +53,9 @@ const state = {
 };
 const ctx = () => ({ libcal: state.hours.libcal, calendar: state.calendar });
 const profile = () => state.profile || { fac: "other", prog: "", col: "", res: "none", csc: false };
-const fromPoint = () => (state.near === "gps" && state.gps ? state.gps : state.buildings[state.near] || state.buildings.uc);
+const usingGps = () => state.near === "gps" && !!state.gps;
+const fromPoint = () => (usingGps() ? state.gps : state.buildings[state.near] || state.buildings.uc);
+const fromLabel = () => (usingGps() ? "your location" : (state.buildings[state.near] || state.buildings.uc).name);
 
 // ---------- boot ----------
 async function boot() {
@@ -56,14 +63,19 @@ async function boot() {
   state.spots = s.spots;
   state.buildings = b.buildings;
   state.calendar = c;
-  if (!state.buildings[state.near] && state.near !== "gps") state.near = "uc";
-  if (state.near === "gps") state.near = "uc"; // location isn't remembered between visits
+  try { state.photos = await fetch("data/photos.json").then((r) => (r.ok ? r.json() : state.photos)); } catch { /* photos are optional */ }
+  if (state.near && state.near !== "gps" && !state.buildings[state.near]) state.near = null;
 
   buildNearSelect();
   wireControls();
   renderFeedStatus();
   render();
   if (!state.profile) openOnboarding();
+  // Use location straight away if the student chose it before, or already allowed it in this browser.
+  else if (state.near === "gps" || state.near === null) {
+    const perm = await navigator.permissions?.query({ name: "geolocation" }).catch(() => null);
+    if (state.near === "gps" || perm?.state === "granted") startLocation({ userAsked: false });
+  }
 
   state.hours = await loadLibraryHours({ now: nowDate() });
   renderFeedStatus();
@@ -85,19 +97,26 @@ function renderFeedStatus() {
 function buildNearSelect() {
   const sel = $("#near");
   const entries = Object.entries(state.buildings).sort((a, b) => a[1].name.localeCompare(b[1].name));
-  sel.innerHTML = `<option value="gps">Use my location</option>` +
+  sel.innerHTML = `<option value="gps">My location</option>` +
     entries.map(([k, v]) => `<option value="${k}">${esc(v.name)}${v.code ? " (" + v.code + ")" : ""}</option>`).join("");
-  sel.value = state.near;
+  sel.value = nearValue();
 }
+const nearValue = () => (usingGps() || state.near === "gps" ? "gps" : state.near || "uc");
 
 function wireControls() {
   $("#near").addEventListener("change", (e) => {
     const v = e.target.value;
-    if (v === "gps") return locate();
+    if (v === "gps") return startLocation({ userAsked: true });
+    stopLocation();
     state.near = v;
     store.set("near-v1", v);
     state.skipped.clear();
     render();
+  });
+  $("#locate").addEventListener("click", () => startLocation({ userAsked: true }));
+  $("#see-all").addEventListener("click", () => {
+    $("#x-open").checked = true;
+    showTab("explore");
   });
   $("#need").addEventListener("click", (e) => {
     const b = e.target.closest("button[data-min]");
@@ -139,32 +158,54 @@ function wireControls() {
   });
 }
 
-function locate() {
-  const sel = $("#near");
-  if (!navigator.geolocation) { sel.value = state.near; return; }
-  sel.disabled = true;
-  navigator.geolocation.getCurrentPosition(
+// Location: watch the position while the app is open, so the closest spots update as you walk.
+// The position stays on the device; it's only used to work out walking times.
+function startLocation({ userAsked }) {
+  if (!navigator.geolocation) {
+    if (userAsked) alertBanner("This browser can’t share your location. Pick the building you’re in instead.");
+    return;
+  }
+  stopLocation();
+  $("#locate").textContent = "Locating…";
+  state.watchId = navigator.geolocation.watchPosition(
     (pos) => {
-      sel.disabled = false;
       const p = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+      $("#locate").textContent = "Update location";
       if (walkMinutes(p, state.buildings.uc) > 40) {
-        alertBanner("You look far from St. George, so walk times are from University College.");
-        state.near = "uc";
-        sel.value = "uc";
-      } else {
-        state.gps = p;
-        state.near = "gps";
+        stopLocation();
+        if (userAsked) alertBanner("You look far from St. George, so walk times are from University College for now.");
+        state.near = state.near === "gps" ? null : state.near;
+        render();
+        return;
       }
-      state.skipped.clear();
+      const moved = !state.gps || haversineMetres(state.gps, p) > 25;
+      state.gps = p;
+      state.gpsAccuracy = Math.round(pos.coords.accuracy);
+      if (state.near !== "gps") { state.near = "gps"; store.set("near-v1", "gps"); state.skipped.clear(); }
+      if (moved) render();
+    },
+    (err) => {
+      stopLocation();
+      $("#locate").textContent = "Use my location";
+      if (state.near === "gps") state.near = null;
+      if (userAsked) {
+        alertBanner(err.code === 1
+          ? "Location is blocked for this site. Allow it in your browser settings, or pick the building you’re in."
+          : "Couldn’t get your location. Pick the building you’re in instead.");
+      }
       render();
     },
-    () => {
-      sel.disabled = false;
-      sel.value = state.near;
-      alertBanner("Couldn’t get your location. Pick the building you’re in instead.");
-    },
-    { enableHighAccuracy: false, timeout: 8000, maximumAge: 120000 },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 },
   );
+}
+function stopLocation() {
+  if (state.watchId != null) navigator.geolocation.clearWatch(state.watchId);
+  state.watchId = null;
+}
+function haversineMetres(a, b) {
+  const rad = Math.PI / 180, R = 6371000;
+  const h = Math.sin(((b.lat - a.lat) * rad) / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(((b.lon - a.lon) * rad) / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
 }
 
 let bannerMsg = "";
@@ -183,7 +224,10 @@ function showTab(tab) {
 
 // ---------- render ----------
 function render() {
-  $("#near").value = state.near;
+  $("#near").value = nearValue();
+  $("#near-note").textContent = usingGps()
+    ? `Walk times from where you are${state.gpsAccuracy ? ` (±${state.gpsAccuracy} m)` : ""}.`
+    : state.near === "gps" ? "Finding you…" : "";
   document.querySelectorAll("#need button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.min) === state.need)));
   document.querySelectorAll("#prefs button").forEach((b) => b.setAttribute("aria-pressed", String(!!state.prefs[b.dataset.pref])));
   if (state.tab === "now") renderNow();
@@ -194,7 +238,7 @@ function render() {
 
 function statusTag(spot, now) {
   const st = openStatus(spot, now, ctx());
-  if (st.open === true) return { st, html: `<span class="tag open">Open until ${esc(fmtTime(st.until, now))}</span>` };
+  if (st.open === true) return { st, html: `<span class="tag open">${esc(cap(openLabel(st, now)))}</span>` };
   if (st.open === false) return { st, html: `<span class="tag closed">Closed${st.opensAt ? " · opens " + esc(fmtTime(st.opensAt, now)) : ""}</span>` };
   return { st, html: `<span class="tag unknown">Hours unknown</span>` };
 }
@@ -236,13 +280,15 @@ function renderNow() {
 function pickCard(r, now) {
   const s = r.spot;
   const b = state.buildings[s.building];
-  const tags = [`<span class="tag open">Open until ${esc(fmtTime(r.status.until, now))}</span>`];
+  const tags = [`<span class="tag open">${esc(cap(openLabel(r.status, now)))}</span>`];
   for (const reason of r.reasons) {
-    if (/min walk|open until/.test(reason)) continue;
+    if (/min walk|^open /.test(reason)) continue;
     tags.push(`<span class="tag${reason === "only for your group" ? " you" : ""}">${esc(reason)}</span>`);
   }
   for (const w of r.warnings) tags.push(`<span class="tag warn">${esc(w)}</span>`);
+  const ph = photoFor(s);
   return `<li class="pick" data-id="${s.id}">
+    ${ph ? `<button type="button" class="photo-btn" data-open="${s.id}" aria-label="Details for ${esc(s.name)}"><img class="photo" src="${esc(ph.src)}" alt="${esc(ph.alt)}" loading="lazy">${ph.ofBuilding ? `<span class="photo-label">Building</span>` : ""}</button>` : ""}
     <div class="pick-head">
       <div><h3>${esc(s.name)}</h3><p class="where">${esc(b ? b.name : s.where)}</p></div>
       <div class="walk">${r.walk ?? "?"} min<small>walk</small></div>
@@ -258,6 +304,22 @@ function pickCard(r, now) {
 
 const directionsUrl = (b) => `https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lon}&travelmode=walking`;
 
+// A photo of the spot itself if we have one, otherwise of its building (labelled as such).
+function photoFor(s) {
+  const P = state.photos;
+  const own = P.spots?.[s.id];
+  const id = own || P.buildings?.[s.building];
+  const p = id && P.photos?.[id];
+  if (!p) return null;
+  // "spot" photos show the room itself; "building" photos show the outside, so they're labelled as such.
+  return { ...p, src: `photos/${p.file}`, ofBuilding: p.kind !== "spot", alt: p.alt || s.name };
+}
+function photoCredit(p) {
+  return `Photo: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.artist)}</a>, ` +
+    (p.licenseUrl ? `<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>` : esc(p.license)) +
+    `, via Wikimedia Commons`;
+}
+
 function usableSpots() {
   return state.spots.filter((s) => access(s, profile()).ok);
 }
@@ -272,7 +334,9 @@ function listRow(s, now, from) {
   if (acc.unclear) extra.push(`<span class="tag unknown">Access unclear</span>`);
   if (s.noise) extra.push(`<span class="tag">${esc(s.noise)}</span>`);
   if (!s.walkIn) extra.push(`<span class="tag">Book or check first</span>`);
-  return `<li><button type="button" class="row-item" data-open="${s.id}">
+  const ph = photoFor(s);
+  return `<li><button type="button" class="row-item${ph ? " has-thumb" : ""}" data-open="${s.id}">
+    ${ph ? `<img class="thumb" src="${esc(ph.src)}" alt="" loading="lazy">` : ""}
     <span><span class="name">${esc(s.name)}</span><br><span class="meta">${esc(b ? b.name : s.where)}</span></span>
     <span class="side">${walk != null ? walk + " min" : ""}</span>
     <span class="tags">${html}${extra.join("")}</span>
@@ -291,7 +355,7 @@ function renderExplore() {
     .map((s) => ({ s, st: openStatus(s, now, ctx()), walk: s.building ? walkMinutes(from, state.buildings[s.building]) : 999 }))
     .filter((x) => !onlyOpen || x.st.open === true)
     .sort((a, b) => a.walk - b.walk || a.s.name.localeCompare(b.s.name));
-  $("#x-count").textContent = `${rows.length} spot${rows.length === 1 ? "" : "s"} you can use`;
+  $("#x-count").textContent = `${rows.length} spot${rows.length === 1 ? "" : "s"} you can use · closest first from ${fromLabel()}`;
   $("#x-list").innerHTML = rows.map(({ s }) => listRow(s, now, from)).join("") || `<li class="empty">No spots match.</li>`;
   renderMap(rows, now);
 }
@@ -322,7 +386,12 @@ function renderMap(rows, now) {
     L.marker([b.lat, b.lon], { icon, title: b.name }).bindPopup(html).addTo(state.mapLayer);
   }
   const from = fromPoint();
-  if (from) L.marker([from.lat, from.lon], { icon: L.divIcon({ className: "", html: `<div class="pin here"></div>`, iconSize: [16, 16] }), title: "You" }).addTo(state.mapLayer);
+  if (from) L.marker([from.lat, from.lon], { icon: L.divIcon({ className: "", html: `<div class="pin here"></div>`, iconSize: [16, 16] }), title: usingGps() ? "You" : fromLabel() }).addTo(state.mapLayer);
+  // Follow the student the first time we know where they are.
+  if (usingGps() && !state.mapCentredOnGps) {
+    state.map.setView([from.lat, from.lon], 16);
+    state.mapCentredOnGps = true;
+  }
 }
 
 function renderSaved() {
@@ -373,8 +442,12 @@ function openSheet(id) {
     ["Food", s.food === "yes" ? "Allowed" : s.food === "no" ? "Not allowed" : s.food === "drinks" ? "Covered drinks only" : "Unknown"],
     ["Where", esc(s.where) + (b ? `<br><span class="hint">${esc(b.address)}${b.approx || s.locationApprox ? " · map pin is approximate" : ""}</span>` : "")],
   ];
+  const ph = photoFor(s);
+  const walk = b ? walkMinutes(fromPoint(), b) : null;
   $("#sheet-body").innerHTML = `<div class="sheet">
+    ${ph ? `<figure class="sheet-photo"><img src="${esc(ph.src)}" alt="${esc(ph.alt)}"><figcaption>${ph.ofBuilding ? `${esc(b ? b.name : "The building")} (not this room). ` : ""}${photoCredit(ph)}</figcaption></figure>` : ""}
     <h2 id="sheet-h">${esc(s.name)}</h2>
+    ${walk != null ? `<p class="hint">${walk} min walk from ${esc(fromLabel())}</p>` : ""}
     <div class="tags" style="margin-top:8px">${tag}${s.status === "scout" ? `<span class="tag warn">Not yet checked on site</span>` : ""}</div>
     <p style="margin-top:10px">${esc(s.notes)}</p>
     <div class="card-actions" style="margin-top:12px">
@@ -429,6 +502,8 @@ function openOnboarding() {
     state.profile = dlg.returnValue === "save" ? readProfile("ob") : { fac: "other", prog: "", col: "", res: "none", csc: false };
     store.set("profile-v1", state.profile);
     render();
+    // Then ask for location, so the first list is the closest spots to where they are.
+    if (state.near === null || state.near === "gps") startLocation({ userAsked: false });
   }, { once: true });
   dlg.showModal();
 }

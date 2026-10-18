@@ -27,10 +27,14 @@
     <section id="view-now" class="view" aria-labelledby="now-h">
       <h2 id="now-h" class="sr-only">Study now</h2>
       <div class="controls">
-        <label class="field">
-          <span>Near</span>
-          <select id="near"></select>
-        </label>
+        <div class="field">
+          <label for="near"><span>Near</span></label>
+          <div class="near-row">
+            <select id="near"></select>
+            <button type="button" class="btn small ghost" id="locate">Use my location</button>
+          </div>
+          <p class="hint near-note" id="near-note" aria-live="polite"></p>
+        </div>
         <div class="field">
           <span id="need-label">Time you have</span>
           <div class="seg" role="group" aria-labelledby="need-label" id="need">
@@ -52,6 +56,7 @@
       <div class="next-row">
         <button type="button" class="btn ghost" id="next">Full? Show the next spot</button>
         <button type="button" class="btn link" id="reset-skips" hidden>Show skipped spots again</button>
+        <button type="button" class="btn link" id="see-all">Every open spot, closest first</button>
       </div>
       <section class="also" id="also" aria-labelledby="also-h" hidden>
         <h3 id="also-h">Also yours nearby</h3>
