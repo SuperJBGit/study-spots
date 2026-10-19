@@ -770,6 +770,42 @@
    "title": "Robarts Library",
    "via": "Flickr",
    "nonCommercial": true
+  },
+  "engsci-lounge": {
+   "file": "engsci-lounge.jpg",
+   "kind": "spot",
+   "alt": "Couches, study tables and a chalkboard in the EngSci Common Room",
+   "caption": "EngSci Common Room: couches, study tables and the chalkboard (October 2026)",
+   "artist": "SuperJBGit",
+   "license": "All rights reserved",
+   "licenseUrl": "",
+   "page": "https://github.com/SuperJBGit/study-spots/blob/main/photos/engsci-lounge.jpg",
+   "title": "engsci-lounge.jpg",
+   "own": true
+  },
+  "engsci-group-tables": {
+   "file": "engsci-group-tables.jpg",
+   "kind": "spot",
+   "alt": "Group tables inside curtained booths",
+   "caption": "Curtained group tables in the EngSci Common Room (October 2026)",
+   "artist": "SuperJBGit",
+   "license": "All rights reserved",
+   "licenseUrl": "",
+   "page": "https://github.com/SuperJBGit/study-spots/blob/main/photos/engsci-group-tables.jpg",
+   "title": "engsci-group-tables.jpg",
+   "own": true
+  },
+  "engsci-foosball": {
+   "file": "engsci-foosball.jpg",
+   "kind": "spot",
+   "alt": "Foosball table, lockers and a kitchenette",
+   "caption": "Foosball, lockers and the kitchenette in the EngSci Common Room (October 2026)",
+   "artist": "SuperJBGit",
+   "license": "All rights reserved",
+   "licenseUrl": "",
+   "page": "https://github.com/SuperJBGit/study-spots/blob/main/photos/engsci-foosball.jpg",
+   "title": "engsci-foosball.jpg",
+   "own": true
   }
  },
  "spots": {
@@ -836,6 +872,11 @@
    "robarts-computers",
    "robarts-11th-floor",
    "robarts-11th-floor-view"
+  ],
+  "eng-engsci": [
+   "engsci-lounge",
+   "engsci-group-tables",
+   "engsci-foosball"
   ]
  },
  "buildings": {

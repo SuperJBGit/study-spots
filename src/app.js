@@ -358,6 +358,8 @@ function photosFor(s) {
 }
 const photoFor = (s) => photosFor(s)[0] || null;
 function photoCredit(p) {
+  // Photos taken for the app (headcount walks) aren't from Commons, so they don't get the "via" line.
+  if (p.own) return `Photo: ${esc(p.artist)}, taken for Study Spots`;
   return `Photo: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.artist)}</a>, ` +
     (p.licenseUrl ? `<a href="${esc(p.licenseUrl)}" target="_blank" rel="noopener">${esc(p.license)}</a>` : esc(p.license)) +
     `, via ${esc(p.via || "Wikimedia Commons")}` + (p.changes ? ` (${esc(p.changes)})` : "");

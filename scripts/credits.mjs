@@ -6,8 +6,9 @@ const root = new URL("../", import.meta.url);
 const P = JSON.parse(readFileSync(new URL("data/photos.json", root), "utf8"));
 const all = Object.values(P.photos);
 
-const line = (p) =>
-  `- \`${p.file}\` (${p.alt}): [${p.title}](${p.page}) by ${p.artist}, ${p.license}` +
+const line = (p) => p.own
+  ? `- \`${p.file}\` (${p.alt}): taken for this app by ${p.artist}, ${p.license.toLowerCase()}`
+  : `- \`${p.file}\` (${p.alt}): [${p.title}](${p.page}) by ${p.artist}, ${p.license}` +
   (p.licenseUrl ? ` (${p.licenseUrl})` : "") +
   (p.via && p.via !== "Wikimedia Commons" ? `, via ${p.via}` : "") +
   (p.changes ? `; ${p.changes}` : "");

@@ -34,6 +34,9 @@ Generated from `data/photos.json` by `scripts/credits.mjs`; edit the JSON, not t
 - `robarts-computers.jpg` (Computer stations and stacks in Robarts): [Robarts Library 2015 (1).jpg](https://commons.wikimedia.org/wiki/File:Robarts_Library_2015_(1).jpg) by Jeff Hitchcock, CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
 - `robarts-11th-floor.jpg` (Study tables by Robarts’ triangular window bays): [Robarts Library](https://www.flickr.com/photos/daviding/27212759790) by divirtual, CC BY-NC-SA 2.0 (https://creativecommons.org/licenses/by-nc-sa/2.0/), via Flickr
 - `robarts-11th-floor-view.jpg` (View south over the city from an 11th-floor window seat): [Robarts Library](https://www.flickr.com/photos/daviding/43871919411) by divirtual, CC BY-NC-SA 2.0 (https://creativecommons.org/licenses/by-nc-sa/2.0/), via Flickr
+- `engsci-lounge.jpg` (Couches, study tables and a chalkboard in the EngSci Common Room): taken for this app by SuperJBGit, all rights reserved
+- `engsci-group-tables.jpg` (Group tables inside curtained booths): taken for this app by SuperJBGit, all rights reserved
+- `engsci-foosball.jpg` (Foosball table, lockers and a kitchenette): taken for this app by SuperJBGit, all rights reserved
 
 ## Outside photos (used only when a spot has no inside photo)
 
