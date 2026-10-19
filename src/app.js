@@ -622,6 +622,13 @@ if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(() => { /* the app still works without it */ });
 }
 
+// The Android wrapper adds "StudySpotsAndroid/<version>" to its user agent; show it so an old install is easy to spot.
+const appVersion = navigator.userAgent.match(/StudySpotsAndroid\/([\d.]+)/);
+if (appVersion) {
+  $("#app-version").textContent = `Android app ${appVersion[1]}`;
+  $("#app-version").hidden = false;
+}
+
 boot().catch((e) => {
   $("#picks").innerHTML = `<li class="empty">Something went wrong loading the spot data (${esc(e.message)}). Reload to try again.</li>`;
 });
