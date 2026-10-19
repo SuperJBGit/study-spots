@@ -1,5 +1,5 @@
 {
- "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door.",
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door EngSci Common Room is on Bahen's St. George St side (on site, Oct 19, 2026).",
  "spots": [
   {
    "id": "stcommons",
@@ -656,7 +656,7 @@
   {
    "id": "eng-engsci",
    "name": "EngSci Common Room",
-   "where": "Bahen (BA), 2nd floor",
+   "where": "Bahen (BA), 2nd floor, on the side nearest St. George St",
    "zone": "S",
    "type": "Lounge",
    "building": "bahen",
