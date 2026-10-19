@@ -1,5 +1,5 @@
 {
- "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026.",
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door.",
  "spots": [
   {
    "id": "stcommons",
@@ -717,8 +717,8 @@
     "asOf": "EngSci orientation page (24/7 during the school year)"
    },
    "hoursText": "24/7 during the school year, with your TCard",
-   "outlets": null,
-   "food": null,
+   "outlets": "yes",
+   "food": "yes",
    "notes": "Two rooms: a study room at the front (BA 2128) and a lounge at the back (BA 2124), plus rooms for quiet or group work. Gets loud at lunch. EngSci students only.",
    "status": "checked",
    "sources": [
@@ -1011,7 +1011,7 @@
     "uoft"
    ],
    "whoBasis": "stated",
-   "cardDoor": true,
+   "cardDoor": false,
    "walkIn": true,
    "hours": {
     "type": "libcal",
@@ -1050,7 +1050,7 @@
     "uoft"
    ],
    "whoBasis": "stated",
-   "cardDoor": true,
+   "cardDoor": false,
    "walkIn": true,
    "hours": {
     "type": "libcal",
@@ -1085,7 +1085,7 @@
     "uoft"
    ],
    "whoBasis": "stated",
-   "cardDoor": true,
+   "cardDoor": false,
    "walkIn": false,
    "hours": {
     "type": "libcal",
