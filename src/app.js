@@ -73,6 +73,7 @@ async function boot() {
   wireControls();
   renderFeedStatus();
   render();
+  startRouting();
   if (!state.profile) openOnboarding();
   // Ask for location straight away unless the student picked a building themselves:
   // the closest spots to where they are is the whole point of the Now screen.
@@ -150,8 +151,8 @@ function wireControls() {
     if (b) showTab(b.dataset.tab);
   });
   ["#x-open", "#x-noise", "#x-q"].forEach((s) => $(s).addEventListener("input", renderExplore));
-  $("#sheet-close").addEventListener("click", () => $("#sheet").close());
-  $("#sheet").addEventListener("click", (e) => { if (e.target === $("#sheet")) $("#sheet").close(); });
+  $("#sheet-close").addEventListener("click", closeSheet);
+  $("#sheet").addEventListener("click", (e) => { if (e.target === $("#sheet")) closeSheet(); });
   document.addEventListener("click", (e) => {
     const open = e.target.closest("[data-open]");
     if (open) { e.preventDefault(); openSheet(open.dataset.open); return; }
@@ -237,7 +238,41 @@ function haversineMetres(a, b) {
 let bannerMsg = "";
 function alertBanner(msg) { bannerMsg = msg; render(); setTimeout(() => { bannerMsg = ""; render(); }, 6000); }
 
-function showTab(tab) {
+// ---------- back button ----------
+// Each tab and each open spot is a history entry, so the phone's back button (and the browser's) closes the spot,
+// then returns to the previous tab, instead of leaving the app. URLs: #explore, #explore/robarts-floors; Now has no hash.
+const TABS = ["now", "explore", "saved", "you"];
+const routeUrl = (tab, spot) => location.pathname + location.search + (tab === "now" && !spot ? "" : `#${tab}${spot ? "/" + spot : ""}`);
+const pushRoute = (tab, spot = null) => history.pushState({ tab, spot }, "", routeUrl(tab, spot));
+function parseRoute(hash) {
+  const [tab, spot] = decodeURIComponent(hash.replace(/^#/, "")).split("/");
+  return { tab: TABS.includes(tab) ? tab : "now", spot: spot || null };
+}
+function startRouting() {
+  const r = parseRoute(location.hash);
+  history.replaceState({ tab: r.tab, spot: null }, "", routeUrl(r.tab));
+  if (r.tab !== "now") showTab(r.tab, { push: false });
+  // A link straight to a spot: open it on top of its tab, so back closes it rather than leaving.
+  if (r.spot && state.profile && state.spots.some((s) => s.id === r.spot)) openSheet(r.spot);
+  window.addEventListener("popstate", (e) => {
+    const to = e.state || parseRoute(location.hash);
+    if ($("#sheet").open && !to.spot) $("#sheet").close();
+    if (to.tab !== state.tab) showTab(to.tab, { push: false });
+    if (to.spot && !$("#sheet").open) openSheet(to.spot, { push: false });
+  });
+  // Esc goes through closeSheet too; the close listener is a fallback for any other way the dialog closes.
+  $("#sheet").addEventListener("cancel", (e) => { e.preventDefault(); closeSheet(); });
+  $("#sheet").addEventListener("close", () => { if (history.state?.spot) history.back(); });
+}
+// Closing a spot (×, tapping outside, Esc) steps history back, and popstate closes the dialog,
+// so the next back press doesn't land on the spot that was just closed.
+function closeSheet() {
+  if (history.state?.spot) history.back();
+  else $("#sheet").close();
+}
+
+function showTab(tab, { push = true } = {}) {
+  if (push && tab !== state.tab) pushRoute(tab);
   state.tab = tab;
   for (const t of ["now", "explore", "saved", "you"]) {
     $(`#view-${t}`).hidden = t !== tab;
@@ -456,7 +491,7 @@ function toggleSave(id) {
 }
 
 // ---------- spot detail ----------
-function openSheet(id) {
+function openSheet(id, { push = true } = {}) {
   const s = state.spots.find((x) => x.id === id);
   if (!s) return;
   const now = nowDate();
@@ -517,7 +552,10 @@ function openSheet(id) {
     <h4>Sources</h4>
     <ul class="sources">${s.sources.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a></li>`).join("") || "<li>No official page found</li>"}</ul>
   </div>`;
-  if (!$("#sheet").open) $("#sheet").showModal();
+  if (!$("#sheet").open) {
+    if (push) pushRoute(state.tab, id);
+    $("#sheet").showModal();
+  }
 }
 const clock = (m) => {
   const mm = ((m % 1440) + 1440) % 1440;
