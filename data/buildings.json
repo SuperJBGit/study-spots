@@ -293,6 +293,18 @@
    "lat": 43.666662,
    "lon": -79.398806,
    "code": "WW"
+  },
+  "canadiana": {
+   "name": "Canadiana Gallery",
+   "address": "14 Queen's Park Cres W",
+   "lat": 43.661938,
+   "lon": -79.392922
+  },
+  "jackman": {
+   "name": "Jackman Law Building",
+   "address": "78 Queen's Park",
+   "lat": 43.665704,
+   "lon": -79.393968
   }
  }
 }

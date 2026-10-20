@@ -1,5 +1,5 @@
 {
- "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door EngSci Common Room is on Bahen's St. George St side (on site, Oct 19, 2026). Oct 20, 2026: Robarts split by noise designation (U of T Libraries' quiet and silent study areas policy); its carrels are assigned to graduate students, not drop-in.",
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door EngSci Common Room is on Bahen's St. George St side (on site, Oct 19, 2026). Oct 20, 2026: Robarts split by noise designation (U of T Libraries' quiet and silent study areas policy); its carrels are assigned to graduate students, not drop-in. Oct 20, 2026: added the East Asian, Map & Data, Criminology, Law and Innis College libraries (U of T Libraries' directory and the live hours feed).",
  "spots": [
   {
    "id": "stcommons",
@@ -3907,6 +3907,216 @@
    "notes": "Renovated lounge for studying and eating. I couldn’t load an official page for it.",
    "status": "scout",
    "sources": []
+  },
+  {
+   "zone": "N",
+   "type": "Library",
+   "whoBasis": "stated",
+   "walkIn": true,
+   "outlets": null,
+   "noiseOfficial": false,
+   "status": "partial",
+   "id": "east-asian-lib",
+   "name": "East Asian Library (Cheng Yu Tung)",
+   "where": "Robarts, 8th floor (Rm 8049)",
+   "building": "robarts",
+   "noise": null,
+   "who": [
+    "uoft"
+   ],
+   "cardDoor": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8415
+   },
+   "hoursText": "Weekdays 11am–5pm",
+   "food": null,
+   "notes": "Over 700,000 volumes in Chinese, Japanese, Korean, Tibetan and other languages. It’s inside Robarts, so you need a TCard to get in. Its page doesn’t describe the seating.",
+   "sources": [
+    {
+     "title": "U of T Libraries: East Asian Library (Cheng Yu Tung)",
+     "url": "https://library.utoronto.ca/library/east-asian-library"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "zone": "N",
+   "type": "Library",
+   "whoBasis": "stated",
+   "walkIn": true,
+   "outlets": null,
+   "noiseOfficial": false,
+   "status": "partial",
+   "id": "map-data-lib",
+   "name": "Map & Data Library",
+   "where": "Robarts, 5th floor",
+   "building": "robarts",
+   "noise": null,
+   "who": [
+    "uoft"
+   ],
+   "cardDoor": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8412
+   },
+   "hoursText": "Weekdays 11am–5pm",
+   "food": null,
+   "bookUrl": "https://library.utoronto.ca/space/mdl/map-data-library-collaboration-rooms",
+   "notes": "Reopened September 8, 2026, with the rest of Robarts’ 5th floor. Computers with GIS and statistics software, and collaboration rooms you can book. Inside Robarts, so you need a TCard to get in.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Map & Data Library",
+     "url": "https://library.utoronto.ca/library/mdl"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "zone": "N",
+   "type": "Library",
+   "whoBasis": "stated",
+   "walkIn": true,
+   "outlets": null,
+   "noiseOfficial": false,
+   "status": "checked",
+   "id": "crim-lib",
+   "name": "Criminology Library",
+   "where": "Canadiana Gallery, 14 Queen’s Park Cres W",
+   "building": "canadiana",
+   "noise": "Collaborative",
+   "who": [
+    "all"
+   ],
+   "cardDoor": false,
+   "hours": {
+    "type": "libcal",
+    "lid": 8352
+   },
+   "hoursText": "Weekdays 9am–5pm",
+   "food": "yes",
+   "notes": "One room with group and individual study tables. Talking, eating and drinking are all allowed. Three steps down at the door; there’s an accessibility elevator.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Centre for Criminology Library",
+     "url": "https://library.utoronto.ca/library/criminology"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "zone": "N",
+   "type": "Library",
+   "whoBasis": "stated",
+   "walkIn": true,
+   "outlets": null,
+   "noiseOfficial": false,
+   "status": "checked",
+   "id": "law-lib",
+   "name": "Law Library (Bora Laskin)",
+   "where": "Jackman Law Building, 78 Queen’s Park; without a law fob, enter at Flavelle",
+   "building": "jackman",
+   "noise": null,
+   "who": [
+    "all"
+   ],
+   "cardDoor": false,
+   "hours": {
+    "type": "weekly",
+    "asOf": "Bora Laskin Law Library hours page, Fall 2026 (visitor access)",
+    "week": {
+     "mon": [
+      [
+       "08:45",
+       "19:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:45",
+       "19:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:45",
+       "19:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:45",
+       "19:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:45",
+       "19:00"
+      ]
+     ],
+     "sat": [],
+     "sun": []
+    }
+   },
+   "hoursText": "Weekdays 8:45am–7pm without a law-school fob",
+   "food": null,
+   "notes": "Open to all students and the public. Without a law-school fob you come in through the Flavelle entrance, which is open to visitors on weekdays until 7pm; the library is closed to visitors on weekends. Law students get longer hours (to 10pm Mon–Thu this fall, plus weekends).",
+   "sources": [
+    {
+     "title": "Bora Laskin Law Library: hours and location",
+     "url": "https://jackmanlaw.utoronto.ca/library/library-hours-and-location"
+    },
+    {
+     "title": "U of T Libraries: Law Library (Bora Laskin)",
+     "url": "https://library.utoronto.ca/library/law"
+    }
+   ]
+  },
+  {
+   "zone": "N",
+   "type": "Library",
+   "whoBasis": "stated",
+   "walkIn": true,
+   "outlets": null,
+   "noiseOfficial": false,
+   "status": "partial",
+   "id": "innis-lib",
+   "name": "Innis College Library",
+   "where": "Innis College, 2 Sussex Ave, 2nd floor",
+   "building": "innis",
+   "noise": "Quiet",
+   "who": [
+    "all"
+   ],
+   "cardDoor": false,
+   "hours": {
+    "type": "libcal",
+    "lid": 8376
+   },
+   "hoursText": "Closed for now (per U of T Libraries)",
+   "food": null,
+   "notes": "Study areas and a computer lab, open to all U of T students, faculty, alumni and visitors. U of T Libraries lists it as closed for now; its hours here update by themselves when it reopens.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Innis College Library",
+     "url": "https://library.utoronto.ca/library/innis"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
   }
  ]
 }
