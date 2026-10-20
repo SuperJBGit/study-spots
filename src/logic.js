@@ -277,17 +277,18 @@ export function scoreSpot(spot, opts, ctx, buildings) {
 export function rankSpots(spots, opts, ctx, buildings, spread = 3) {
   const scored = spots.map((s) => scoreSpot(s, opts, ctx, buildings)).filter(Boolean);
   scored.sort((a, b) => a.score - b.score || a.spot.name.localeCompare(b.spot.name));
-  const out = [];
+  const top = [];
   const used = new Set();
   // Same official building code means the same building (Robarts and Robarts Common are both RL).
   const place = (s) => buildings[s.spot.building]?.code || s.spot.building;
   for (const s of scored) {
-    if (out.length < spread && used.has(place(s))) continue;
-    out.push(s);
+    if (top.length >= spread) break;
+    if (used.has(place(s))) continue;
+    top.push(s);
     used.add(place(s));
   }
-  for (const s of scored) if (!out.includes(s)) out.push(s);
-  return out;
+  // Everything else keeps its score order, so a spot held back only to vary the top picks comes right after them.
+  return [...top, ...scored.filter((s) => !top.includes(s))];
 }
 
 // "open until 9pm", or "open 24 hours" for spots that don't close this week.

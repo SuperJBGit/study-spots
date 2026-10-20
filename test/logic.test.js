@@ -213,3 +213,17 @@ test("knowing which building you're at", () => {
   assert.deepEqual(buildingsHere(inBahen, 250, buildings), []); // too vague to say
   assert.deepEqual(buildingsHere({ lat: 43.70, lon: -79.40 }, 10, buildings), []); // off campus
 });
+
+test("a spot held back to vary the top 3 comes right after them, not last", () => {
+  // Inside Sidney Smith on a weekday afternoon: the Art Library takes Sidney Smith's place in the top 3,
+  // and the Commons (1 min away) should be next in line for "Full? Show the next spot".
+  const fixed = { ...spot("art-lib"), hours: spot("ssc").hours }; // the fixture feed has no art-library hours
+  const pool = spots.map((s) => (s.id === "art-lib" ? fixed : s));
+  const opts = { profile: engsci, from: buildings.sidSmith, now: at("2026-10-20T14:00:00"), needMinutes: 60, prefs: { quiet: false, group: false, outlets: false, food: false } };
+  const ranked = rankSpots(pool, opts, ctx, buildings);
+  const top = ranked.slice(0, 3);
+  assert.equal(new Set(top.map((r) => buildings[r.spot.building].code)).size, 3);
+  const rest = ranked.slice(3).map((r) => r.score);
+  assert.deepEqual(rest, [...rest].sort((a, b) => a - b), "after the top 3, best score first");
+  assert.equal(ranked[3].spot.id, "ssc");
+});
