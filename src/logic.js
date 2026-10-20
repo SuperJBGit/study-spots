@@ -96,7 +96,8 @@ export function dayHours(spot, dateISO, ctx) {
     return { state: "unknown", intervals: [], note: t.text };
   }
   if (spot.hours.type === "weekly") {
-    if (closure) return { state: "closed", intervals: [], note: "University closed" };
+    // Cafés and other off-campus places keep their own calendar: `"ignoresUniversityClosures": true`.
+    if (closure && !spot.hours.ignoresUniversityClosures) return { state: "closed", intervals: [], note: "University closed" };
     const day = DAY_KEYS[new Date(dateISO + "T12:00:00").getDay()];
     const list = spot.hours.week[day] || [];
     if (!list.length) return { state: "closed", intervals: [] };

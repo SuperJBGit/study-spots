@@ -305,6 +305,24 @@
    "address": "78 Queen's Park",
    "lat": 43.665704,
    "lon": -79.393968
+  },
+  "jimmysBaldwin": {
+   "name": "Jimmy’s Coffee, Baldwin St",
+   "address": "191 Baldwin St",
+   "lat": 43.654567,
+   "lon": -79.40132
+  },
+  "jimmysGerrard": {
+   "name": "Jimmy’s Coffee, Gerrard St",
+   "address": "84 Gerrard St W",
+   "lat": 43.658477,
+   "lon": -79.385561
+  },
+  "laitNight": {
+   "name": "Lait Night",
+   "address": "81 Huron St",
+   "lat": 43.65385,
+   "lon": -79.39607
   }
  }
 }

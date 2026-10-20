@@ -227,3 +227,15 @@ test("a spot held back to vary the top 3 comes right after them, not last", () =
   assert.deepEqual(rest, [...rest].sort((a, b) => a - b), "after the top 3, best score first");
   assert.equal(ranked[3].spot.id, "ssc");
 });
+
+test("cafés: open past midnight, and not closed on university closure days", () => {
+  const night = spot("lait-night");
+  const late = openStatus(night, at("2026-10-21T01:30:00"), ctx); // Wednesday 1:30am, from Tuesday's 5pm–3am
+  assert.equal(late.open, true);
+  assert.equal(late.until.toString(), at("2026-10-21T03:00:00").toString());
+  assert.equal(openStatus(night, at("2026-10-24T03:30:00"), ctx).open, true); // Friday night runs to 4am
+  assert.equal(openStatus(night, at("2026-10-21T12:00:00"), ctx).open, false);
+  // Thanksgiving: university spots on weekly hours close, cafés don't
+  assert.equal(dayHours(spot("jimmys-baldwin"), "2026-10-12", ctx).state, "open");
+  assert.equal(dayHours(spot("myhal-5"), "2026-10-12", ctx).state, "closed");
+});

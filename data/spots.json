@@ -1,5 +1,5 @@
 {
- "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door EngSci Common Room is on Bahen's St. George St side (on site, Oct 19, 2026). Oct 20, 2026: Robarts split by noise designation (U of T Libraries' quiet and silent study areas policy); its carrels are assigned to graduate students, not drop-in. Oct 20, 2026: added the East Asian, Map & Data, Criminology, Law and Innis College libraries (U of T Libraries' directory and the live hours feed).",
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door EngSci Common Room is on Bahen's St. George St side (on site, Oct 19, 2026). Oct 20, 2026: Robarts split by noise designation (U of T Libraries' quiet and silent study areas policy); its carrels are assigned to graduate students, not drop-in. Oct 20, 2026: added the East Asian, Map & Data, Criminology, Law and Innis College libraries (U of T Libraries' directory and the live hours feed). Oct 20, 2026: added three study-friendly cafés near campus, with hours from their own websites.",
  "spots": [
   {
    "id": "stcommons",
@@ -4115,6 +4115,242 @@
     {
      "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
      "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "type": "Café",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "outlets": null,
+   "food": "yes",
+   "status": "checked",
+   "id": "jimmys-baldwin",
+   "name": "Jimmy’s Coffee, Kensington Market",
+   "where": "191 Baldwin St",
+   "zone": "S",
+   "building": "jimmysBaldwin",
+   "hours": {
+    "type": "weekly",
+    "ignoresUniversityClosures": true,
+    "asOf": "Jimmy’s Coffee locations page, Oct 2026",
+    "week": {
+     "mon": [
+      [
+       "08:00",
+       "18:00"
+      ]
+     ],
+     "tue": [
+      [
+       "08:00",
+       "18:00"
+      ]
+     ],
+     "wed": [
+      [
+       "08:00",
+       "18:00"
+      ]
+     ],
+     "thu": [
+      [
+       "08:00",
+       "18:00"
+      ]
+     ],
+     "fri": [
+      [
+       "08:00",
+       "18:00"
+      ]
+     ],
+     "sat": [
+      [
+       "08:00",
+       "18:00"
+      ]
+     ],
+     "sun": [
+      [
+       "08:00",
+       "18:00"
+      ]
+     ]
+    }
+   },
+   "hoursText": "Daily 8am–6pm",
+   "notes": "A café, so plan to buy something. Jimmy’s says there’s plenty of seating inside but the tables fill up with students, so come early. Big back patio in warm weather.",
+   "sources": [
+    {
+     "title": "Jimmy’s Coffee: locations and hours",
+     "url": "https://www.jimmyscoffee.ca/locations"
+    }
+   ]
+  },
+  {
+   "type": "Café",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "outlets": null,
+   "food": "yes",
+   "status": "checked",
+   "id": "jimmys-gerrard",
+   "name": "Jimmy’s Coffee, Gerrard St",
+   "where": "84 Gerrard St W, near Bay",
+   "zone": "E",
+   "building": "jimmysGerrard",
+   "hours": {
+    "type": "weekly",
+    "ignoresUniversityClosures": true,
+    "asOf": "Jimmy’s Coffee locations page, Oct 2026",
+    "week": {
+     "mon": [
+      [
+       "07:00",
+       "18:00"
+      ]
+     ],
+     "tue": [
+      [
+       "07:00",
+       "18:00"
+      ]
+     ],
+     "wed": [
+      [
+       "07:00",
+       "18:00"
+      ]
+     ],
+     "thu": [
+      [
+       "07:00",
+       "18:00"
+      ]
+     ],
+     "fri": [
+      [
+       "07:00",
+       "18:00"
+      ]
+     ],
+     "sat": [
+      [
+       "08:00",
+       "17:00"
+      ]
+     ],
+     "sun": [
+      [
+       "08:00",
+       "17:00"
+      ]
+     ]
+    }
+   },
+   "hoursText": "Mon–Fri 7am–6pm · Sat–Sun 8am–5pm",
+   "notes": "A café, so plan to buy something. Jimmy’s says it has plenty of studying space over three floors, and a 2020 student guide mentions outlets.",
+   "sources": [
+    {
+     "title": "Jimmy’s Coffee: locations and hours",
+     "url": "https://www.jimmyscoffee.ca/locations"
+    },
+    {
+     "title": "Campus Guides: top 5 coffee shops near St. George [2020]",
+     "url": "https://campusguides.ca/2020/01/06/coffee-shops-uoft-st-george/"
+    }
+   ]
+  },
+  {
+   "type": "Café",
+   "noise": "Social",
+   "noiseOfficial": false,
+   "who": [
+    "all"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": false,
+   "walkIn": true,
+   "outlets": null,
+   "food": "yes",
+   "status": "partial",
+   "id": "lait-night",
+   "name": "Lait Night",
+   "where": "81 Huron St, Chinatown",
+   "zone": "S",
+   "building": "laitNight",
+   "hours": {
+    "type": "weekly",
+    "ignoresUniversityClosures": true,
+    "asOf": "Lait Night website, Oct 2026",
+    "week": {
+     "mon": [
+      [
+       "17:00",
+       "27:00"
+      ]
+     ],
+     "tue": [
+      [
+       "17:00",
+       "27:00"
+      ]
+     ],
+     "wed": [
+      [
+       "17:00",
+       "27:00"
+      ]
+     ],
+     "thu": [
+      [
+       "17:00",
+       "27:00"
+      ]
+     ],
+     "fri": [
+      [
+       "17:00",
+       "28:00"
+      ]
+     ],
+     "sat": [
+      [
+       "17:00",
+       "28:00"
+      ]
+     ],
+     "sun": [
+      [
+       "17:00",
+       "27:00"
+      ]
+     ]
+    }
+   },
+   "hoursText": "Sun–Thu 5pm–3am · Fri–Sat 5pm–4am",
+   "notes": "Late-night dessert and drinks café, for when campus has closed. A student guide recommends it for late study sessions; Wi-Fi and outlets aren’t confirmed. Plan to buy something.",
+   "sources": [
+    {
+     "title": "Lait Night: hours and address",
+     "url": "https://www.laitnight.com/"
+    },
+    {
+     "title": "To Do Toronto: study spots near U of T",
+     "url": "https://www.todotoronto.com/posts/best-study-spots-for-u-of-t-students"
     }
    ]
   }

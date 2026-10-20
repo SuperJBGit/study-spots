@@ -27,7 +27,7 @@ The tests use a real slice of the LibCal hours feed (`test/fixtures/`). They cov
 | `src/crowd.js`, `src/config.js` | Busyness reports and photo uploads, and the backend URL (empty = switched off) |
 | `src/hours.js` | LibCal hours feed, cached once a day in the browser |
 | `src/app.js` | UI |
-| `data/spots.json` | 85 spots: access rules, hours source, noise, outlets, food, notes, sources |
+| `data/spots.json` | 99 spots (libraries, college and club rooms, lounges, and three nearby cafés): access rules, hours source, noise, outlets, food, notes, sources |
 | `data/buildings.json` | Building coordinates (OpenStreetMap footprints) and official building codes (U of T campus map) |
 | `data/calendar.json` | University closure days, and libraries whose holiday hours the feed lacks |
 | `data/photos.json`, `photos/` | 31 inside photos across 19 spots, each matched to the spot it shows, plus an outside photo of each building as a fallback (labelled Outside). Credits in `photos/CREDITS.md` |
