@@ -50,6 +50,8 @@ const state = {
   need: store.get("need-v1", 60),
   prefs: store.get("prefs-v1", { quiet: false, group: false, outlets: false, food: false }),
   saved: new Set(store.get("saved-v1", [])),
+  hidden: new Set(store.get("hidden-v1", [])), // spots you never want suggested
+  showHidden: false,
   skipped: new Set(),
   tab: "now",
   map: null, mapLayer: null,
@@ -181,6 +183,9 @@ function wireControls() {
     if (open) { e.preventDefault(); openSheet(open.dataset.open); return; }
     const save = e.target.closest("[data-save]");
     if (save) { toggleSave(save.dataset.save); return; }
+    const hide = e.target.closest("[data-hide]");
+    if (hide) { toggleHide(hide.dataset.hide); return; }
+    if (e.target.closest("[data-show-hidden]")) { state.showHidden = !state.showHidden; renderExplore(); return; }
     const step = e.target.closest("[data-step]");
     if (step) {
       const strip = step.parentElement.querySelector(".sheet-photos");
@@ -279,7 +284,7 @@ function updatePrompt() {
   const now = nowDate();
   const here = buildingsHere(state.gps, state.gpsAccuracy, state.buildings);
   const cands = here.flatMap(({ key }) => state.spots.filter((s) =>
-    s.building === key && s.walkIn && access(s, profile()).ok && openStatus(s, now, ctx()).open !== false));
+    s.building === key && !state.hidden.has(s.id) && s.walkIn && access(s, profile()).ok && openStatus(s, now, ctx()).open !== false));
   if (!cands.length) return;
   const log = store.get("prompt-log-v1", { day: "", count: 0, at: {} });
   const today = isoDate(now);
@@ -472,7 +477,7 @@ function renderNow() {
   $("#here").innerHTML = promptHtml();
 
   const ranked = rankSpots(
-    state.spots.filter((s) => !state.skipped.has(s.id)),
+    state.spots.filter((s) => !state.skipped.has(s.id) && !state.hidden.has(s.id)),
     { profile: profile(), from: fromPoint(), now, needMinutes: state.need, prefs: state.prefs, busy: state.busy },
     ctx(), state.buildings,
   );
@@ -490,7 +495,7 @@ function renderNow() {
   // Members-only rooms with unpublished hours: the app's niche, shown honestly.
   const from = fromPoint();
   const also = state.spots
-    .filter((s) => s.walkIn && s.hours.type === "unknown" && access(s, profile()).mine)
+    .filter((s) => s.walkIn && s.hours.type === "unknown" && access(s, profile()).mine && !state.hidden.has(s.id))
     .map((s) => ({ s, walk: walkMinutes(from, state.buildings[s.building]) }))
     .filter((x) => x.walk != null && x.walk <= 15)
     .sort((a, b) => a.walk - b.walk)
@@ -567,6 +572,7 @@ function listRow(s, now, from) {
   const walk = b && from ? walkMinutes(from, b) : null;
   const acc = access(s, profile());
   const facts = [html, busyChip(busyStatus(s.id, state.busy, now))];
+  if (state.hidden.has(s.id)) facts.push(`<span class="hint">Hidden by you</span>`);
   if (acc.mine) facts.push(`<span class="mine">Yours</span>`);
   if (acc.unclear) facts.push(`<span class="warn-text">Access unclear</span>`);
   if (s.noise) facts.push(esc(s.noise));
@@ -587,13 +593,16 @@ function renderExplore() {
   const onlyOpen = $("#x-open").checked;
   const noise = $("#x-noise").value;
   const q = $("#x-q").value.trim().toLowerCase();
+  const hiddenCount = usableSpots().filter((s) => state.hidden.has(s.id)).length;
   const rows = usableSpots()
+    .filter((s) => state.showHidden || !state.hidden.has(s.id))
     .filter((s) => !noise || s.noise === noise)
     .filter((s) => !q || `${s.name} ${s.where} ${s.notes} ${state.buildings[s.building]?.name ?? ""}`.toLowerCase().includes(q))
     .map((s) => ({ s, st: openStatus(s, now, ctx()), walk: s.building ? walkMinutes(from, state.buildings[s.building]) : 999 }))
     .filter((x) => !onlyOpen || x.st.open === true)
     .sort((a, b) => a.walk - b.walk || a.s.name.localeCompare(b.s.name));
-  $("#x-count").textContent = `${rows.length} spot${rows.length === 1 ? "" : "s"} you can use · closest first from ${fromLabel()}`;
+  $("#x-count").innerHTML = `${rows.length} spot${rows.length === 1 ? "" : "s"} you can use · closest first from ${esc(fromLabel())}` +
+    (hiddenCount ? ` · <button type="button" class="btn link inline" data-show-hidden>${state.showHidden ? "Leave out" : "Show"} ${hiddenCount} hidden</button>` : "");
   $("#x-list").innerHTML = rows.map(({ s }) => listRow(s, now, from)).join("") || `<li class="empty">No spots match.</li>`;
   renderMap(rows, now);
 }
@@ -638,6 +647,15 @@ function renderSaved() {
   const list = state.spots.filter((s) => state.saved.has(s.id));
   $("#saved-list").innerHTML = list.map((s) => listRow(s, now, from)).join("");
   $("#saved-empty").hidden = list.length > 0;
+}
+
+function toggleHide(id) {
+  const hiding = !state.hidden.has(id);
+  if (hiding) state.hidden.add(id); else state.hidden.delete(id);
+  store.set("hidden-v1", [...state.hidden]);
+  state.skipped.delete(id);
+  render();
+  if ($("#sheet").open) openSheet(id);
 }
 
 function toggleSave(id) {
@@ -700,7 +718,9 @@ function openSheet(id, { push = true } = {}) {
       ${b ? `<a class="btn small" href="${directionsUrl(b)}" target="_blank" rel="noopener" data-dir="${s.id}">Directions</a>` : ""}
       ${s.bookUrl ? `<a href="${esc(s.bookUrl)}" target="_blank" rel="noopener">Book a room</a>` : ""}
       <button type="button" data-save="${s.id}" aria-pressed="${state.saved.has(s.id)}">${state.saved.has(s.id) ? "Saved" : "Save"}</button>
+      <button type="button" data-hide="${s.id}">${state.hidden.has(s.id) ? "Unhide" : "Hide"}</button>
     </div>
+    ${state.hidden.has(s.id) ? `<p class="hint">You’ve hidden this spot, so it’s never suggested and Explore leaves it out. Unhide it any time here or under You.</p>` : ""}
     ${busySection(s, now)}
     <h4>Hours</h4>
     <table class="hours-table"><tbody>${days.join("")}</tbody></table>
@@ -825,7 +845,14 @@ function openOnboarding() {
   dlg.showModal();
 }
 
+function renderHidden() {
+  const list = state.spots.filter((s) => state.hidden.has(s.id));
+  $("#hidden-spots").hidden = list.length === 0;
+  $("#hidden-list").innerHTML = list.map((s) => `<li><a href="#" data-open="${s.id}">${esc(s.name)}</a> <button type="button" class="btn link" data-hide="${s.id}">Unhide</button></li>`).join("");
+}
+
 function renderYou() {
+  renderHidden();
   const form = $("#profile-form");
   if (form.dataset.ready) return;
   form.dataset.ready = "1";
