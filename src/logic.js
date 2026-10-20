@@ -244,7 +244,12 @@ export function scoreSpot(spot, opts, ctx, buildings) {
     else if (LOUD.has(spot.noise)) reasons.push("good for groups");
     else score += 4;
   }
-  if (!quiet && !group && spot.noise) reasons.push(spot.noise.toLowerCase());
+  if (!quiet && !group && spot.noise) {
+    reasons.push(spot.noise.toLowerCase());
+    // It's a study app: unless you ask for group space, lounges give way to study spaces a couple of minutes further.
+    if (spot.noise === "Social") score += 3;
+    else if (spot.noise === "Mixed") score += 2;
+  }
   if (outlets) {
     if (spot.outlets === "yes") reasons.push("outlets");
     else if (spot.outlets === "limited") score += 10;
@@ -259,7 +264,7 @@ export function scoreSpot(spot, opts, ctx, buildings) {
   if (spot.status === "scout") score += 5;
   if (acc.unclear) { score += 6; warnings.push("Access not confirmed"); }
   if (spot.whoBasis === "assumed") score += 2;
-  if (acc.mine) { score -= 3; reasons.push("only for your group"); }
+  if (acc.mine) reasons.push("only for your group"); // shown, but no head start: being yours doesn't make it a better study spot
   if (minutesLeft < opts.needMinutes) { score += 6; warnings.push(`closes in ${minutesLeft} min`); }
   else if (minutesLeft < opts.needMinutes + 30) score += 3;
   if (spot.hours.dated) warnings.push("hours from an old source");
