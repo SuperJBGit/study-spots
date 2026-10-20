@@ -868,8 +868,6 @@
    "hart-house-reading-room"
   ],
   "robarts-floors": [
-   "robarts-reading-area",
-   "robarts-computers",
    "robarts-11th-floor",
    "robarts-11th-floor-view"
   ],
@@ -877,6 +875,10 @@
    "engsci-lounge",
    "engsci-group-tables",
    "engsci-foosball"
+  ],
+  "robarts-main": [
+   "robarts-reading-area",
+   "robarts-computers"
   ]
  },
  "buildings": {

@@ -1,5 +1,5 @@
 {
- "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door EngSci Common Room is on Bahen's St. George St side (on site, Oct 19, 2026).",
+ "_source": "Imported from the research sheet on 2026-10-16. Edit this file directly from now on. Updated Oct 18, 2026 (scripts/update-2026-10-18.mjs). The Pit marked closed for construction on Oct 18, 2026. Checked on site Oct 19, 2026: EngSci Common Room has outlets and allows food; ECSL has no TCard scan at the door EngSci Common Room is on Bahen's St. George St side (on site, Oct 19, 2026). Oct 20, 2026: Robarts split by noise designation (U of T Libraries' quiet and silent study areas policy); its carrels are assigned to graduate students, not drop-in.",
  "spots": [
   {
    "id": "stcommons",
@@ -2532,13 +2532,11 @@
   },
   {
    "id": "robarts-floors",
-   "name": "Robarts Library floors and carrels",
-   "where": "Robarts, 130 St. George St",
+   "name": "Robarts 9th–13th floors: St. George and Sussex corners",
+   "where": "Robarts, floors 9–13, the St. George and Sussex corners (apexes)",
    "zone": "N",
    "type": "Library",
    "building": "robarts",
-   "noise": "Quiet",
-   "noiseOfficial": true,
    "who": [
     "uoft"
    ],
@@ -2550,19 +2548,259 @@
     "lid": 8158
    },
    "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
-   "outlets": "yes",
-   "food": null,
-   "notes": "Carrels with power and natural light. You need a valid TCard to get in. A student blog says the 4th floor gets busy but has high ceilings.",
    "status": "checked",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "outlets": null,
+   "food": "drinks",
+   "notes": "The book stack floors. Each corner has quiet study tables plus study rooms, some first come, first served and some bookable. Whisper, phones on vibrate. Covered drinks only. The lockable carrels up here are assigned to graduate students and faculty, so they aren’t for drop-in use.",
    "sources": [
+    {
+     "title": "U of T Libraries: Robarts quiet and silent study areas",
+     "url": "https://library.utoronto.ca/policy/robarts-library-quiet-and-silent-study-areas"
+    },
+    {
+     "title": "U of T Libraries: Robarts book stacks, floors 9–13",
+     "url": "https://library.utoronto.ca/space/robarts/robarts-library-stacks"
+    },
+    {
+     "title": "U of T Libraries: Robarts study carrels (assigned to graduate students)",
+     "url": "https://library.utoronto.ca/space/robarts/study-carrels"
+    },
+    {
+     "title": "U of T Libraries: visiting Robarts Library",
+     "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    },
     {
      "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
      "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "robarts-harbord",
+   "name": "Robarts 9th–13th floors: Harbord corners",
+   "where": "Robarts, floors 9–13, the Harbord St corners (apexes)",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
+   "status": "checked",
+   "noise": "Silent",
+   "noiseOfficial": true,
+   "outlets": null,
+   "food": "drinks",
+   "notes": "Silent study on the book stack floors: no conversations, phones on vibrate. Covered drinks only.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Robarts quiet and silent study areas",
+     "url": "https://library.utoronto.ca/policy/robarts-library-quiet-and-silent-study-areas"
     },
     {
-     "title": "U of T Libraries: Find a space (noise levels, capacities)",
-     "url": "https://library.utoronto.ca/spaces"
+     "title": "U of T Libraries: Robarts book stacks, floors 9–13",
+     "url": "https://library.utoronto.ca/space/robarts/robarts-library-stacks"
     },
+    {
+     "title": "U of T Libraries: visiting Robarts Library",
+     "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "robarts-reading",
+   "name": "Robarts 2nd floor Reading Room",
+   "where": "Robarts, 2nd floor",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
+   "status": "checked",
+   "noise": "Silent",
+   "noiseOfficial": true,
+   "outlets": null,
+   "food": "drinks",
+   "notes": "Silent: no conversations, phones on vibrate. Covered drinks only.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Robarts quiet and silent study areas",
+     "url": "https://library.utoronto.ca/policy/robarts-library-quiet-and-silent-study-areas"
+    },
+    {
+     "title": "U of T Libraries: visiting Robarts Library",
+     "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "robarts-periodicals",
+   "name": "Robarts 3rd floor Periodicals Reading Room",
+   "where": "Robarts, 3rd floor",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
+   "status": "checked",
+   "noise": "Silent",
+   "noiseOfficial": true,
+   "outlets": null,
+   "food": "drinks",
+   "notes": "Silent: no conversations, phones on vibrate. Covered drinks only.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Robarts quiet and silent study areas",
+     "url": "https://library.utoronto.ca/policy/robarts-library-quiet-and-silent-study-areas"
+    },
+    {
+     "title": "U of T Libraries: visiting Robarts Library",
+     "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "robarts-quiet-room",
+   "name": "Robarts 1st floor quiet study room",
+   "where": "Robarts, 1st floor: the room with sliding glass doors (formerly the Digital Design Studio)",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
+   "status": "checked",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "outlets": null,
+   "food": null,
+   "notes": "Quiet: whisper, phones on vibrate, earphones for anything with sound.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Robarts quiet and silent study areas",
+     "url": "https://library.utoronto.ca/policy/robarts-library-quiet-and-silent-study-areas"
+    },
+    {
+     "title": "U of T Libraries: visiting Robarts Library",
+     "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "robarts-media",
+   "name": "Robarts 3rd floor study areas by the Media Archives",
+   "where": "Robarts, 3rd floor, next to the Media Archives and Film Library",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
+   "status": "checked",
+   "noise": "Quiet",
+   "noiseOfficial": true,
+   "outlets": null,
+   "food": "drinks",
+   "notes": "Quiet: whisper, phones on vibrate. Covered drinks only.",
+   "sources": [
+    {
+     "title": "U of T Libraries: Robarts quiet and silent study areas",
+     "url": "https://library.utoronto.ca/policy/robarts-library-quiet-and-silent-study-areas"
+    },
+    {
+     "title": "U of T Libraries: visiting Robarts Library",
+     "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
+    }
+   ]
+  },
+  {
+   "id": "robarts-main",
+   "name": "Robarts 1st–4th floor open study areas",
+   "where": "Robarts, floors 1–4, outside the quiet and silent rooms",
+   "zone": "N",
+   "type": "Library",
+   "building": "robarts",
+   "who": [
+    "uoft"
+   ],
+   "whoBasis": "stated",
+   "cardDoor": true,
+   "walkIn": true,
+   "hours": {
+    "type": "libcal",
+    "lid": 8158
+   },
+   "hoursText": "Sun 10am–10pm · Mon–Fri 8:30am–11pm · Sat 9am–10pm",
+   "status": "checked",
+   "noise": null,
+   "noiseOfficial": false,
+   "outlets": null,
+   "food": null,
+   "notes": "Tables and computer stations on the lower floors. These areas have no quiet or silent designation. A student blog says the 4th floor gets busy but has high ceilings.",
+   "sources": [
     {
      "title": "Student blog: top 10 spots on St. George [Aug 2024]",
      "url": "https://ramyzhang.com/blog/places-uoft-campus-copy"
@@ -2570,6 +2808,10 @@
     {
      "title": "U of T Libraries: visiting Robarts Library",
      "url": "https://library.utoronto.ca/policy/visiting-robarts-library"
+    },
+    {
+     "title": "U of T Libraries: libraries & hours (hours, plus access labels defined on hover)",
+     "url": "https://library.utoronto.ca/libraries"
     }
    ]
   },
