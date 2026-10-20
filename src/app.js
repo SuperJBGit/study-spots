@@ -398,12 +398,17 @@ function parseRoute(hash) {
   const [tab, spot] = decodeURIComponent(hash.replace(/^#/, "")).split("/");
   return { tab: TABS.includes(tab) ? tab : "now", spot: spot || null };
 }
+let pendingSpot = null;
 function startRouting() {
   const r = parseRoute(location.hash);
   history.replaceState({ tab: r.tab, spot: null }, "", routeUrl(r.tab));
   if (r.tab !== "now") showTab(r.tab, { push: false });
   // A link straight to a spot: open it on top of its tab, so back closes it rather than leaving.
-  if (r.spot && state.profile && state.spots.some((s) => s.id === r.spot)) openSheet(r.spot);
+  // On a first visit, open it once the "which rooms can you use?" questions are answered.
+  if (r.spot && state.spots.some((s) => s.id === r.spot)) {
+    if (state.profile) openSheet(r.spot);
+    else pendingSpot = r.spot;
+  }
   window.addEventListener("popstate", (e) => {
     const to = e.state || parseRoute(location.hash);
     if ($("#sheet").open && !to.spot) $("#sheet").close();
@@ -801,13 +806,22 @@ function openOnboarding() {
   syncProfileFields("ob");
   $("#ob-fac").addEventListener("change", () => syncProfileFields("ob"));
   const dlg = $("#onboard");
-  dlg.addEventListener("close", () => {
-    state.profile = dlg.returnValue === "save" ? readProfile("ob") : { fac: "other", prog: "", col: "", res: "none", csc: false };
+  let done = false;
+  const finish = (save) => {
+    if (done) return;
+    done = true;
+    state.profile = save ? readProfile("ob") : { fac: "other", prog: "", col: "", res: "none", csc: false };
     store.set("profile-v1", state.profile);
+    if (dlg.open) dlg.close();
     render();
+    if (pendingSpot) { openSheet(pendingSpot); pendingSpot = null; }
     // Then ask for location, so the first list is the closest spots to where they are.
     if (state.near === null || state.near === "gps") startLocation({ userAsked: false });
-  }, { once: true });
+  };
+  // Handled on the buttons and Esc directly; the dialog's own close event can arrive late (or, in a background tab, not at all).
+  $("#onboard-form").addEventListener("submit", (e) => { e.preventDefault(); finish(e.submitter?.value === "save"); });
+  dlg.addEventListener("cancel", (e) => { e.preventDefault(); finish(false); });
+  dlg.addEventListener("close", () => finish(dlg.returnValue === "save"), { once: true });
   dlg.showModal();
 }
 
