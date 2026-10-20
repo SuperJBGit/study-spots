@@ -1,5 +1,6 @@
-import { access, openStatus, openLabel, dayHours, rankSpots, walkMinutes, fmtTime, isoDate, addDays, isClosureDay } from "./logic.js";
+import { access, openStatus, openLabel, dayHours, rankSpots, walkMinutes, fmtTime, isoDate, addDays, isClosureDay, metresBetween, buildingsHere, busyStatus, busyLabel, typicalDay, BUSY_LEVELS } from "./logic.js";
 import { loadLibraryHours } from "./hours.js";
+import { crowdEnabled, fetchBusy, sendReport, sendEvent, sendPhoto, preparePhoto } from "./crowd.js";
 
 // ---------- small helpers ----------
 const $ = (sel) => document.querySelector(sel);
@@ -53,6 +54,10 @@ const state = {
   tab: "now",
   map: null, mapLayer: null,
   picksKey: "",
+  // Crowd data (src/crowd.js): busyness from the backend, and whether you're doing headcount walks.
+  busy: null, busyAt: 0,
+  contributor: store.get("contributor-v1", false),
+  credit: store.get("credit-v1", ""),
 };
 const ctx = () => ({ libcal: state.hours.libcal, calendar: state.calendar });
 const profile = () => state.profile || { fac: "other", prog: "", col: "", res: "none", csc: false };
@@ -79,11 +84,24 @@ async function boot() {
   // the closest spots to where they are is the whole point of the Now screen.
   else if (state.near === "gps" || state.near === null) startLocation({ userAsked: false });
 
+  refreshBusy();
   state.hours = await loadLibraryHours({ now: nowDate() });
   renderFeedStatus();
   render();
-  // Keep "open now" honest if the app stays open.
-  setInterval(render, 60_000);
+  // Keep "open now" honest if the app stays open, and busyness at most 5 minutes old.
+  setInterval(() => {
+    render();
+    if (Date.now() - state.busyAt > 5 * 60000) refreshBusy();
+  }, 60_000);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && Date.now() - state.busyAt > 2 * 60000) refreshBusy();
+  });
+}
+
+async function refreshBusy() {
+  if (!crowdEnabled()) return;
+  state.busyAt = Date.now();
+  try { state.busy = await fetchBusy(); render(); } catch { /* keep what we had; the app works without it */ }
 }
 
 function renderFeedStatus() {
@@ -142,7 +160,12 @@ function wireControls() {
   });
   $("#next").addEventListener("click", () => {
     const first = $("#picks .pick");
-    if (first) state.skipped.add(first.dataset.id);
+    if (first) {
+      state.skipped.add(first.dataset.id);
+      // Standing at a full spot and asking for the next one is the most honest busyness report there is.
+      const spot = state.spots.find((s) => s.id === first.dataset.id);
+      if (crowdEnabled() && spot && isHere(spot)) report(spot.id, 3, "next-button");
+    }
     render();
   });
   $("#reset-skips").addEventListener("click", () => { state.skipped.clear(); render(); });
@@ -162,9 +185,142 @@ function wireControls() {
     if (step) {
       const strip = step.parentElement.querySelector(".sheet-photos");
       strip.scrollBy({ left: Number(step.dataset.step) * strip.clientWidth, behavior: "smooth" });
+      return;
+    }
+    // Heading somewhere: remember it, so "how busy is it here?" can ask about that spot when you arrive.
+    const dir = e.target.closest("[data-dir]");
+    if (dir) store.set("recent-spot-v1", { id: dir.dataset.dir, at: Date.now() });
+    const level = e.target.closest("[data-report-level]");
+    if (level) {
+      const spot = state.spots.find((s) => s.id === level.dataset.spot);
+      const people = $("#report-people")?.value;
+      report(spot.id, Number(level.dataset.reportLevel), isHere(spot) ? "sheet" : "contributor", people === "" ? undefined : people)
+        .then((ok) => { if (ok && $("#sheet").open) { openSheet(spot.id); $("#report-thanks")?.removeAttribute("hidden"); } });
+      return;
+    }
+    if (e.target.closest("[data-here-spot]")) { prompt.spot = e.target.closest("[data-here-spot]").dataset.hereSpot; render(); return; }
+    if (e.target.closest("[data-here-change]")) { prompt.spot = null; render(); return; }
+    if (e.target.closest("[data-here-level]")) { answerPrompt(Number(e.target.closest("[data-here-level]").dataset.hereLevel)); return; }
+    if (e.target.closest("[data-here-close]")) { sendEvent("prompt_dismissed", prompt?.spot || undefined); prompt = null; render(); }
+  });
+  // Photo uploads: prepare (shrink, strip camera data) as soon as a file is picked, send on submit.
+  document.addEventListener("change", async (e) => {
+    const input = e.target.closest(".photo-form input[type=file]");
+    if (!input?.files?.[0]) return;
+    const form = input.closest("form");
+    const status = form.querySelector(".photo-status");
+    status.textContent = "Preparing the photo…";
+    try {
+      form.photo = await preparePhoto(input.files[0]);
+      const img = form.querySelector(".photo-preview");
+      img.src = form.photo.preview;
+      img.hidden = false;
+      status.textContent = "";
+    } catch {
+      form.photo = null;
+      status.textContent = "That file couldn’t be read as a photo.";
+    }
+  });
+  document.addEventListener("submit", async (e) => {
+    const form = e.target.closest(".photo-form");
+    if (!form) return;
+    e.preventDefault();
+    const status = form.querySelector(".photo-status");
+    if (!form.photo) { status.textContent = "Choose a photo first."; return; }
+    const button = form.querySelector("button[type=submit]");
+    button.disabled = true;
+    status.textContent = "Sending…";
+    const credit = form.credit.value.trim();
+    state.credit = credit;
+    store.set("credit-v1", credit);
+    try {
+      const res = await sendPhoto(form.dataset.photoForm, form.photo.data, form.caption.value.trim(), credit);
+      if (!res.ok) throw new Error(res.error);
+      sendEvent("photo_sent", form.dataset.photoForm);
+      form.reset();
+      form.photo = null;
+      form.querySelector(".photo-preview").hidden = true;
+      status.textContent = "Sent for review. It’ll show here once it’s approved. Thank you!";
+    } catch (err) {
+      status.textContent = `Couldn’t send it${err.message && !/fetch/i.test(err.message) ? ` (${err.message})` : ""}. Check your connection and try again.`;
+    } finally {
+      button.disabled = false;
     }
   });
 }
+
+// ---------- crowd reports ----------
+
+// Are you at this spot's building right now? Needs a GPS fix good enough to tell neighbouring buildings apart.
+const isHere = (spot) => usingGps() && buildingsHere(state.gps, state.gpsAccuracy, state.buildings).some((b) => b.key === spot.building);
+
+// Send a report and show it straight away (the backend's view refreshes within a minute anyway).
+async function report(spotId, level, source, people) {
+  try {
+    const res = await sendReport(spotId, level, source, people);
+    if (!res.ok) throw new Error(res.error);
+    state.busy ||= { live: {}, typical: {} };
+    const prev = state.busy.live[spotId];
+    state.busy.live[spotId] = { level, at: nowDate().toISOString(), n: (prev?.n || 0) + 1 };
+    render();
+    return true;
+  } catch {
+    alertBanner("Couldn’t send that report. Check your connection.");
+    return false;
+  }
+}
+
+// "How busy is it here?": asked on the Now screen when GPS puts you at a building with spots,
+// at most once per building every 3 hours and 4 times a day. One tap to answer, one to dismiss.
+let prompt = null; // { building, spots: [ids], spot: id | null, thanks: bool }
+
+function updatePrompt() {
+  if (prompt || !crowdEnabled() || state.locStatus !== "on" || !usingGps() || $("#onboard").open) return;
+  const now = nowDate();
+  const here = buildingsHere(state.gps, state.gpsAccuracy, state.buildings);
+  const cands = here.flatMap(({ key }) => state.spots.filter((s) =>
+    s.building === key && s.walkIn && access(s, profile()).ok && openStatus(s, now, ctx()).open !== false));
+  if (!cands.length) return;
+  const log = store.get("prompt-log-v1", { day: "", count: 0, at: {} });
+  const today = isoDate(now);
+  if (log.day !== today) Object.assign(log, { day: today, count: 0 });
+  const building = cands[0].building;
+  if (log.count >= 4 || Date.now() - (log.at[building] || 0) < 3 * 3600e3) return;
+  log.count += 1;
+  log.at[building] = Date.now();
+  store.set("prompt-log-v1", log);
+  // If you opened or got directions to one of these spots in the last 2 hours, ask about that one directly.
+  const recent = store.get("recent-spot-v1", null);
+  const pre = recent && Date.now() - recent.at < 2 * 3600e3 ? cands.find((s) => s.id === recent.id) : null;
+  const ordered = pre ? [pre, ...cands.filter((s) => s !== pre)] : cands;
+  prompt = { building, spots: ordered.slice(0, 4).map((s) => s.id), spot: pre ? pre.id : cands.length === 1 ? cands[0].id : null, thanks: false };
+  sendEvent("prompt_shown", prompt.spot || undefined, String(cands.length));
+}
+
+function promptHtml() {
+  if (!prompt) return "";
+  if (prompt.thanks) return `<section class="here thanks" role="status"><p class="here-q">Thanks! Everyone sees that for the next 45 minutes.</p></section>`;
+  const name = (id) => esc(state.spots.find((s) => s.id === id)?.name);
+  const head = prompt.spot
+    ? `How busy is <b>${name(prompt.spot)}</b> right now?`
+    : `You’re at <b>${esc(state.buildings[prompt.building].name)}</b>. Which spot are you in?`;
+  const body = prompt.spot
+    ? `<div class="levels">${[1, 2, 3].map((l) => `<button type="button" class="lv${l}" data-here-level="${l}">${BUSY_LEVELS[l]}</button>`).join("")}</div>` +
+      (prompt.spots.length > 1 ? `<button type="button" class="btn link" data-here-change>Not this spot?</button>` : "")
+    : `<div class="here-spots">${prompt.spots.map((id) => `<button type="button" data-here-spot="${id}">${name(id)}</button>`).join("")}</div>`;
+  return `<section class="here" aria-label="Report how busy it is"><p class="here-q">${head}</p>${body}<button type="button" class="here-close" data-here-close aria-label="Not now">×</button></section>`;
+}
+
+function answerPrompt(level) {
+  const spot = prompt.spot;
+  sendEvent("prompt_answered", spot, String(level));
+  report(spot, level, "prompt");
+  prompt.thanks = true;
+  render();
+  setTimeout(() => { prompt = null; render(); }, 4000);
+}
+
+const busyChip = (b) => (b ? `<span class="busy lv${b.level}${b.kind === "typical" ? " usual" : ""}">${esc(busyLabel(b))}</span>` : "");
 
 // Location: watch the position while the app is open, so the closest spots update as you walk.
 // The position stays on the device; it's only used to work out walking times.
@@ -188,13 +344,13 @@ function startLocation({ userAsked }) {
       if (fromCampus > 40) {
         // Off campus (at home, say): keep watching, but measure from UC until they get closer.
         state.locStatus = "far";
-        state.farKm = Math.round(haversineMetres(p, state.buildings.uc) / 100) / 10;
+        state.farKm = Math.round(metresBetween(p, state.buildings.uc) / 100) / 10;
         if (state.near === "gps") state.near = null;
         state.gps = null;
         render();
         return;
       }
-      const moved = !state.gps || haversineMetres(state.gps, p) > 25;
+      const moved = !state.gps || metresBetween(state.gps, p) > 25;
       state.gps = p;
       state.gpsAccuracy = Math.round(pos.coords.accuracy);
       const switched = state.near !== "gps" || state.locStatus !== "on";
@@ -229,12 +385,6 @@ function stopLocation() {
   if (state.watchId != null) navigator.geolocation.clearWatch(state.watchId);
   state.watchId = null;
 }
-function haversineMetres(a, b) {
-  const rad = Math.PI / 180, R = 6371000;
-  const h = Math.sin(((b.lat - a.lat) * rad) / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(((b.lon - a.lon) * rad) / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-}
-
 let bannerMsg = "";
 function alertBanner(msg) { bannerMsg = msg; render(); setTimeout(() => { bannerMsg = ""; render(); }, 6000); }
 
@@ -313,10 +463,12 @@ function renderNow() {
   if (isClosureDay(isoDate(now), state.calendar)) banner.push("The university is closed today, so most spots are shut.");
   if (state.hours.error && !state.hours.fetchedAt) banner.push("Library hours couldn’t load, so libraries are left out of suggestions for now.");
   $("#now-banner").innerHTML = banner.map((m) => `<p class="banner">${esc(m)}</p>`).join("");
+  updatePrompt();
+  $("#here").innerHTML = promptHtml();
 
   const ranked = rankSpots(
     state.spots.filter((s) => !state.skipped.has(s.id)),
-    { profile: profile(), from: fromPoint(), now, needMinutes: state.need, prefs: state.prefs },
+    { profile: profile(), from: fromPoint(), now, needMinutes: state.need, prefs: state.prefs, busy: state.busy },
     ctx(), state.buildings,
   );
   const top = ranked.slice(0, 3);
@@ -348,7 +500,7 @@ function renderNow() {
 function pickCard(r, now, hero) {
   const s = r.spot;
   const b = state.buildings[s.building];
-  const facts = [`<span class="status open">${esc(cap(openLabel(r.status, now)))}</span>`];
+  const facts = [`<span class="status open">${esc(cap(openLabel(r.status, now)))}</span>`, busyChip(r.busy)];
   for (const reason of r.reasons) {
     if (/min walk|^open /.test(reason)) continue;
     facts.push(reason === "only for your group" ? `<span class="mine">only for your group</span>` : esc(reason));
@@ -360,7 +512,7 @@ function pickCard(r, now, hero) {
     : hero ? "" : `<span class="no-photo" aria-hidden="true">${esc(b?.code || "")}</span>`;
   const walk = `<p class="walk"><b>${r.walk ?? "?"}</b><span>${hero ? "min walk" : "min"}</span></p>`;
   const actions = `<div class="text-actions">
-      ${b ? `<a href="${directionsUrl(b)}" target="_blank" rel="noopener">Directions</a>` : ""}
+      ${b ? `<a href="${directionsUrl(b)}" target="_blank" rel="noopener" data-dir="${s.id}">Directions</a>` : ""}
       <button type="button" data-open="${s.id}">Details</button>
       <button type="button" data-save="${s.id}" aria-pressed="${state.saved.has(s.id)}">${state.saved.has(s.id) ? "Saved" : "Save"}</button>
     </div>`;
@@ -409,7 +561,7 @@ function listRow(s, now, from) {
   const b = state.buildings[s.building];
   const walk = b && from ? walkMinutes(from, b) : null;
   const acc = access(s, profile());
-  const facts = [html];
+  const facts = [html, busyChip(busyStatus(s.id, state.busy, now))];
   if (acc.mine) facts.push(`<span class="mine">Yours</span>`);
   if (acc.unclear) facts.push(`<span class="warn-text">Access unclear</span>`);
   if (s.noise) facts.push(esc(s.noise));
@@ -540,22 +692,80 @@ function openSheet(id, { push = true } = {}) {
     <p class="line">${factLine([tag, walk != null ? `${walk} min walk from ${esc(fromLabel())}` : "", s.status === "scout" ? `<span class="warn-text">Not yet checked on site</span>` : ""])}</p>
     <p>${esc(s.notes)}</p>
     <div class="text-actions">
-      ${b ? `<a class="btn small" href="${directionsUrl(b)}" target="_blank" rel="noopener">Directions</a>` : ""}
+      ${b ? `<a class="btn small" href="${directionsUrl(b)}" target="_blank" rel="noopener" data-dir="${s.id}">Directions</a>` : ""}
       ${s.bookUrl ? `<a href="${esc(s.bookUrl)}" target="_blank" rel="noopener">Book a room</a>` : ""}
       <button type="button" data-save="${s.id}" aria-pressed="${state.saved.has(s.id)}">${state.saved.has(s.id) ? "Saved" : "Save"}</button>
     </div>
+    ${busySection(s, now)}
     <h4>Hours</h4>
     <table class="hours-table"><tbody>${days.join("")}</tbody></table>
     <p class="hint">${hoursNote}</p>
     <h4>Details</h4>
     <dl class="kv">${facts.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+    ${photoSection(s)}
     <h4>Sources</h4>
     <ul class="sources">${s.sources.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a></li>`).join("") || "<li>No official page found</li>"}</ul>
   </div>`;
   if (!$("#sheet").open) {
     if (push) pushRoute(state.tab, id);
+    store.set("recent-spot-v1", { id, at: Date.now() });
     $("#sheet").showModal();
   }
+}
+
+// How busy: the latest report, the usual pattern through today, and (if you're there, or doing headcount walks)
+// buttons to report. Hidden entirely when there's no backend.
+function busySection(s, now) {
+  if (!crowdEnabled()) return "";
+  const b = busyStatus(s.id, state.busy, now);
+  const usual = busyStatus(s.id, { typical: state.busy?.typical }, now);
+  const live = b?.kind === "live"
+    ? `<p class="line">${busyChip(b)}${b.n > 1 ? `${SEP}<span class="hint">${b.n} reports</span>` : ""}</p>`
+    : `<p class="hint">No reports in the last 45 minutes.</p>`;
+  const day = typicalDay(s.id, state.busy, now);
+  const known = day.filter((h) => h.level);
+  const words = { 1: "quiet", 2: "busy", 3: "full" };
+  const hourName = (h) => clock(h * 60).replace(":00", "");
+  const pattern = known.length >= 3
+    ? `<div class="busy-bars" role="img" aria-label="Usually, ${known.map((h) => `${hourName(h.hour)} ${words[h.level]}`).join(", ")}">${day.map((h) =>
+        `<span class="bar lv${h.level || 0}${h.hour === now.getHours() ? " now" : ""}" title="${hourName(h.hour)}: ${h.level ? words[h.level] : "not enough reports"}"></span>`).join("")}</div>
+       <div class="busy-axis" aria-hidden="true"><span>8am</span><span>12pm</span><span>4pm</span><span>8pm</span></div>`
+    : `<p class="hint">Not enough reports yet to show when it’s usually busy.</p>`;
+  const canReport = state.contributor || isHere(s);
+  const reportRow = canReport ? `<div class="report-row">
+      <p class="label">How busy is it now?</p>
+      <div class="levels">${[1, 2, 3].map((l) => `<button type="button" class="lv${l}" data-report-level="${l}" data-spot="${s.id}">${BUSY_LEVELS[l]}</button>`).join("")}</div>
+      ${state.contributor ? `<label class="field people"><span>People you counted (optional)</span><input type="number" id="report-people" min="0" max="2000" inputmode="numeric"></label>` : ""}
+      <p class="hint" id="report-thanks" hidden>Thanks! Everyone sees that for the next 45 minutes.</p>
+    </div>` : "";
+  return `<h4>How busy</h4>${live}${usual ? `<p class="hint">${esc(busyLabel(usual))}, from ${usual.n} reports at this hour.</p>` : ""}${pattern}${reportRow}`;
+}
+
+// Add a photo: offered when a spot has no inside photo and you're there, or always in headcount-walk mode.
+function photoSection(s) {
+  if (!crowdEnabled()) return "";
+  const hasInside = photosFor(s).some((p) => !p.outside);
+  const here = isHere(s);
+  if (!state.contributor && !(here && !hasInside)) return "";
+  if (here && !hasInside) {
+    const log = store.get("photo-prompt-v1", { day: "", ids: [] });
+    const today = isoDate(nowDate());
+    if (log.day !== today) Object.assign(log, { day: today, ids: [] });
+    if (!log.ids.includes(s.id)) { log.ids.push(s.id); store.set("photo-prompt-v1", log); sendEvent("photo_prompt_shown", s.id); }
+  }
+  const lead = hasInside ? "Add another photo of this spot." : here ? "No inside photo yet, and you’re here. Could you add one?" : "No inside photo yet.";
+  return `<h4>Photos</h4>
+    <form class="photo-form" data-photo-form="${s.id}">
+      <p class="hint">${lead} It’s shrunk and stripped of location data on your phone, and shows up after a quick review.</p>
+      <label class="btn small ghost file">Choose or take a photo<input type="file" name="file" accept="image/*" hidden></label>
+      <img class="photo-preview" alt="The photo you picked" hidden>
+      <label class="field"><span>What does it show?</span><input name="caption" maxlength="140" minlength="3" required placeholder="e.g. Tables by the windows, 2nd floor"></label>
+      <label class="field"><span>Name for the photo credit (optional)</span><input name="credit" maxlength="60" value="${esc(state.credit)}" autocomplete="nickname"></label>
+      <label class="check"><input type="checkbox" required><span>I took this photo, and Study Spots may use it under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span></label>
+      <label class="check"><input type="checkbox" required><span>No one’s face can be recognized in it</span></label>
+      <button class="btn small" type="submit">Send for review</button>
+      <p class="hint photo-status" aria-live="polite"></p>
+    </form>`;
 }
 const clock = (m) => {
   const mm = ((m % 1440) + 1440) % 1440;
@@ -614,6 +824,13 @@ function renderYou() {
     store.set("profile-v1", state.profile);
     $("#pf-msg").textContent = "Saved. Your spots are updated.";
     state.skipped.clear();
+  });
+  // Headcount walks: report and add photos for any spot, wherever you are.
+  $("#contribute").hidden = !crowdEnabled();
+  $("#contributor").checked = state.contributor;
+  $("#contributor").addEventListener("change", (e) => {
+    state.contributor = e.target.checked;
+    store.set("contributor-v1", state.contributor);
   });
 }
 

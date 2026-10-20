@@ -1,4 +1,4 @@
-// Pure functions: who can use a spot, whether it's open, walking time, ranking.
+// Pure functions: who can use a spot, whether it’s open, walking time, busyness, ranking.
 // No DOM and no network, so the app and the tests share them.
 
 export const DAY_KEYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
@@ -142,14 +142,71 @@ export function openStatus(spot, now, ctx) {
 
 // ---------- distance ----------
 
-// Walking minutes: straight line × 1.3 for real paths, at 80 m per minute.
-export function walkMinutes(a, b) {
-  if (!a || !b) return null;
+// Straight-line metres between two {lat, lon} points.
+export function metresBetween(a, b) {
   const R = 6371000, rad = Math.PI / 180;
   const dLat = (b.lat - a.lat) * rad, dLon = (b.lon - a.lon) * rad;
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLon / 2) ** 2;
-  const metres = 2 * R * Math.asin(Math.sqrt(h));
-  return Math.max(1, Math.ceil((metres * 1.3) / 80));
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+// Walking minutes: straight line × 1.3 for real paths, at 80 m per minute.
+export function walkMinutes(a, b) {
+  if (!a || !b) return null;
+  return Math.max(1, Math.ceil((metresBetween(a, b) * 1.3) / 80));
+}
+
+// Buildings you're probably in or at, nearest first: within `radius` metres of the building's point.
+// A fix less accurate than `maxAccuracy` metres can't tell neighbouring buildings apart, so it returns none.
+export function buildingsHere(point, accuracy, buildings, radius = 80, maxAccuracy = 100) {
+  if (!point || accuracy == null || accuracy > maxAccuracy) return [];
+  return Object.entries(buildings)
+    .map(([key, b]) => ({ key, metres: metresBetween(point, b) }))
+    .filter((x) => x.metres <= radius)
+    .sort((a, b) => a.metres - b.metres);
+}
+
+// ---------- busyness (crowd reports) ----------
+// The backend returns { live: { spotId: { level, at, n } }, typical: { spotId: { "wd14": { avg, n, days } } } }.
+// Levels: 1 plenty of seats, 2 filling up, 3 full. Hour buckets are weekday/weekend × hour, in local (Toronto) time.
+
+export const BUSY_LEVELS = { 1: "Plenty of seats", 2: "Filling up", 3: "Full" };
+export const LIVE_MINUTES = 45;
+
+export const hourBucket = (d) => (d.getDay() === 0 || d.getDay() === 6 ? "we" : "wd") + d.getHours();
+
+// A usual pattern needs at least 3 reports for that hour, from at least 2 different days.
+const enough = (t) => t && t.n >= 3 && (t.days ?? 0) >= 2;
+const typicalLevel = (avg) => (avg >= 2.5 ? 3 : avg >= 1.8 ? 2 : 1);
+
+// How busy a spot is right now: a fresh report wins, then the usual pattern for this hour, else null.
+// Never says "quiet" just because nobody reported.
+export function busyStatus(spotId, busy, now) {
+  const live = busy?.live?.[spotId];
+  if (live) {
+    const age = (now - new Date(live.at)) / 60000;
+    if (age >= -5 && age <= LIVE_MINUTES) return { kind: "live", level: live.level, ageMin: Math.max(0, Math.round(age)), n: live.n || 1 };
+  }
+  const t = busy?.typical?.[spotId]?.[hourBucket(now)];
+  if (enough(t)) return { kind: "typical", level: typicalLevel(t.avg), avg: t.avg, n: t.n };
+  return null;
+}
+
+export function busyLabel(b) {
+  if (!b) return "";
+  if (b.kind === "live") return `${BUSY_LEVELS[b.level]} · ${b.ageMin < 2 ? "just now" : `${b.ageMin} min ago`}`;
+  return ["", "Usually quiet around now", "Usually busy around now", "Usually full around now"][b.level];
+}
+
+// The usual pattern through today (weekday or weekend), hour by hour: [{ hour, level|null, n }].
+export function typicalDay(spotId, busy, now, from = 8, to = 23) {
+  const prefix = hourBucket(now).slice(0, 2);
+  const out = [];
+  for (let h = from; h <= to; h++) {
+    const t = busy?.typical?.[spotId]?.[prefix + h];
+    out.push({ hour: h, level: enough(t) ? typicalLevel(t.avg) : null, avg: t?.avg ?? null, n: t?.n ?? 0 });
+  }
+  return out;
 }
 
 // ---------- ranking ----------
@@ -157,7 +214,7 @@ export function walkMinutes(a, b) {
 const LOUD = new Set(["Social", "Collaborative", "Mixed"]);
 
 // Score one spot for the "right now" list. Lower is better. Returns null if it shouldn't be suggested.
-// opts: { profile, from: {lat, lon} | null, now: Date, needMinutes, prefs: {quiet, group, outlets, food} }
+// opts: { profile, from: {lat, lon} | null, now: Date, needMinutes, prefs: {quiet, group, outlets, food}, busy? }
 export function scoreSpot(spot, opts, ctx, buildings) {
   if (!spot.walkIn) return null;
   const acc = access(spot, opts.profile);
@@ -208,7 +265,12 @@ export function scoreSpot(spot, opts, ctx, buildings) {
   if (spot.hours.dated) warnings.push("hours from an old source");
   if (spot.cardDoor) reasons.push("TCard at the door");
 
-  return { spot, score, walk, status: st, minutesLeft, reasons, warnings, mine: acc.mine };
+  // Crowd reports: a fresh "Full" all but rules a spot out; the usual pattern only nudges.
+  const busy = opts.busy ? busyStatus(spot.id, opts.busy, opts.now) : null;
+  if (busy?.kind === "live") score += { 1: -2, 2: 5, 3: 40 }[busy.level] ?? 0;
+  if (busy?.kind === "typical") score += { 1: -1, 2: 2, 3: 6 }[busy.level] ?? 0;
+
+  return { spot, score, walk, status: st, minutesLeft, reasons, warnings, mine: acc.mine, busy };
 }
 
 // Ranked suggestions, best first. The first `spread` picks come from different buildings.

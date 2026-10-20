@@ -55,6 +55,7 @@
           <button type="button" data-pref="food">Food OK</button>
         </div>
       </div>
+      <div id="here"></div>
       <div id="now-banner"></div>
       <ol class="picks" id="picks" aria-live="polite"></ol>
       <div class="next-row">
@@ -103,6 +104,11 @@
       <h2 id="you-h">You</h2>
       <p class="hint">This decides which rooms you see. It stays on this device.</p>
       <form id="profile-form" class="profile"></form>
+      <section class="contribute" id="contribute" aria-labelledby="contribute-h" hidden>
+        <h3 id="contribute-h">Help map how busy spots get</h3>
+        <label class="check"><input type="checkbox" id="contributor"> I’m doing headcount walks</label>
+        <p class="hint">Shows “How busy is it now?” and “Add a photo” on every spot wherever you are, with a box for how many people you counted. Leave it off otherwise: you’ll still be asked when you’re at a spot.</p>
+      </section>
       <section class="about">
         <h3>About the data</h3>
         <ul>
@@ -110,6 +116,7 @@
           <li>Other hours, access rules and noise levels come from college, faculty and club pages. Each spot links its sources.</li>
           <li>Spots marked <em>hours unknown</em> never appear in your top picks.</li>
           <li>Building positions are from OpenStreetMap. Walk times assume 80 m a minute on real paths.</li>
+          <li>Busyness comes from other students: when you’re at a spot, the app may ask how busy it is. A report sends only the spot, your answer, the time and a random code for this phone (so one person can’t report a spot over and over). Never your location.</li>
           <li>Photos are from Wikimedia Commons, Flickr (Creative Commons), U of T Libraries and our own visits, credited on each spot. Where there’s no inside photo yet, it shows the outside of the building.</li>
         </ul>
         <p class="disclaimer">An independent student project. Not affiliated with or endorsed by the University of Toronto.</p>

@@ -2,9 +2,9 @@
 // Network first, so every push shows up right away; the cache is only a fallback when offline.
 // "no-cache" makes the browser check with the server each time (a quick 304 when nothing changed) instead of
 // reusing its own copy, which GitHub Pages lets it keep for 10 minutes: long enough to run old code after a push.
-const CACHE = "study-spots-v3";
+const CACHE = "study-spots-v4";
 const SHELL = [
-  "./", "index.html", "styles.css", "src/app.js", "src/logic.js", "src/hours.js",
+  "./", "index.html", "styles.css", "src/app.js", "src/logic.js", "src/hours.js", "src/crowd.js", "src/config.js",
   "data/spots.json", "data/buildings.json", "data/calendar.json", "data/photos.json",
   "manifest.webmanifest", "icons/icon-192.png",
 ];

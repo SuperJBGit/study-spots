@@ -260,6 +260,50 @@ dialog::backdrop { background: rgb(14 23 41 / .55); }
 .kv dd { margin: 0; }
 .sources { font-size: 14px; padding-left: 18px; margin: 0; display: grid; gap: 4px; }
 
+/* ---------- busyness ---------- */
+/* A square marker, so it reads differently from the round open/closed dot. Faded when it's the usual pattern. */
+.busy { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
+.busy::before { content: ""; width: 9px; height: 9px; border-radius: 2px; flex: none; background: var(--unknown); }
+.busy.lv1::before { background: var(--open); }
+.busy.lv2::before { background: var(--uoft-yellow); }
+.busy.lv3::before { background: var(--closed); }
+.busy.usual { font-weight: 400; color: var(--muted); }
+.busy.usual::before { opacity: .6; }
+
+/* "How busy is it here?" */
+.here { position: relative; display: grid; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--action); border-radius: var(--radius); padding: 12px 44px 12px 14px; }
+.here.thanks { border-left-color: var(--open); }
+.here-q { font-size: 16px; }
+.here-close { position: absolute; top: 4px; right: 4px; width: 40px; height: 40px; border: 0; background: none; color: var(--muted); font-size: 24px; line-height: 1; cursor: pointer; }
+.here-spots { display: flex; flex-wrap: wrap; gap: 8px; }
+.here-spots button { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
+.levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.levels button { min-height: 48px; border: 1px solid var(--line); border-top-width: 4px; background: var(--surface); border-radius: var(--radius); padding: 8px 6px; font-weight: 600; font-size: 14px; line-height: 1.2; cursor: pointer; }
+.levels .lv1 { border-top-color: var(--open); }
+.levels .lv2 { border-top-color: var(--uoft-yellow); }
+.levels .lv3 { border-top-color: var(--closed); }
+.levels button:active { background: var(--placeholder); }
+
+/* usual pattern through the day, 8am to 11pm */
+.busy-bars { display: grid; grid-template-columns: repeat(16, 1fr); align-items: end; gap: 3px; height: 48px; margin-top: 2px; }
+.bar { height: 4px; border-radius: 2px 2px 0 0; background: var(--placeholder); }
+.bar.lv1 { height: 33%; background: var(--open); }
+.bar.lv2 { height: 66%; background: var(--uoft-yellow); }
+.bar.lv3 { height: 100%; background: var(--closed); }
+.bar.now { outline: 2px solid var(--ink); outline-offset: 1px; }
+.busy-axis { display: grid; grid-template-columns: repeat(4, 1fr); font-size: 11px; color: var(--muted); }
+.report-row { display: grid; gap: 8px; margin-top: 6px; }
+.people input { max-width: 140px; }
+
+/* adding a photo */
+.photo-form { display: grid; gap: 10px; }
+.photo-form .file { justify-self: start; }
+.photo-preview { max-width: 100%; max-height: 220px; justify-self: start; border-radius: var(--radius); background: var(--placeholder); }
+.photo-form .check, .contribute .check { white-space: normal; padding-bottom: 0; align-items: flex-start; font-size: 14px; }
+.photo-form .check input, .contribute .check input { margin-top: 2px; flex: none; }
+.contribute { border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 8px; }
+.contribute h3 { font-size: 18px; }
+
 /* map pins */
 .pin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgb(14 23 41 / .35); }
 .pin.open { background: #00a189; }

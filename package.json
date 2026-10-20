@@ -5,8 +5,10 @@
   "type": "module",
   "description": "Where can I study right now? St. George study spots, filtered to what you can use.",
   "scripts": {
-    "test": "node --test test/logic.test.js",
+    "test": "node --test test/logic.test.js test/backend.test.js",
     "start": "node scripts/serve.mjs 8080",
-    "import": "node scripts/import-research.mjs research/study-spots.html"
+    "import": "node scripts/import-research.mjs research/study-spots.html",
+    "mock-backend": "node scripts/mock-backend.mjs 8787",
+    "pull-photos": "node scripts/pull-photos.mjs"
   }
 }

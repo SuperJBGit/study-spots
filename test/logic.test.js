@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
-import { access, parseClock, dayHours, openStatus, openLabel, walkMinutes, rankSpots, fmtTime } from "../src/logic.js";
+import { access, parseClock, dayHours, openStatus, openLabel, walkMinutes, rankSpots, fmtTime, busyStatus, busyLabel, typicalDay, hourBucket, buildingsHere } from "../src/logic.js";
 import { indexFeed, loadLibraryHours } from "../src/hours.js";
 
 const load = (p) => JSON.parse(readFileSync(new URL(p, import.meta.url), "utf8"));
@@ -168,4 +168,48 @@ test("hours cache: reuses today's copy, falls back to stale on failure", async (
   const c = await loadLibraryHours({ fetchImpl: fail, storage, now: at("2026-10-15T09:00:00") });
   assert.equal(c.stale, true);
   assert.ok(c.libcal[8315]);
+});
+
+test("busyness: fresh reports win, usual patterns need enough data, nothing means nothing", () => {
+  const now = at("2026-10-21T14:10:00"); // a Wednesday
+  const busy = {
+    live: { "gerstein-rr": { level: 3, at: at("2026-10-21T13:55:00").toISOString(), n: 2 }, "kelly-3": { level: 1, at: at("2026-10-21T12:00:00").toISOString(), n: 1 } },
+    typical: {
+      "kelly-3": { wd14: { avg: 2.6, n: 5, days: 3 } },
+      "kelly-2": { wd14: { avg: 1.2, n: 2, days: 2 } },   // too few reports
+      "myhal-5": { wd14: { avg: 2.0, n: 6, days: 1 } },   // all from one day
+    },
+  };
+  assert.equal(hourBucket(now), "wd14");
+  assert.equal(hourBucket(at("2026-10-24T09:30:00")), "we9");
+  assert.deepEqual(busyStatus("gerstein-rr", busy, now), { kind: "live", level: 3, ageMin: 15, n: 2 });
+  assert.equal(busyLabel(busyStatus("gerstein-rr", busy, now)), "Full · 15 min ago");
+  // Kelly's report is 2 h old, so its usual pattern for 2pm on weekdays shows instead
+  assert.equal(busyStatus("kelly-3", busy, now).kind, "typical");
+  assert.equal(busyLabel(busyStatus("kelly-3", busy, now)), "Usually full around now");
+  assert.equal(busyStatus("kelly-2", busy, now), null);
+  assert.equal(busyStatus("myhal-5", busy, now), null);
+  assert.equal(busyStatus("robarts-floors", busy, now), null);
+  assert.equal(busyStatus("robarts-floors", null, now), null);
+  const day = typicalDay("kelly-3", busy, now);
+  assert.equal(day.find((h) => h.hour === 14).level, 3);
+  assert.equal(day.find((h) => h.hour === 15).level, null);
+});
+
+test("a fresh Full report pushes a spot out of the top picks", () => {
+  const now = at("2026-10-21T14:10:00");
+  const opts = { profile: engsci, from: buildings.sf, now, needMinutes: 60, prefs: { quiet: false, group: false, outlets: false, food: false } };
+  const before = rankSpots(spots, opts, ctx, buildings).slice(0, 3).map((r) => r.spot.id);
+  const full = { live: { [before[0]]: { level: 3, at: at("2026-10-21T14:00:00").toISOString(), n: 1 } }, typical: {} };
+  const after = rankSpots(spots, { ...opts, busy: full }, ctx, buildings);
+  assert.ok(!after.slice(0, 3).some((r) => r.spot.id === before[0]), `${before[0]} should drop out of the top 3`);
+  assert.equal(after.find((r) => r.spot.id === before[0]).busy.level, 3);
+});
+
+test("knowing which building you're at", () => {
+  const inBahen = { lat: buildings.bahen.lat + 0.0002, lon: buildings.bahen.lon }; // about 22 m north
+  const here = buildingsHere(inBahen, 15, buildings);
+  assert.equal(here[0].key, "bahen");
+  assert.deepEqual(buildingsHere(inBahen, 250, buildings), []); // too vague to say
+  assert.deepEqual(buildingsHere({ lat: 43.70, lon: -79.40 }, 10, buildings), []); // off campus
 });
